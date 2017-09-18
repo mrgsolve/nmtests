@@ -1,4 +1,4 @@
-Fri Sep 15 20:54:15 UTC 2017
+Mon Sep 18 13:44:05 UTC 2017
 ifort (IFORT) 12.0.4 20110427
 Copyright (C) 1985-2011 Intel Corporation.  All rights reserved.
 
@@ -59,8 +59,8 @@ NM-TRAN MESSAGES
 
 License Registered to: Metrum Research Group
 Expiration Date:    14 JUL 2018
-Current Date:       15 SEP 2017
-Days until program expires : 304
+Current Date:       18 SEP 2017
+Days until program expires : 301
 1NONLINEAR MIXED EFFECTS MODEL PROGRAM (NONMEM) VERSION 7.3.0
  ORIGINALLY DEVELOPED BY STUART BEAL, LEWIS SHEINER, AND ALISON BOECKMANN
  CURRENT DEVELOPERS ARE ROBERT BAUER, ICON DEVELOPMENT SOLUTIONS,
@@ -184,6 +184,6 @@ Days until program expires : 304
  SOURCE  1:
     SEED1:     860382786   SEED2:             0
  ESTIMATION STEP OMITTED:                 YES 
- #CPUT: Total CPU Time in Seconds,        0.102
+ #CPUT: Total CPU Time in Seconds,        0.099
 Stop Time:
-Fri Sep 15 20:54:19 UTC 2017
+Mon Sep 18 13:44:09 UTC 2017
