@@ -247,11 +247,11 @@
       </job>
       <job>
        <do>date</do>
-       <so>Sat Oct 14 15:38:37 UTC 2017</so>
+       <so>Wed Nov  8 15:36:25 UTC 2017</so>
       </job>
       <job>
        <do>perl -e 'use POSIX; print join qq(,),uname'</do>
-       <so>Linux,ip-172-16-2-219,3.13.0-93-generic,#140-Ubuntu SMP Mon Jul 18 21:21:05 UTC 2016,x86_64</so>
+       <so>Linux,ip-172-16-2-27,3.13.0-93-generic,#140-Ubuntu SMP Mon Jul 18 21:21:05 UTC 2016,x86_64</so>
       </job>
       <job>
        <do>echo $SHELL</do>
@@ -293,14 +293,14 @@
    Starting nonmem execution ...
    License Registered to: Metrum Research Group
    Expiration Date:    14 JUL 2018
-   Current Date:       14 OCT 2017
-   Days until program expires : 275</so>
+   Current Date:        8 NOV 2017
+   Days until program expires : 251</so>
   </job>
   <job>
    <do in="model/101">if [ -e 101.xml ];then cat 101.xml;else echo \&lt;nofile/\>; fi</do>
    <so>
     <nm:output xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:nm="http://namespaces.oreilly.com/xmlnut/address" xsi:schemaLocation="http://namespaces.oreilly.com/xmlnut/address output.xsd">
-     <nm:start_datetime>2017-10-14T15:38:41.912</nm:start_datetime>
+     <nm:start_datetime>2017-11-08T15:36:58.536</nm:start_datetime>
      <nm:control_stream>
      $PROB RUN# 101
      
@@ -359,8 +359,8 @@
       <nm:license_information>
       License Registered to: Metrum Research Group
       Expiration Date:    14 JUL 2018
-      Current Date:       14 OCT 2017
-      Days until program expires : 275</nm:license_information>
+      Current Date:        8 NOV 2017
+      Days until program expires : 251</nm:license_information>
       <nm:program_information>
       1NONLINEAR MIXED EFFECTS MODEL PROGRAM (NONMEM) VERSION 7.3.0
        ORIGINALLY DEVELOPED BY STUART BEAL, LEWIS SHEINER, AND ALISON BOECKMANN
@@ -493,8 +493,8 @@
        </nm:estimation>
       </nm:problem>
      </nm:nonmem>
-     <nm:stop_datetime>2017-10-14T15:38:42.032</nm:stop_datetime>
-     <nm:total_cputime>0.101</nm:total_cputime>
+     <nm:stop_datetime>2017-11-08T15:36:58.886</nm:stop_datetime>
+     <nm:total_cputime>0.097</nm:total_cputime>
     </nm:output>
    </so>
   </job>
