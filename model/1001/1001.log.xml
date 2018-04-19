@@ -247,7 +247,7 @@
       </job>
       <job>
        <do>date</do>
-       <so>Thu Apr 19 14:35:47 UTC 2018</so>
+       <so>Thu Apr 19 15:27:59 UTC 2018</so>
       </job>
       <job>
        <do>perl -e 'use POSIX; print join qq(,),uname'</do>
@@ -282,7 +282,7 @@
    </so>
   </job>
   <job>
-   <do in="model/101">/opt/NONMEM/nm73/util/nmfe73 ce 101.ctl 101.lst</do>
+   <do in="model/1001">/opt/NONMEM/nm73/util/nmfe73 ce 1001.ctl 1001.lst</do>
    <so>Starting NMTRAN
      
     WARNINGS AND ERRORS (IF ANY) FOR PROBLEM    1
@@ -297,16 +297,16 @@
    Days until program expires :  85</so>
   </job>
   <job>
-   <do in="model/101">if [ -e 101.xml ];then cat 101.xml;else echo \&lt;nofile/\>; fi</do>
+   <do in="model/1001">if [ -e 1001.xml ];then cat 1001.xml;else echo \&lt;nofile/\>; fi</do>
    <so>
     <nm:output xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:nm="http://namespaces.oreilly.com/xmlnut/address" xsi:schemaLocation="http://namespaces.oreilly.com/xmlnut/address output.xsd">
-     <nm:start_datetime>2018-04-19T14:35:51.821</nm:start_datetime>
+     <nm:start_datetime>2018-04-19T15:28:03.396</nm:start_datetime>
      <nm:control_stream>
      $PROB RUN# 101
      
      $INPUT C ID TIME EVID AMT CMT SS II ADDL RATE LAGT MODE DUR2 RAT2 BIOAV DV
      
-     $DATA ../../data/101.csv IGNORE=C
+     $DATA ../../data/1001.csv IGNORE=C
      
      $SUBROUTINES ADVAN2 TRANS2
      
@@ -334,8 +334,8 @@
      CP = IPRED
      
      $THETA
-     (1,   FIX) ;; CL
-     (30,  FIX) ;; V
+     (1.1,   FIX) ;; CL
+     (20,  FIX) ;; V
      (1.5, FIX) ;; KA
      
      $OMEGA
@@ -376,7 +376,7 @@
        0DATA CHECKOUT RUN:              NO
         DATA SET LOCATED ON UNIT NO.:    2
         THIS UNIT TO BE REWOUND:        NO
-        NO. OF DATA RECS IN DATA SET:     1111
+        NO. OF DATA RECS IN DATA SET:     2512
         NO. OF DATA ITEMS IN DATA SET:  17
         ID DATA ITEM IS DATA ITEM NO.:   2
         DEP VARIABLE IS DATA ITEM NO.:  16
@@ -388,10 +388,10 @@
        0(NONBLANK) LABELS FOR PRED-DEFINED ITEMS:
         IPRED CP
        0FORMAT FOR DATA:
-        (E2.0,E4.0,E3.0,E2.0,E4.0,2E2.0,E3.0,E2.0,E7.0,3E2.0,E3.0,2E6.0,1F2.0)
+        (E2.0,2E4.0,E2.0,E4.0,2E2.0,2E3.0,E17.0,E6.0,2E2.0,E3.0,2E6.0,1F2.0)
        
-        TOT. NO. OF OBS RECS:     1095
-        TOT. NO. OF INDIVIDUALS:     15
+        TOT. NO. OF OBS RECS:     2489
+        TOT. NO. OF INDIVIDUALS:     19
        0LENGTH OF THETA:   3
        0DEFAULT THETA BOUNDARY TEST OMITTED:    NO
        0OMEGA HAS SIMPLE DIAGONAL FORM WITH DIMENSION:   3
@@ -400,8 +400,8 @@
        0DEFAULT SIGMA BOUNDARY TEST OMITTED:    NO
        0INITIAL ESTIMATE OF THETA:
         LOWER BOUND    INITIAL EST    UPPER BOUND
-         0.1000E+01     0.1000E+01     0.1000E+01
-         0.3000E+02     0.3000E+02     0.3000E+02
+         0.1100E+01     0.1100E+01     0.1100E+01
+         0.2000E+02     0.2000E+02     0.2000E+02
          0.1500E+01     0.1500E+01     0.1500E+01
        0INITIAL ESTIMATE OF OMEGA:
         0.0000E+00
@@ -487,14 +487,14 @@
        1
         SIMULATION STEP PERFORMED
         SOURCE  1:
-           SEED1:     860382786   SEED2:             0</nm:simulation_information>
+           SEED1:     541933038   SEED2:   -1127025957</nm:simulation_information>
        <nm:estimation nm:number="1" nm:type="1">
         <nm:table_series>0</nm:table_series>
        </nm:estimation>
       </nm:problem>
      </nm:nonmem>
-     <nm:stop_datetime>2018-04-19T14:35:52.061</nm:stop_datetime>
-     <nm:total_cputime>0.100</nm:total_cputime>
+     <nm:stop_datetime>2018-04-19T15:28:03.617</nm:stop_datetime>
+     <nm:total_cputime>0.208</nm:total_cputime>
     </nm:output>
    </so>
   </job>
