@@ -91,7 +91,7 @@ double CL = TVCL*exp(ETA(1));
 double TVV = THETA2*(WT/70);
 double V  = TVV*exp(ETA(2));
 
-double TVKA = THETA3*(WT/70);
+double TVKA = THETA3;
 double KA = TVKA*exp(ETA(3));
 
 $TABLE
@@ -183,7 +183,7 @@ non <- sum_nm %>%  tidyr::gather(variable,value,lo:hi) %>% mutate(tool = "nonmem
 ggplot() + ggtitle("Lines: mrgsolve, Points: nonmem") + 
   geom_line(data = mrg, aes(TIME, value, col = variable, group = variable), lwd = 1) +
   geom_point(data = non, aes(TIME,value),col = "black", size = 2) + 
-  scale_color_brewer(palette = "Set2", labels = c("95th", "5th", "50th"))
+  scale_color_brewer(palette = "Set2", labels = c("95th", "5th", "50th")) 
 
 
 ##' # Models

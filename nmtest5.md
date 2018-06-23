@@ -121,7 +121,7 @@ double CL = TVCL*exp(ETA(1));
 double TVV = THETA2*(WT/70);
 double V  = TVV*exp(ETA(2));
 
-double TVKA = THETA3*(WT/70);
+double TVKA = THETA3;
 double KA = TVKA*exp(ETA(3));
 
 $TABLE
@@ -157,10 +157,10 @@ head(out)
     .   <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
     . 1     1   0       0     0     0  82.3   100    0 
     . 2     1   0       1   100     1  82.3   100    0 
-    . 3     1   0.5     0     0     0  82.3   100 9190.
-    . 4     1   1.5     0     0     0  82.3   100 7446.
-    . 5     1   4       0     0     0  82.3   100 5956.
-    . 6     1   8       0     0     0  82.3   100 3734.
+    . 3     1   0.5     0     0     0  82.3   100 8649.
+    . 4     1   1.5     0     0     0  82.3   100 7445.
+    . 5     1   4       0     0     0  82.3   100 5993.
+    . 6     1   8       0     0     0  82.3   100 3758.
 
 ``` r
 ggplot(out, aes(time,DV,col = factor(DOSE),group = ID)) + 
@@ -225,10 +225,10 @@ head(out)
     .   <dbl> <dbl> <dbl> <dbl> <dbl> <int> <dbl>
     . 1     1   0     100    0     0      1   0  
     . 2     1   0     100    0     0      1   0  
-    . 3     1   0.5   100 3751. 3751.     1   0.5
-    . 4     1   1.5   100 5661. 5661.     1   1.5
-    . 5     1   4     100 6757. 6757.     1   4  
-    . 6     1   8     100 4880. 4880.     1   8
+    . 3     1   0.5   100 1378. 1378.     1   0.5
+    . 4     1   1.5   100 1472. 1472.     1   1.5
+    . 5     1   4     100 1660. 1660.     1   4  
+    . 6     1   8     100 1668. 1668.     1   8
 
 Summarize
 =========
@@ -275,7 +275,7 @@ non <- sum_nm %>%  tidyr::gather(variable,value,lo:hi) %>% mutate(tool = "nonmem
 ggplot() + ggtitle("Lines: mrgsolve, Points: nonmem") + 
   geom_line(data = mrg, aes(TIME, value, col = variable, group = variable), lwd = 1) +
   geom_point(data = non, aes(TIME,value),col = "black", size = 2) + 
-  scale_color_brewer(palette = "Set2", labels = c("95th", "5th", "50th"))
+  scale_color_brewer(palette = "Set2", labels = c("95th", "5th", "50th")) 
 ```
 
 ![](img/nmtest5-unnamed-chunk-17-1.png)
@@ -369,7 +369,7 @@ cat(mod@code, sep = "\n")
     . double TVV = THETA2*(WT/70);
     . double V  = TVV*exp(ETA(2));
     . 
-    . double TVKA = THETA3*(WT/70);
+    . double TVKA = THETA3;
     . double KA = TVKA*exp(ETA(3));
     . 
     . $TABLE
