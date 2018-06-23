@@ -247,7 +247,7 @@
       </job>
       <job>
        <do>date</do>
-       <so>Sat Jun 23 15:25:22 UTC 2018</so>
+       <so>Sat Jun 23 15:30:12 UTC 2018</so>
       </job>
       <job>
        <do>perl -e 'use POSIX; print join qq(,),uname'</do>
@@ -3301,7 +3301,7 @@
    <do in="model/104">if [ -e 104.xml ];then cat 104.xml;else echo \&lt;nofile/\>; fi</do>
    <so>
     <nm:output xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:nm="http://namespaces.oreilly.com/xmlnut/address" xsi:schemaLocation="http://namespaces.oreilly.com/xmlnut/address output.xsd">
-     <nm:start_datetime>2018-06-23T15:25:27.602</nm:start_datetime>
+     <nm:start_datetime>2018-06-23T15:30:16.927</nm:start_datetime>
      <nm:control_stream>
      $PROB RUN# 104
      
@@ -17467,8 +17467,8 @@
        </nm:estimation>
       </nm:problem>
      </nm:nonmem>
-     <nm:stop_datetime>2018-06-23T15:26:25.315</nm:stop_datetime>
-     <nm:total_cputime>49.731</nm:total_cputime>
+     <nm:stop_datetime>2018-06-23T15:31:14.606</nm:stop_datetime>
+     <nm:total_cputime>49.778</nm:total_cputime>
     </nm:output>
    </so>
   </job>

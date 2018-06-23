@@ -225,10 +225,10 @@ head(out)
     .   <dbl> <dbl> <dbl> <dbl> <dbl> <int> <dbl>
     . 1     1   0     100    0     0      1   0  
     . 2     1   0     100    0     0      1   0  
-    . 3     1   0.5   100 1815. 1815.     1   0.5
-    . 4     1   1.5   100 3750. 3750.     1   1.5
-    . 5     1   4     100 3433. 3433.     1   4  
-    . 6     1   8     100 4450. 4450.     1   8
+    . 3     1   0.5   100 1330. 1330.     1   0.5
+    . 4     1   1.5   100 1989. 1989.     1   1.5
+    . 5     1   4     100 2412. 2412.     1   4  
+    . 6     1   8     100 2031. 2031.     1   8
 
 Summarize
 =========
@@ -246,7 +246,7 @@ sum_nm <-
   mutate(DVN = DV/DOSE) %>%
   group_by(IREP,TIME) %>% 
   summarise(med = median(DVN), lo = quantile(DVN,0.05), hi = quantile(DVN,0.95)) %>% 
-  group_by(TIME) %>% summarise_at(vars(lo,med,hi),funs(median))
+  group_by(TIME) %>% summarise_at(vars(lo,med,hi),funs(median)) %>% ungroup
 ```
 
 The mrgsolve data
