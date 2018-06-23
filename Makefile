@@ -4,3 +4,7 @@ run101:
 run2:
 	Rscript -e ".libPaths('~/Rlibs/'); Sys.setenv(RSTUDIO_PANDOC = '/usr/lib/rstudio-server/bin/pandoc'); rmarkdown::render('nmtest2.R')"
 	
+run5:
+	Rscript -e ".libPaths('~/Rlibs/'); Sys.setenv(RSTUDIO_PANDOC = '/usr/lib/rstudio-server/bin/pandoc'); rmarkdown::render('nmtest5.R')"
+	
+	
