@@ -78,7 +78,7 @@ $THETA
 
 $OMEGA
 0.09 
-0.1 
+0.2 
 0.5
 
 $SIGMA 
