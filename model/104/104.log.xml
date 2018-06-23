@@ -247,7 +247,7 @@
       </job>
       <job>
        <do>date</do>
-       <so>Sat Jun 23 15:15:49 UTC 2018</so>
+       <so>Sat Jun 23 15:25:22 UTC 2018</so>
       </job>
       <job>
        <do>perl -e 'use POSIX; print join qq(,),uname'</do>
@@ -3301,7 +3301,7 @@
    <do in="model/104">if [ -e 104.xml ];then cat 104.xml;else echo \&lt;nofile/\>; fi</do>
    <so>
     <nm:output xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:nm="http://namespaces.oreilly.com/xmlnut/address" xsi:schemaLocation="http://namespaces.oreilly.com/xmlnut/address output.xsd">
-     <nm:start_datetime>2018-06-23T15:15:53.435</nm:start_datetime>
+     <nm:start_datetime>2018-06-23T15:25:27.602</nm:start_datetime>
      <nm:control_stream>
      $PROB RUN# 104
      
@@ -3338,11 +3338,11 @@
      
      $OMEGA
      0.09 FIX
+     0.1 FIX
      0.2 FIX
-     0.5 FIX
      
      $SIGMA
-     0.02 FIX
+     0.025 FIX
      
      $TABLE FILE=TAB REPI ID TIME EVID CP IPRED PRED DV DOSE NOPRINT NOHEADER NOAPPEND
      
@@ -3404,11 +3404,11 @@
          0.1500E+01     0.1500E+01     0.1500E+01
        0INITIAL ESTIMATE OF OMEGA:
         0.9000E-01
-        0.0000E+00   0.2000E+00
-        0.0000E+00   0.0000E+00   0.5000E+00
+        0.0000E+00   0.1000E+00
+        0.0000E+00   0.0000E+00   0.2000E+00
        0OMEGA CONSTRAINED TO BE THIS INITIAL ESTIMATE
        0INITIAL ESTIMATE OF SIGMA:
-        0.2000E-01
+        0.2500E-01
        0SIGMA CONSTRAINED TO BE THIS INITIAL ESTIMATE
        0SIMULATION STEP OMITTED:    NO
         OBJ FUNC EVALUATED:         NO
@@ -17467,8 +17467,8 @@
        </nm:estimation>
       </nm:problem>
      </nm:nonmem>
-     <nm:stop_datetime>2018-06-23T15:16:50.930</nm:stop_datetime>
-     <nm:total_cputime>49.794</nm:total_cputime>
+     <nm:stop_datetime>2018-06-23T15:26:25.315</nm:stop_datetime>
+     <nm:total_cputime>49.731</nm:total_cputime>
     </nm:output>
    </so>
   </job>

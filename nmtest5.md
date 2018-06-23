@@ -15,7 +15,9 @@ Metrum Research Group, LLC
     -   [The NONMEM data](#the-nonmem-data)
     -   [The mrgsolve data](#the-mrgsolve-data)
 -   [Plot](#plot)
--   [The NONMEM model (104.ctl)](#the-nonmem-model-104.ctl)
+-   [Models](#models)
+    -   [NONMEM (104.ctl)](#nonmem-104.ctl)
+    -   [mrgsolve](#mrgsolve)
 -   [Environment](#environment)
 
 ``` r
@@ -100,12 +102,17 @@ $PARAM WT = 70, DOSE = 1
 $PKMODEL cmt = "GUT CENT", depot = TRUE
 
 $THETA
-1 20 1.5
+1 
+20 
+1.5
 
 $OMEGA
-0.09 0.2 0.5
+0.09 
+0.1 
+0.2
 
-$SIGMA 0.02
+$SIGMA 
+0.025
 
 $MAIN
 double TVCL = THETA1*pow(WT/70,0.75);
@@ -150,10 +157,10 @@ head(out)
     .   <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
     . 1     1   0       0     0     0  82.3   100    0 
     . 2     1   0       1   100     1  82.3   100    0 
-    . 3     1   0.5     0     0     0  82.3   100 9190.
-    . 4     1   1.5     0     0     0  82.3   100 7446.
-    . 5     1   4       0     0     0  82.3   100 5956.
-    . 6     1   8       0     0     0  82.3   100 3734.
+    . 3     1   0.5     0     0     0  82.3   100 6765.
+    . 4     1   1.5     0     0     0  82.3   100 6026.
+    . 5     1   4       0     0     0  82.3   100 5257.
+    . 6     1   8       0     0     0  82.3   100 3667.
 
 ``` r
 ggplot(out, aes(time,DV,col = factor(DOSE),group = ID)) + 
@@ -194,11 +201,11 @@ head(foo)
 
     .    IREP ID TIME EVID     CP  IPRED   PRED     DV DOSE
     . 1:    1  1  0.0    1    0.0    0.0    0.0    0.0  100
-    . 2:    1  1  0.5    0 1904.2 1904.2 2213.3 1609.2  100
-    . 3:    1  1  1.5    0 3596.8 3596.8 3624.1 3709.5  100
-    . 4:    1  1  4.0    0 3985.3 3985.3 3613.8 4579.1  100
-    . 5:    1  1  8.0    0 3218.5 3218.5 2991.3 2851.0  100
-    . 6:    1  1 12.0    0 2545.2 2545.2 2468.6 2773.7  100
+    . 2:    1  1  0.5    0 2040.3 2040.3 2213.3 1690.2  100
+    . 3:    1  1  1.5    0 3663.0 3663.0 3624.1 3791.5  100
+    . 4:    1  1  4.0    0 3868.5 3868.5 3613.8 4518.4  100
+    . 5:    1  1  8.0    0 3120.9 3120.9 2991.3 2725.4  100
+    . 6:    1  1 12.0    0 2489.5 2489.5 2468.6 2740.7  100
 
 With mrgsolve
 -------------
@@ -218,10 +225,10 @@ head(out)
     .   <dbl> <dbl> <dbl> <dbl> <dbl> <int> <dbl>
     . 1     1   0     100    0     0      1   0  
     . 2     1   0     100    0     0      1   0  
-    . 3     1   0.5   100 1916. 1916.     1   0.5
-    . 4     1   1.5   100 3958. 3958.     1   1.5
-    . 5     1   4     100 5977. 5977.     1   4  
-    . 6     1   8     100 4227. 4227.     1   8
+    . 3     1   0.5   100 1815. 1815.     1   0.5
+    . 4     1   1.5   100 3750. 3750.     1   1.5
+    . 5     1   4     100 3433. 3433.     1   4  
+    . 6     1   8     100 4450. 4450.     1   8
 
 Summarize
 =========
@@ -264,8 +271,6 @@ mrg <- sum_mrg %>% tidyr::gather(variable,value,lo:hi) %>% mutate(tool = "mrg")
 non <- sum_nm %>%  tidyr::gather(variable,value,lo:hi) %>% mutate(tool = "nonmem")
 ```
 
-fig.width = 8, fig.height = 8
-
 ``` r
 ggplot() + ggtitle("Lines: mrgsolve, Points: nonmem") + 
   geom_line(data = mrg, aes(TIME, value, col = variable, group = variable), lwd = 1) +
@@ -275,8 +280,11 @@ ggplot() + ggtitle("Lines: mrgsolve, Points: nonmem") +
 
 ![](img/nmtest5-unnamed-chunk-17-1.png)
 
-The NONMEM model (104.ctl)
-==========================
+Models
+======
+
+NONMEM (104.ctl)
+----------------
 
 ``` r
 cat(readLines("model/104.ctl"), sep="\n")
@@ -317,15 +325,57 @@ cat(readLines("model/104.ctl"), sep="\n")
     . 
     . $OMEGA
     . 0.09 FIX
+    . 0.1 FIX
     . 0.2 FIX
-    . 0.5 FIX
     . 
     . $SIGMA
-    . 0.02 FIX
+    . 0.025 FIX
     . 
     . $TABLE FILE=TAB REPI ID TIME EVID CP IPRED PRED DV DOSE NOPRINT NOHEADER NOAPPEND
     . 
     . $SIMULATION (2674474) SUBPROBLEM = 1000 ONLYSIMULATION
+
+mrgsolve
+--------
+
+``` r
+cat(mod@code, sep = "\n")
+```
+
+    . 
+    . $SET req = ""
+    . 
+    . $PARAM WT = 70, DOSE = 1
+    . 
+    . $PKMODEL cmt = "GUT CENT", depot = TRUE
+    . 
+    . $THETA
+    . 1 
+    . 20 
+    . 1.5
+    . 
+    . $OMEGA
+    . 0.09 
+    . 0.1 
+    . 0.2
+    . 
+    . $SIGMA 
+    . 0.025
+    . 
+    . $MAIN
+    . double TVCL = THETA1*pow(WT/70,0.75);
+    . double CL = TVCL*exp(ETA(1));
+    . 
+    . double TVV = THETA2*(WT/70);
+    . double V  = TVV*exp(ETA(2));
+    . 
+    . double TVKA = THETA3*(WT/70);
+    . double KA = TVKA*exp(ETA(3));
+    . 
+    . $TABLE
+    . capture DV = (CENT/(V/1000))*exp(EPS(1));
+    . capture CP = DV;
+    . 
 
 Environment
 ===========

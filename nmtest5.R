@@ -72,12 +72,17 @@ $PARAM WT = 70, DOSE = 1
 $PKMODEL cmt = "GUT CENT", depot = TRUE
 
 $THETA
-1 20 1.5
+1 
+20 
+1.5
 
 $OMEGA
-0.09 0.2 0.5
+0.09 
+0.1 
+0.2
 
-$SIGMA 0.02
+$SIGMA 
+0.025
 
 $MAIN
 double TVCL = THETA1*pow(WT/70,0.75);
@@ -174,18 +179,21 @@ sum_mrg <-
 mrg <- sum_mrg %>% tidyr::gather(variable,value,lo:hi) %>% mutate(tool = "mrg")
 non <- sum_nm %>%  tidyr::gather(variable,value,lo:hi) %>% mutate(tool = "nonmem")
 
-#' fig.width = 8, fig.height = 8
+#+ fig.width = 8, fig.height = 8
 ggplot() + ggtitle("Lines: mrgsolve, Points: nonmem") + 
   geom_line(data = mrg, aes(TIME, value, col = variable, group = variable), lwd = 1) +
   geom_point(data = non, aes(TIME,value),col = "black", size = 2) + 
   scale_color_brewer(palette = "Set2", labels = c("95th", "5th", "50th"))
 
 
+##' # Models
 ##' 
-##' # The NONMEM model (104.ctl)
+##' ## NONMEM  (104.ctl)
 ##' 
 cat(readLines("model/104.ctl"), sep="\n")
 
+##' ## mrgsolve
+cat(mod@code, sep = "\n")
 
 ##' # Environment
 devtools::session_info()

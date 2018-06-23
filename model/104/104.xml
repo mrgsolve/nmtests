@@ -5,7 +5,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://namespaces.oreilly.com/xmlnut/address output.xsd"
 xmlns:nm="http://namespaces.oreilly.com/xmlnut/address"
 >
-<nm:start_datetime>2018-06-23T15:15:53.435</nm:start_datetime>
+<nm:start_datetime>2018-06-23T15:25:27.602</nm:start_datetime>
 <nm:control_stream><![CDATA[
 $PROB RUN# 104
 
@@ -42,11 +42,11 @@ $THETA
 
 $OMEGA
 0.09 FIX
+0.1 FIX
 0.2 FIX
-0.5 FIX
 
 $SIGMA
-0.02 FIX
+0.025 FIX
 
 $TABLE FILE=TAB REPI ID TIME EVID CP IPRED PRED DV DOSE NOPRINT NOHEADER NOAPPEND
 
@@ -112,11 +112,11 @@ Current Date:       23 JUN 2018
   0.1500E+01     0.1500E+01     0.1500E+01
 0INITIAL ESTIMATE OF OMEGA:
  0.9000E-01
- 0.0000E+00   0.2000E+00
- 0.0000E+00   0.0000E+00   0.5000E+00
+ 0.0000E+00   0.1000E+00
+ 0.0000E+00   0.0000E+00   0.2000E+00
 0OMEGA CONSTRAINED TO BE THIS INITIAL ESTIMATE
 0INITIAL ESTIMATE OF SIGMA:
- 0.2000E-01
+ 0.2500E-01
 0SIGMA CONSTRAINED TO BE THIS INITIAL ESTIMATE
 0SIMULATION STEP OMITTED:    NO
  OBJ FUNC EVALUATED:         NO
@@ -16175,6 +16175,6 @@ Current Date:       23 JUN 2018
 </nm:estimation>
 </nm:problem>
 </nm:nonmem>
-<nm:stop_datetime>2018-06-23T15:16:50.930</nm:stop_datetime>
-<nm:total_cputime>49.794</nm:total_cputime>
+<nm:stop_datetime>2018-06-23T15:26:25.315</nm:stop_datetime>
+<nm:total_cputime>49.731</nm:total_cputime>
 </nm:output>
