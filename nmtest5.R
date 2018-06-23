@@ -157,7 +157,7 @@ sum_nm <-
   mutate(DVN = DV/DOSE) %>%
   group_by(IREP,TIME) %>% 
   summarise(med = median(DVN), lo = quantile(DVN,0.05), hi = quantile(DVN,0.95)) %>% 
-  group_by(TIME) %>% summarise_at(vars(lo,med,hi),funs(median))
+  group_by(TIME) %>% summarise_at(vars(lo,med,hi),funs(median)) %>% ungroup
 
 ##' 
 ##' ## The mrgsolve data
@@ -179,7 +179,7 @@ sum_mrg <-
 mrg <- sum_mrg %>% tidyr::gather(variable,value,lo:hi) %>% mutate(tool = "mrg")
 non <- sum_nm %>%  tidyr::gather(variable,value,lo:hi) %>% mutate(tool = "nonmem")
 
-#+ fig.width = 8, fig.height = 8
+#+ fig.width = 10, fig.height = 8
 ggplot() + ggtitle("Lines: mrgsolve, Points: nonmem") + 
   geom_line(data = mrg, aes(TIME, value, col = variable, group = variable), lwd = 1) +
   geom_point(data = non, aes(TIME,value),col = "black", size = 2) + 
