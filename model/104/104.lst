@@ -1,4 +1,4 @@
-Sat Jun 23 15:53:45 UTC 2018
+Sat Jun 23 15:55:41 UTC 2018
 ifort (IFORT) 12.0.4 20110427
 Copyright (C) 1985-2011 Intel Corporation.  All rights reserved.
 
@@ -8163,6 +8163,6 @@ Current Date:       23 JUN 2018
  SOURCE  1:
     SEED1:     885600750   SEED2:             0
  ESTIMATION STEP OMITTED:                 YES 
- #CPUT: Total CPU Time in Seconds,       49.816
+ #CPUT: Total CPU Time in Seconds,       49.845
 Stop Time:
-Sat Jun 23 15:54:47 UTC 2018
+Sat Jun 23 15:56:43 UTC 2018
