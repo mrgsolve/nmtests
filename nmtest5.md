@@ -16,8 +16,6 @@ Metrum Research Group, LLC
     -   [The mrgsolve data](#the-mrgsolve-data)
 -   [Plot 1](#plot-1)
 -   [Plot 2](#plot-2)
-    -   [The NONMEM data](#the-nonmem-data-1)
-    -   [The mrgsolve data](#the-mrgsolve-data-1)
 -   [Models](#models)
     -   [NONMEM (104.ctl)](#nonmem-104.ctl)
     -   [mrgsolve](#mrgsolve)
@@ -229,10 +227,10 @@ head(out)
     .   <dbl> <dbl> <dbl> <dbl> <dbl> <int> <dbl>
     . 1     1   0     100    0     0      1   0  
     . 2     1   0     100    0     0      1   0  
-    . 3     1   0.5   100 4383. 4383.     1   0.5
-    . 4     1   1.5   100 3909. 3909.     1   1.5
-    . 5     1   4     100 2610. 2610.     1   4  
-    . 6     1   8     100 3132. 3132.     1   8
+    . 3     1   0.5   100 2965. 2965.     1   0.5
+    . 4     1   1.5   100 5388. 5388.     1   1.5
+    . 5     1   4     100 3921. 3921.     1   4  
+    . 6     1   8     100 2636. 2636.     1   8
 
 Summarize
 =========
@@ -289,9 +287,6 @@ Plot 2
 
 Look at 95% CI around the 5th/median/95th percentiles
 
-The NONMEM data
----------------
-
 ``` r
 nm_q <- 
   foo %>% 
@@ -304,9 +299,6 @@ nm_q <-
   summarise(med = median(value), lo = quantile(value,0.025), hi = quantile(value,0.975)) %>%
   filter(TIME > 0)
 ```
-
-The mrgsolve data
------------------
 
 ``` r
 mrg_q <- 
@@ -321,7 +313,7 @@ mrg_q <-
   filter(TIME > 0)
 
 mrg_q2 <- gather(mrg_q, q, value, med:hi)
-nm_q2 <- gather(nm_q, q, value, med:hi)
+nm_q2 <-  gather(nm_q,  q, value, med:hi)
 ```
 
 Comparing 95% CI around 5th/50th/95th percentiles from mrgsolve (ribbon and points) and nonmem (lines)

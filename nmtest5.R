@@ -191,8 +191,8 @@ ggplot() + ggtitle("Lines: mrgsolve, Points: nonmem") +
 ##' 
 ##' Look at 95% CI around the 5th/median/95th percentiles
 ##' 
-##' ## The NONMEM data
-##'
+##' 
+#+
 nm_q <- 
   foo %>% 
   mutate(DVN = DV/DOSE) %>%
@@ -204,9 +204,7 @@ nm_q <-
   summarise(med = median(value), lo = quantile(value,0.025), hi = quantile(value,0.975)) %>%
   filter(TIME > 0)
 
-##' 
-##' ## The mrgsolve data
-##' 
+#+
 mrg_q <- 
   out %>%
   mutate(DVN = DV/DOSE) %>%
@@ -219,7 +217,7 @@ mrg_q <-
   filter(TIME > 0)
 
 mrg_q2 <- gather(mrg_q, q, value, med:hi)
-nm_q2 <- gather(nm_q, q, value, med:hi)
+nm_q2 <-  gather(nm_q,  q, value, med:hi)
 
 ##' Comparing 95% CI around 5th/50th/95th percentiles from
 ##' mrgsolve (ribbon and points) and nonmem (lines)
