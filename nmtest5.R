@@ -79,10 +79,10 @@ $THETA
 $OMEGA
 0.09 
 0.1 
-0.2
+0.5
 
 $SIGMA 
-0.025
+0.02
 
 $MAIN
 double TVCL = THETA1*pow(WT/70,0.75);
@@ -179,7 +179,7 @@ sum_mrg <-
 mrg <- sum_mrg %>% tidyr::gather(variable,value,lo:hi) %>% mutate(tool = "mrg")
 non <- sum_nm %>%  tidyr::gather(variable,value,lo:hi) %>% mutate(tool = "nonmem")
 
-#+ fig.width = 10, fig.height = 8
+#+ fig.width = 8, fig.height = 7
 ggplot() + ggtitle("Lines: mrgsolve, Points: nonmem") + 
   geom_line(data = mrg, aes(TIME, value, col = variable, group = variable), lwd = 1) +
   geom_point(data = non, aes(TIME,value),col = "black", size = 2) + 
