@@ -14,7 +14,10 @@ Metrum Research Group, LLC
 -   [Summarize](#summarize)
     -   [The NONMEM data](#the-nonmem-data)
     -   [The mrgsolve data](#the-mrgsolve-data)
--   [Plot](#plot)
+-   [Plot 1](#plot-1)
+-   [Plot 2](#plot-2)
+    -   [The NONMEM data](#the-nonmem-data-1)
+    -   [The mrgsolve data](#the-mrgsolve-data-1)
 -   [Models](#models)
     -   [NONMEM (104.ctl)](#nonmem-104.ctl)
     -   [mrgsolve](#mrgsolve)
@@ -25,6 +28,7 @@ Metrum Research Group, LLC
 library(mrgsolve)
 library(dplyr)
 library(readr)
+library(tidyr)
 library(ggplot2)
 theme_set(theme_bw())
 library(data.table)
@@ -225,10 +229,10 @@ head(out)
     .   <dbl> <dbl> <dbl> <dbl> <dbl> <int> <dbl>
     . 1     1   0     100    0     0      1   0  
     . 2     1   0     100    0     0      1   0  
-    . 3     1   0.5   100 1378. 1378.     1   0.5
-    . 4     1   1.5   100 1472. 1472.     1   1.5
-    . 5     1   4     100 1660. 1660.     1   4  
-    . 6     1   8     100 1668. 1668.     1   8
+    . 3     1   0.5   100 4383. 4383.     1   0.5
+    . 4     1   1.5   100 3909. 3909.     1   1.5
+    . 5     1   4     100 2610. 2610.     1   4  
+    . 6     1   8     100 3132. 3132.     1   8
 
 Summarize
 =========
@@ -261,8 +265,8 @@ sum_mrg <-
   group_by(TIME) %>% summarise_at(vars(lo,med,hi),funs(median)) %>% ungroup
 ```
 
-Plot
-====
+Plot 1
+======
 
 Were are plotting the median 5th/50th/95th percentiles of the simulated data for both mrgsolve and nonmem
 
@@ -279,6 +283,61 @@ ggplot() + ggtitle("Lines: mrgsolve, Points: nonmem") +
 ```
 
 ![](img/nmtest5-unnamed-chunk-17-1.png)
+
+Plot 2
+======
+
+Look at 95% CI around the 5th/median/95th percentiles
+
+The NONMEM data
+---------------
+
+``` r
+nm_q <- 
+  foo %>% 
+  mutate(DVN = DV/DOSE) %>%
+  group_by(IREP,TIME) %>%  
+  summarise(med = median(DVN), lo = quantile(DVN,0.05), hi = quantile(DVN,0.95)) %>%
+  ungroup() %>%
+  gather(metric,value,med:hi) %>% 
+  group_by(metric,TIME) %>% 
+  summarise(med = median(value), lo = quantile(value,0.025), hi = quantile(value,0.975)) %>%
+  filter(TIME > 0)
+```
+
+The mrgsolve data
+-----------------
+
+``` r
+mrg_q <- 
+  out %>%
+  mutate(DVN = DV/DOSE) %>%
+  group_by(IREP,TIME) %>%
+  summarise(med = median(DVN), lo = quantile(DVN,0.05), hi = quantile(DVN,0.95)) %>%
+  ungroup() %>%
+  gather(metric,value,med:hi) %>% 
+  group_by(metric,TIME) %>% 
+  summarise(med = median(value), lo = quantile(value,0.025), hi = quantile(value,0.975)) %>%
+  filter(TIME > 0)
+
+mrg_q2 <- gather(mrg_q, q, value, med:hi)
+nm_q2 <- gather(nm_q, q, value, med:hi)
+```
+
+Comparing 95% CI around 5th/50th/95th percentiles from mrgsolve (ribbon and points) and nonmem (lines)
+
+``` r
+ggplot() + 
+  geom_point(data = nm_q, aes(TIME, med, group = metric), size = 2) +
+  geom_line(data  = mrg_q2, aes(TIME, value, group = paste(metric,q)), lwd = 0.8) +
+  geom_ribbon(data=nm_q, aes(TIME, ymin = lo, ymax = hi, group = metric, fill = metric), alpha = 0.5) +
+  scale_y_continuous(trans = "log10", breaks = 10^seq(-4,4)) + 
+  ylab("DV") + ggtitle("Shaded area & points: 95% CI, nonmem; Solid lines: 95% CI, mrgsolve") + 
+  scale_fill_brewer(palette = "Set2", labels = c("95th", "5th" ,"50th")) + 
+  theme(legend.position = "top")
+```
+
+![](img/nmtest5-unnamed-chunk-20-1.png)
 
 Models
 ======
@@ -450,7 +509,7 @@ devtools::session_info()
     .  stringi         1.1.7       2018-03-12
     .  stringr         1.3.0       2018-02-19
     .  tibble          1.4.2       2018-01-22
-    .  tidyr           0.8.0       2018-01-29
+    .  tidyr         * 0.8.0       2018-01-29
     .  tidyselect      0.2.4       2018-02-26
     .  tools           3.3.3       2017-03-06
     .  utf8            1.1.3       2018-01-03
