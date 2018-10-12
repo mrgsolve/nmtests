@@ -1322,7 +1322,7 @@ Plot
 ggplot(data = data) + 
   geom_point(aes(time,NM),color = "firebrick") + 
   geom_line(aes(time,MRGSIM,group = ID)) +
-  facet_wrap(~ID, scales = "free_y", ncol = 2) + 
+  facet_wrap(~ID, scales = "free_y", ncol = 2,strip.position = "right") + 
   theme_bw()
 ```
 
