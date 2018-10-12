@@ -29,6 +29,7 @@ Metrum Research Group, LLC
     -   [Infusion with modeled duration, at steady state with bioav factor](#infusion-with-modeled-duration-at-steady-state-with-bioav-factor)
     -   [Reset and dose (EVID 4) with additional](#reset-and-dose-evid-4-with-additional)
     -   [Reset (EVID 3) with additional](#reset-evid-3-with-additional)
+    -   [Steady state 1 and 2](#steady-state-1-and-2)
 -   [Collect `mrgsim` output](#collect-mrgsim-output)
 -   [Create a single data set for `nonmem`](#create-a-single-data-set-for-nonmem)
 -   [Simulate with `nonmem`](#simulate-with-nonmem)
@@ -143,7 +144,7 @@ $CAPTURE LAGT MODE DUR2 RAT2 BIOAV
 mod <- mcode_cache("tests1", code)
 ```
 
-    . Loading model from cache.
+    . Compiling tests1 ... done.
 
 ``` r
 mod <- update(mod, end=130, delta = 1)
@@ -161,11 +162,30 @@ ev
 ```
 
     . Events:
-    .   time cmt amt ii addl evid
-    . 1    0   1 100 24    3    1
+    .   time cmt amt evid ii addl
+    . 1    0   1 100    1 24    3
 
 ``` r
 out1 <- sim(mod,ev)
+```
+
+    . 1
+    . 0
+    . 0
+    . 1 24 -600
+    . 1 48 -600
+    . 1 72 -600
+    . 1
+    . 24
+    . -600
+    . 1
+    . 48
+    . -600
+    . 1
+    . 72
+    . -600
+
+``` r
 plot(out1)
 ```
 
@@ -183,11 +203,33 @@ ev
 ```
 
     . Events:
-    .   time cmt amt ii addl  LAGT BIOAV evid
-    . 1    0   2 100 24    3 12.13  2.23    1
+    .   time cmt amt evid ii addl  LAGT BIOAV
+    . 1    0   2 100    1 24    3 12.13  2.23
 
 ``` r
 out1.1 <- sim(mod,ev)
+```
+
+    . 2
+    . 0
+    . 0
+    . 2 36.13 -600
+    . 2 60.13 -600
+    . 2 84.13 -600
+    . 2
+    . 12.13
+    . -1200
+    . 2
+    . 36.13
+    . -600
+    . 2
+    . 60.13
+    . -600
+    . 2
+    . 84.13
+    . -600
+
+``` r
 plot(out1.1)
 ```
 
@@ -205,11 +247,30 @@ ev
 ```
 
     . Events:
-    .   time cmt amt ii addl rate evid
-    . 1    0   2 100 24    3   10    1
+    .   time cmt amt evid ii addl rate
+    . 1    0   2 100    1 24    3   10
 
 ``` r
 out2 <- sim(mod,ev)
+```
+
+    . 2
+    . 0
+    . 0
+    . 2 24 -600
+    . 2 48 -600
+    . 2 72 -600
+    . 2
+    . 24
+    . -600
+    . 2
+    . 48
+    . -600
+    . 2
+    . 72
+    . -600
+
+``` r
 plot(out2)
 ```
 
@@ -227,11 +288,30 @@ ev
 ```
 
     . Events:
-    .   time cmt amt ii addl     rate evid
-    . 1    0   1 100 24    3 8.333333    1
+    .   time cmt amt evid ii addl     rate
+    . 1    0   1 100    1 24    3 8.333333
 
 ``` r
 out2.1 <- sim(mod,ev)
+```
+
+    . 1
+    . 0
+    . 0
+    . 1 24 -600
+    . 1 48 -600
+    . 1 72 -600
+    . 1
+    . 24
+    . -600
+    . 1
+    . 48
+    . -600
+    . 1
+    . 72
+    . -600
+
+``` r
 plot(out2.1)
 ```
 
@@ -249,11 +329,33 @@ ev
 ```
 
     . Events:
-    .   time cmt amt ii addl rate LAGT evid
-    . 1    0   2 100 24    3   10 4.15    1
+    .   time cmt amt evid ii addl rate LAGT
+    . 1    0   2 100    1 24    3   10 4.15
 
 ``` r
 out3 <- sim(mod,ev)
+```
+
+    . 2
+    . 0
+    . 0
+    . 2 28.15 -600
+    . 2 52.15 -600
+    . 2 76.15 -600
+    . 2
+    . 4.15
+    . -1200
+    . 2
+    . 28.15
+    . -600
+    . 2
+    . 52.15
+    . -600
+    . 2
+    . 76.15
+    . -600
+
+``` r
 plot(out3)
 ```
 
@@ -271,11 +373,33 @@ ev
 ```
 
     . Events:
-    .   time cmt amt ii addl rate LAGT BIOAV evid
-    . 1    0   2 100 24    3   10 3.25 0.412    1
+    .   time cmt amt evid ii addl rate LAGT BIOAV
+    . 1    0   2 100    1 24    3   10 3.25 0.412
 
 ``` r
 out4 <- sim(mod,ev)
+```
+
+    . 2
+    . 0
+    . 0
+    . 2 27.25 -600
+    . 2 51.25 -600
+    . 2 75.25 -600
+    . 2
+    . 3.25
+    . -1200
+    . 2
+    . 27.25
+    . -600
+    . 2
+    . 51.25
+    . -600
+    . 2
+    . 75.25
+    . -600
+
+``` r
 plot(out4)
 ```
 
@@ -293,11 +417,33 @@ ev
 ```
 
     . Events:
-    .   time cmt amt ii addl rate LAGT BIOAV ss evid
-    . 1    0   2 100 24    3   10 3.16 0.412  1    1
+    .   time cmt amt evid ii addl rate LAGT BIOAV ss
+    . 1    0   2 100    1 24    3   10 3.16 0.412  1
 
 ``` r
 out5 <- sim(mod,ev)
+```
+
+    . 2
+    . 0
+    . 0
+    . 2 27.16 -600
+    . 2 51.16 -600
+    . 2 75.16 -600
+    . 2
+    . 3.16
+    . -1200
+    . 2
+    . 27.16
+    . -600
+    . 2
+    . 51.16
+    . -600
+    . 2
+    . 75.16
+    . -600
+
+``` r
 plot(out5)
 ```
 
@@ -315,11 +461,66 @@ ev
 ```
 
     . Events:
-    .   time cmt amt ii addl rate BIOAV ss evid
-    . 1    0   2 100  6   12   10 0.812  1    1
+    .   time cmt amt evid ii addl rate BIOAV ss
+    . 1    0   2 100    1  6   12   10 0.812  1
 
 ``` r
 out6 <- sim(mod,ev)
+```
+
+    . 2
+    . 0
+    . 0
+    . 2 6 -600
+    . 2 12 -600
+    . 2 18 -600
+    . 2 24 -600
+    . 2 30 -600
+    . 2 36 -600
+    . 2 42 -600
+    . 2 48 -600
+    . 2 54 -600
+    . 2 60 -600
+    . 2 66 -600
+    . 2 72 -600
+    . 2
+    . 6
+    . -600
+    . 2
+    . 12
+    . -600
+    . 2
+    . 18
+    . -600
+    . 2
+    . 24
+    . -600
+    . 2
+    . 30
+    . -600
+    . 2
+    . 36
+    . -600
+    . 2
+    . 42
+    . -600
+    . 2
+    . 48
+    . -600
+    . 2
+    . 54
+    . -600
+    . 2
+    . 60
+    . -600
+    . 2
+    . 66
+    . -600
+    . 2
+    . 72
+    . -600
+
+``` r
 plot(out6)
 ```
 
@@ -337,11 +538,66 @@ ev
 ```
 
     . Events:
-    .   time cmt amt ii addl rate ss evid
-    . 1    0   2 100  6   12   10  1    1
+    .   time cmt amt evid ii addl rate ss
+    . 1    0   2 100    1  6   12   10  1
 
 ``` r
 out6.1 <- sim(mod,ev)
+```
+
+    . 2
+    . 0
+    . 0
+    . 2 6 -600
+    . 2 12 -600
+    . 2 18 -600
+    . 2 24 -600
+    . 2 30 -600
+    . 2 36 -600
+    . 2 42 -600
+    . 2 48 -600
+    . 2 54 -600
+    . 2 60 -600
+    . 2 66 -600
+    . 2 72 -600
+    . 2
+    . 6
+    . -600
+    . 2
+    . 12
+    . -600
+    . 2
+    . 18
+    . -600
+    . 2
+    . 24
+    . -600
+    . 2
+    . 30
+    . -600
+    . 2
+    . 36
+    . -600
+    . 2
+    . 42
+    . -600
+    . 2
+    . 48
+    . -600
+    . 2
+    . 54
+    . -600
+    . 2
+    . 60
+    . -600
+    . 2
+    . 66
+    . -600
+    . 2
+    . 72
+    . -600
+
+``` r
 plot(out6.1)
 ```
 
@@ -359,11 +615,66 @@ ev
 ```
 
     . Events:
-    .   time cmt amt ii addl   rate ss evid
-    . 1    0   2 100  6   12 8.3333  1    1
+    .   time cmt amt evid ii addl   rate ss
+    . 1    0   2 100    1  6   12 8.3333  1
 
 ``` r
 out6.2 <- sim(mod,ev)
+```
+
+    . 2
+    . 0
+    . 0
+    . 2 6 -600
+    . 2 12 -600
+    . 2 18 -600
+    . 2 24 -600
+    . 2 30 -600
+    . 2 36 -600
+    . 2 42 -600
+    . 2 48 -600
+    . 2 54 -600
+    . 2 60 -600
+    . 2 66 -600
+    . 2 72 -600
+    . 2
+    . 6
+    . -600
+    . 2
+    . 12
+    . -600
+    . 2
+    . 18
+    . -600
+    . 2
+    . 24
+    . -600
+    . 2
+    . 30
+    . -600
+    . 2
+    . 36
+    . -600
+    . 2
+    . 42
+    . -600
+    . 2
+    . 48
+    . -600
+    . 2
+    . 54
+    . -600
+    . 2
+    . 60
+    . -600
+    . 2
+    . 66
+    . -600
+    . 2
+    . 72
+    . -600
+
+``` r
 plot(out6.2)
 ```
 
@@ -381,11 +692,50 @@ ev
 ```
 
     . Events:
-    .   time cmt amt ii addl rate LAGT BIOAV ss evid
-    . 1    0   2 100 10    8   10    0 0.412  1    1
+    .   time cmt amt evid ii addl rate LAGT BIOAV ss
+    . 1    0   2 100    1 10    8   10    0 0.412  1
 
 ``` r
 out7 <- sim(mod,ev)
+```
+
+    . 2
+    . 0
+    . 0
+    . 2 10 -600
+    . 2 20 -600
+    . 2 30 -600
+    . 2 40 -600
+    . 2 50 -600
+    . 2 60 -600
+    . 2 70 -600
+    . 2 80 -600
+    . 2
+    . 10
+    . -600
+    . 2
+    . 20
+    . -600
+    . 2
+    . 30
+    . -600
+    . 2
+    . 40
+    . -600
+    . 2
+    . 50
+    . -600
+    . 2
+    . 60
+    . -600
+    . 2
+    . 70
+    . -600
+    . 2
+    . 80
+    . -600
+
+``` r
 plot(out7)
 ```
 
@@ -403,11 +753,50 @@ ev
 ```
 
     . Events:
-    .   time cmt amt ii addl rate ss evid
-    . 1    0   2 100 10    8   10  1    1
+    .   time cmt amt evid ii addl rate ss
+    . 1    0   2 100    1 10    8   10  1
 
 ``` r
 out7.1 <- sim(mod,ev)
+```
+
+    . 2
+    . 0
+    . 0
+    . 2 10 -600
+    . 2 20 -600
+    . 2 30 -600
+    . 2 40 -600
+    . 2 50 -600
+    . 2 60 -600
+    . 2 70 -600
+    . 2 80 -600
+    . 2
+    . 10
+    . -600
+    . 2
+    . 20
+    . -600
+    . 2
+    . 30
+    . -600
+    . 2
+    . 40
+    . -600
+    . 2
+    . 50
+    . -600
+    . 2
+    . 60
+    . -600
+    . 2
+    . 70
+    . -600
+    . 2
+    . 80
+    . -600
+
+``` r
 plot(out7.1)
 ```
 
@@ -425,11 +814,33 @@ ev
 ```
 
     . Events:
-    .   time cmt amt ii addl LAGT BIOAV ss evid
-    . 1    0   2 100 24    3    4 0.412  1    1
+    .   time cmt amt evid ii addl LAGT BIOAV ss
+    . 1    0   2 100    1 24    3    4 0.412  1
 
 ``` r
 out8 <- sim(mod,ev)
+```
+
+    . 2
+    . 0
+    . 0
+    . 2 28 -600
+    . 2 52 -600
+    . 2 76 -600
+    . 2
+    . 4
+    . -1200
+    . 2
+    . 28
+    . -600
+    . 2
+    . 52
+    . -600
+    . 2
+    . 76
+    . -600
+
+``` r
 plot(out8)
 ```
 
@@ -447,11 +858,33 @@ ev
 ```
 
     . Events:
-    .   time cmt amt ii addl LAGT BIOAV evid
-    . 1    0   2 100 24    3    5 0.412    1
+    .   time cmt amt evid ii addl LAGT BIOAV
+    . 1    0   2 100    1 24    3    5 0.412
 
 ``` r
 out9 <- sim(mod,ev)
+```
+
+    . 2
+    . 0
+    . 0
+    . 2 29 -600
+    . 2 53 -600
+    . 2 77 -600
+    . 2
+    . 5
+    . -1200
+    . 2
+    . 29
+    . -600
+    . 2
+    . 53
+    . -600
+    . 2
+    . 77
+    . -600
+
+``` r
 plot(out9)
 ```
 
@@ -469,12 +902,33 @@ ev
 ```
 
     . Events:
-    .   time cmt amt LAGT evid ii addl rate
+    .   time cmt amt evid LAGT ii addl rate
     . 1    0   2 100    1    1  0    0    0
-    . 2   13   1  50    0    1 24    2   24
+    . 2   13   1  50    1    0 24    2   24
 
 ``` r
 out10 <- sim(mod,ev)
+```
+
+    . 2
+    . 0
+    . 0
+    . 2
+    . 1
+    . -1200
+    . 1
+    . 13
+    . 1
+    . 1 37 -600
+    . 1 61 -600
+    . 1
+    . 37
+    . -600
+    . 1
+    . 61
+    . -600
+
+``` r
 plot(out10)
 ```
 
@@ -492,11 +946,33 @@ ev
 ```
 
     . Events:
-    .   time cmt amt rate DUR2 MODE ii addl LAGT BIOAV evid
-    . 1    0   2 100   -2    9    2 24    3    5  0.61    1
+    .   time cmt amt evid rate DUR2 MODE ii addl LAGT BIOAV
+    . 1    0   2 100    1   -2    9    2 24    3    5  0.61
 
 ``` r
 out11 <- sim(mod,ev)
+```
+
+    . 2
+    . 0
+    . 0
+    . 2 29 -600
+    . 2 53 -600
+    . 2 77 -600
+    . 2
+    . 5
+    . -1200
+    . 2
+    . 29
+    . -600
+    . 2
+    . 53
+    . -600
+    . 2
+    . 77
+    . -600
+
+``` r
 plot(out11)
 ```
 
@@ -514,11 +990,38 @@ ev
 ```
 
     . Events:
-    .   time cmt amt rate DUR2 MODE ii addl ss BIOAV evid
-    . 1    0   2 100   -2    9    2 12    5  1  0.61    1
+    .   time cmt amt evid rate DUR2 MODE ii addl ss BIOAV
+    . 1    0   2 100    1   -2    9    2 12    5  1  0.61
 
 ``` r
 out12 <- sim(mod,ev)
+```
+
+    . 2
+    . 0
+    . 0
+    . 2 12 -600
+    . 2 24 -600
+    . 2 36 -600
+    . 2 48 -600
+    . 2 60 -600
+    . 2
+    . 12
+    . -600
+    . 2
+    . 24
+    . -600
+    . 2
+    . 36
+    . -600
+    . 2
+    . 48
+    . -600
+    . 2
+    . 60
+    . -600
+
+``` r
 plot(out12)
 ```
 
@@ -538,12 +1041,47 @@ ev
 ```
 
     . Events:
-    .   time cmt amt ii addl rate BIOAV evid
-    . 1    0   1 100 12    5   50  0.61    1
-    . 2   80   1 120 12    2    0  0.50    4
+    .   time cmt amt evid ii addl rate BIOAV
+    . 1    0   1 100    1 12    5   50  0.61
+    . 2   80   1 120    4 12    2    0  0.50
 
 ``` r
 out13 <- sim(mod,ev)
+```
+
+    . 1
+    . 0
+    . 0
+    . 1 12 -600
+    . 1 24 -600
+    . 1 36 -600
+    . 1 48 -600
+    . 1 60 -600
+    . 1
+    . 12
+    . -600
+    . 1
+    . 24
+    . -600
+    . 1
+    . 36
+    . -600
+    . 1
+    . 48
+    . -600
+    . 1
+    . 60
+    . -600
+    . 1 92 -600
+    . 1 104 -600
+    . 1
+    . 92
+    . -600
+    . 1
+    . 104
+    . -600
+
+``` r
 plot(out13)
 ```
 
@@ -564,13 +1102,43 @@ ev
 ```
 
     . Events:
-    .   time cmt amt ii addl rate BIOAV evid
-    . 1    0   1 100 12    3   50  0.61    1
-    . 2   50   2   0  0    0    0  0.00    3
-    . 3   54   1 120 24    2    0  0.00    1
+    .   time cmt amt evid ii addl rate BIOAV
+    . 1    0   1 100    1 12    3   50  0.61
+    . 2   50   2   0    3  0    0    0  0.00
+    . 3   54   1 120    1 24    2    0  0.00
 
 ``` r
 out14 <- sim(mod,ev)
+```
+
+    . 1
+    . 0
+    . 0
+    . 1 12 -600
+    . 1 24 -600
+    . 1 36 -600
+    . 1
+    . 12
+    . -600
+    . 1
+    . 24
+    . -600
+    . 1
+    . 36
+    . -600
+    . 1
+    . 54
+    . 2
+    . 1 78 -600
+    . 1 102 -600
+    . 1
+    . 78
+    . -600
+    . 1
+    . 102
+    . -600
+
+``` r
 plot(out14)
 ```
 
@@ -580,12 +1148,71 @@ plot(out14)
 data14 <- to_data_set(out14,14)
 ```
 
+### Steady state 1 and 2
+
+``` r
+ev <- 
+  ev(amt = 100, ii = 24, addl = 3, ss = 1)  + 
+  ev(amt = 50,  ii = 24, addl = 3, ss = 2, time = 12)
+ev
+```
+
+    . Events:
+    .   time cmt amt evid ii addl ss
+    . 1    0   1 100    1 24    3  1
+    . 2   12   1  50    1 24    3  2
+
+``` r
+out15 <- sim(mod,ev)
+```
+
+    . 1
+    . 0
+    . 0
+    . 1 24 -600
+    . 1 48 -600
+    . 1 72 -600
+    . 1
+    . 12
+    . 1
+    . 1 36 -600
+    . 1 60 -600
+    . 1 84 -600
+    . 1
+    . 24
+    . -600
+    . 1
+    . 36
+    . -600
+    . 1
+    . 48
+    . -600
+    . 1
+    . 60
+    . -600
+    . 1
+    . 72
+    . -600
+    . 1
+    . 84
+    . -600
+
+``` r
+plot(out15)
+```
+
+![](img/nmtest4-unnamed-chunk-30-1.png)
+
+``` r
+data15 <- to_data_set(out15,15)
+```
+
 Collect `mrgsim` output
 =======================
 
 ``` r
 sims <- list(out1,out1.1,out2,out2.1,out3,out4,out5,out6,out6.1,out6.2,out7,out7.1,
-             out8,out9,out10,out11,out12,out13,out14)
+             out8,out9,out10,out11,out12,out13,out14,out15)
 sims <- lapply(sims, as.data.frame)
 sims <- bind_rows(sims)
 ```
@@ -595,7 +1222,7 @@ Create a single data set for `nonmem`
 
 ``` r
 data <- bind_rows(data1,data1.1,data2,data2.1,data3,data4,data5,data6,data6.1,data6.2,data7,data7.1,
-                  data8,data9,data10,data11,data12,data13,data14)
+                  data8,data9,data10,data11,data12,data13,data14,data15)
 
 sv(data, "data/1001.csv")
 ```
@@ -630,13 +1257,13 @@ Dimensions for mrgsim and nonmem output
 dim(out)
 ```
 
-    . [1] 2512    6
+    . [1] 2645    6
 
 ``` r
 dim(sims)
 ```
 
-    . [1] 2512   16
+    . [1] 2645   16
 
 This is the `nonmem` minus `mrgsim` summary
 
@@ -664,28 +1291,29 @@ group_by(data,ID) %>%
   summarise(mean = mean(diff), max = max(diff), min = min(diff))
 ```
 
-    . # A tibble: 19 x 4
+    . # A tibble: 20 x 4
     .       ID  mean   max   min
     .    <dbl> <dbl> <dbl> <dbl>
-    .  1  1.00    0.    0.    0.
-    .  2  1.10    0.    0.    0.
-    .  3  2.00    0.    0.    0.
-    .  4  2.10    0.    0.    0.
-    .  5  3.00    0.    0.    0.
-    .  6  4.00    0.    0.    0.
-    .  7  5.00    0.    0.    0.
-    .  8  6.00    0.    0.    0.
-    .  9  6.10    0.    0.    0.
-    . 10  6.20    0.    0.    0.
-    . 11  7.00    0.    0.    0.
-    . 12  7.10    0.    0.    0.
-    . 13  8.00    0.    0.    0.
-    . 14  9.00    0.    0.    0.
-    . 15 10.0     0.    0.    0.
-    . 16 11.0     0.    0.    0.
-    . 17 12.0     0.    0.    0.
-    . 18 13.0     0.    0.    0.
-    . 19 14.0     0.    0.    0.
+    .  1   1       0     0     0
+    .  2   1.1     0     0     0
+    .  3   2       0     0     0
+    .  4   2.1     0     0     0
+    .  5   3       0     0     0
+    .  6   4       0     0     0
+    .  7   5       0     0     0
+    .  8   6       0     0     0
+    .  9   6.1     0     0     0
+    . 10   6.2     0     0     0
+    . 11   7       0     0     0
+    . 12   7.1     0     0     0
+    . 13   8       0     0     0
+    . 14   9       0     0     0
+    . 15  10       0     0     0
+    . 16  11       0     0     0
+    . 17  12       0     0     0
+    . 18  13       0     0     0
+    . 19  14       0     0     0
+    . 20  15       0     0     0
 
 Plot
 ====
@@ -694,10 +1322,11 @@ Plot
 ggplot(data = data) + 
   geom_point(aes(time,NM),color = "firebrick") + 
   geom_line(aes(time,MRGSIM,group = ID)) +
-  facet_wrap(~ID, scales = "free_y", ncol = 3)
+  facet_wrap(~ID, scales = "free_y", ncol = 2) + 
+  theme_bw()
 ```
 
-![](img/nmtest4-unnamed-chunk-36-1.png)
+![](img/nmtest4-unnamed-chunk-37-1.png)
 
 \newpage
 Control stream
@@ -768,11 +1397,11 @@ devtools::session_info()
     .  setting  value                       
     .  version  R version 3.3.3 (2017-03-06)
     .  system   x86_64, linux-gnu           
-    .  ui       RStudio (1.0.153)           
+    .  ui       X11                         
     .  language (EN)                        
     .  collate  en_US.UTF-8                 
     .  tz       Etc/UTC                     
-    .  date     2018-04-19
+    .  date     2018-10-12
 
     . Packages -----------------------------------------------------------------
 
@@ -786,12 +1415,13 @@ devtools::session_info()
     .  colorspace      1.3-2       2016-12-14
     .  crayon          1.3.4       2017-09-16
     .  datasets      * 3.3.3       2017-03-06
-    .  devtools        1.13.5      2018-02-18
+    .  devtools        1.13.6      2018-06-27
     .  digest          0.6.15      2018-01-28
-    .  dplyr         * 0.7.4       2017-09-28
+    .  dplyr         * 0.7.6       2018-06-29
     .  evaluate        0.10.1      2017-06-24
-    .  ggplot2       * 2.2.1       2016-12-30
-    .  glue            1.2.0       2017-10-29
+    .  fansi           0.3.0       2018-08-13
+    .  ggplot2       * 3.0.0       2018-07-03
+    .  glue            1.3.0       2018-07-17
     .  graphics      * 3.3.3       2017-03-06
     .  grDevices     * 3.3.3       2017-03-06
     .  grid            3.3.3       2017-03-06
@@ -803,35 +1433,36 @@ devtools::session_info()
     .  lattice         0.20-34     2016-09-06
     .  lazyeval        0.2.1       2017-10-29
     .  magrittr        1.5         2014-11-22
-    .  MASS            7.3-49      2018-02-23
+    .  MASS            7.3-50      2018-04-30
     .  memoise         1.0.0       2016-01-29
     .  methods       * 3.3.3       2017-03-06
     .  metrumrg        5.57        2017-10-14
-    .  mrgsolve      * 0.8.11      2018-04-18
-    .  munsell         0.4.3       2016-02-13
-    .  pillar          1.2.1       2018-02-27
-    .  pkgconfig       2.0.1       2017-03-21
+    .  mrgsolve      * 0.8.12.9000 2018-09-21
+    .  munsell         0.5.0       2018-06-12
+    .  pillar          1.3.0       2018-07-14
+    .  pkgconfig       2.0.2       2018-08-16
     .  plyr            1.8.4       2016-06-08
+    .  purrr           0.2.5       2018-05-29
     .  R6              2.2.2       2017-06-17
-    .  Rcpp            0.12.16     2018-03-13
-    .  RcppArmadillo   0.8.400.0.0 2018-03-01
+    .  Rcpp            0.12.18     2018-07-23
+    .  RcppArmadillo   0.9.100.5.0 2018-08-16
     .  readr         * 1.1.1       2017-05-16
     .  reshape         0.8.7       2017-08-06
-    .  rlang           0.2.0       2018-02-20
-    .  rmarkdown       1.9         2018-03-01
+    .  rlang           0.2.2       2018-08-16
+    .  rmarkdown       1.10        2018-06-11
     .  rprojroot       1.3-2       2018-01-03
-    .  rstudioapi      0.7         2017-09-07
-    .  scales          0.5.0       2017-08-24
+    .  scales          0.5.0.9000  2018-06-20
     .  stats         * 3.3.3       2017-03-06
-    .  stringi         1.1.7       2018-03-12
-    .  stringr         1.3.0       2018-02-19
+    .  stringi         1.2.3       2018-06-12
+    .  stringr         1.3.1       2018-05-10
     .  tibble          1.4.2       2018-01-22
+    .  tidyselect      0.2.4       2018-02-26
     .  tools           3.3.3       2017-03-06
-    .  utf8            1.1.3       2018-01-03
+    .  utf8            1.1.4       2018-05-24
     .  utils         * 3.3.3       2017-03-06
     .  withr           2.1.2       2018-03-15
     .  XML             3.98-1.11   2018-04-16
-    .  yaml            2.1.18      2018-03-08
+    .  yaml            2.1.19      2018-05-01
     .  source                                       
     .  CRAN (R 3.3.3)                               
     .  cran (@1.1.2)                                
@@ -846,6 +1477,7 @@ devtools::session_info()
     .  cran (@0.6.15)                               
     .  CRAN (R 3.3.3)                               
     .  cran (@0.10.1)                               
+    .  CRAN (R 3.3.3)                               
     .  CRAN (R 3.3.3)                               
     .  CRAN (R 3.3.3)                               
     .  local                                        
@@ -864,10 +1496,11 @@ devtools::session_info()
     .  local                                        
     .  Github (metrumresearchgroup/metrumrg@2e5a541)
     .  local                                        
-    .  CRAN (R 3.3.2)                               
+    .  cran (@0.5.0)                                
     .  CRAN (R 3.3.3)                               
     .  CRAN (R 3.3.3)                               
     .  CRAN (R 3.3.2)                               
+    .  CRAN (R 3.3.3)                               
     .  cran (@2.2.2)                                
     .  CRAN (R 3.3.3)                               
     .  CRAN (R 3.3.3)                               
@@ -876,14 +1509,14 @@ devtools::session_info()
     .  CRAN (R 3.3.3)                               
     .  CRAN (R 3.3.3)                               
     .  cran (@1.3-2)                                
-    .  CRAN (R 3.3.3)                               
-    .  CRAN (R 3.3.3)                               
+    .  Github (hadley/scales@80fe94c)               
     .  local                                        
     .  CRAN (R 3.3.3)                               
     .  CRAN (R 3.3.3)                               
     .  cran (@1.4.2)                                
+    .  CRAN (R 3.3.3)                               
     .  local                                        
-    .  cran (@1.1.3)                                
+    .  CRAN (R 3.3.3)                               
     .  local                                        
     .  CRAN (R 3.3.3)                               
     .  CRAN (R 3.3.3)                               

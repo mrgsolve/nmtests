@@ -3,6 +3,8 @@
 ##' author: "Metrum Research Group, LLC"
 ##' date: ""
 ##' output: 
+##'   github_document:
+##'     toc: true
 ##'   pdf_document:
 ##'     toc: true
 ##'     number_sections: true
@@ -10,8 +12,7 @@
 ##'     extra_dependencies:
 ##'       fontenc: T1
 ##'       mathdesign: utopia
-##'   github_document:
-##'     toc: true
+
 ##'     
 ##' ---
 

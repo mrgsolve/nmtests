@@ -1,4 +1,4 @@
-Fri Oct 12 20:22:26 UTC 2018
+Fri Oct 12 20:26:19 UTC 2018
 ifort (IFORT) 12.0.4 20110427
 Copyright (C) 1985-2011 Intel Corporation.  All rights reserved.
 
@@ -184,6 +184,6 @@ Days until program expires : 277
  SOURCE  1:
     SEED1:    1840054855   SEED2:    1061053076
  ESTIMATION STEP OMITTED:                 YES 
- #CPUT: Total CPU Time in Seconds,        0.218
+ #CPUT: Total CPU Time in Seconds,        0.216
 Stop Time:
-Fri Oct 12 20:22:30 UTC 2018
+Fri Oct 12 20:26:23 UTC 2018
