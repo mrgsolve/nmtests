@@ -16,7 +16,7 @@
 ##'     
 ##' ---
 
-##' \newpage
+
 
 Sys.setenv(RSTUDIO_PANDOC = "/usr/lib/rstudio-server/bin/pandoc")
 
@@ -70,7 +70,7 @@ sim <- function(x, e,...) {
   mrgsim(x, events = e, carry.out = carry, digits = 5, ...) 
 }
 
-##' \newpage
+##' 
 ##' 
 ##' # The `mrgsim` model
 
@@ -101,7 +101,7 @@ mod <- mcode_cache("tests1", code)
 mod <- update(mod, end=130, delta = 1)
 
 ##'
-##'\newpage
+##'
 ##'
 ##' # Scenarios
 ##' 
@@ -305,13 +305,12 @@ ggplot(data = data) +
   facet_wrap(~ID, scales = "free_y", ncol = 2,strip.position = "right") + 
   theme_bw()
 
-##' \newpage
 ##' 
 ##' # Control stream
 #+ comment = "  "
 writeLines(readLines("model/1001.ctl"))
 
-##' \newpage
+##'
 ##' 
 ##' # Session Info
 #+

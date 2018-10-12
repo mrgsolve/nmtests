@@ -39,7 +39,6 @@ Metrum Research Group, LLC
 -   [Control stream](#control-stream)
 -   [Session Info](#session-info)
 
-\newpage
 ``` r
 Sys.setenv(RSTUDIO_PANDOC = "/usr/lib/rstudio-server/bin/pandoc")
 ```
@@ -113,7 +112,6 @@ sim <- function(x, e,...) {
 }
 ```
 
-\newpage
 The `mrgsim` model
 ==================
 
@@ -150,7 +148,6 @@ mod <- mcode_cache("tests1", code)
 mod <- update(mod, end=130, delta = 1)
 ```
 
-\newpage
 Scenarios
 =========
 
@@ -726,7 +723,6 @@ ggplot(data = data) +
 
 ![](img/nmtest4-unnamed-chunk-37-1.png)
 
-\newpage
 Control stream
 ==============
 
@@ -782,7 +778,6 @@ writeLines(readLines("model/1001.ctl"))
        
        $SIMULATION (2674474) ONLYSIMULATION
 
-\newpage
 Session Info
 ============
 
