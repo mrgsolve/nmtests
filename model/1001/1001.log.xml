@@ -247,11 +247,11 @@
       </job>
       <job>
        <do>date</do>
-       <so>Thu Apr 26 20:36:15 UTC 2018</so>
+       <so>Fri Oct 12 20:22:26 UTC 2018</so>
       </job>
       <job>
        <do>perl -e 'use POSIX; print join qq(,),uname'</do>
-       <so>Linux,ip-172-16-2-26,3.13.0-93-generic,#140-Ubuntu SMP Mon Jul 18 21:21:05 UTC 2016,x86_64</so>
+       <so>Linux,ip-172-16-2-132,3.13.0-93-generic,#140-Ubuntu SMP Mon Jul 18 21:21:05 UTC 2016,x86_64</so>
       </job>
       <job>
        <do>echo $SHELL</do>
@@ -292,15 +292,15 @@
    Building NONMEM Executable
    Starting nonmem execution ...
    License Registered to: Metrum Research Group
-   Expiration Date:    14 JUL 2018
-   Current Date:       26 APR 2018
-   Days until program expires :  78</so>
+   Expiration Date:    14 JUL 2019
+   Current Date:       12 OCT 2018
+   Days until program expires : 277</so>
   </job>
   <job>
    <do in="model/1001">if [ -e 1001.xml ];then cat 1001.xml;else echo \&lt;nofile/\>; fi</do>
    <so>
     <nm:output xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:nm="http://namespaces.oreilly.com/xmlnut/address" xsi:schemaLocation="http://namespaces.oreilly.com/xmlnut/address output.xsd">
-     <nm:start_datetime>2018-04-26T20:36:41.764</nm:start_datetime>
+     <nm:start_datetime>2018-10-12T20:22:30.743</nm:start_datetime>
      <nm:control_stream>
      $PROB RUN# 101
      
@@ -358,9 +358,9 @@
      <nm:nonmem nm:version="7.3.0">
       <nm:license_information>
       License Registered to: Metrum Research Group
-      Expiration Date:    14 JUL 2018
-      Current Date:       26 APR 2018
-      Days until program expires :  78</nm:license_information>
+      Expiration Date:    14 JUL 2019
+      Current Date:       12 OCT 2018
+      Days until program expires : 277</nm:license_information>
       <nm:program_information>
       1NONLINEAR MIXED EFFECTS MODEL PROGRAM (NONMEM) VERSION 7.3.0
        ORIGINALLY DEVELOPED BY STUART BEAL, LEWIS SHEINER, AND ALISON BOECKMANN
@@ -376,7 +376,7 @@
        0DATA CHECKOUT RUN:              NO
         DATA SET LOCATED ON UNIT NO.:    2
         THIS UNIT TO BE REWOUND:        NO
-        NO. OF DATA RECS IN DATA SET:     2512
+        NO. OF DATA RECS IN DATA SET:     2645
         NO. OF DATA ITEMS IN DATA SET:  17
         ID DATA ITEM IS DATA ITEM NO.:   2
         DEP VARIABLE IS DATA ITEM NO.:  16
@@ -390,8 +390,8 @@
        0FORMAT FOR DATA:
         (E2.0,2E4.0,E2.0,E4.0,2E2.0,2E3.0,E17.0,E6.0,2E2.0,E3.0,2E6.0,1F2.0)
        
-        TOT. NO. OF OBS RECS:     2489
-        TOT. NO. OF INDIVIDUALS:     19
+        TOT. NO. OF OBS RECS:     2620
+        TOT. NO. OF INDIVIDUALS:     20
        0LENGTH OF THETA:   3
        0DEFAULT THETA BOUNDARY TEST OMITTED:    NO
        0OMEGA HAS SIMPLE DIAGONAL FORM WITH DIMENSION:   3
@@ -487,14 +487,14 @@
        1
         SIMULATION STEP PERFORMED
         SOURCE  1:
-           SEED1:     541933038   SEED2:   -1127025957</nm:simulation_information>
+           SEED1:    1840054855   SEED2:    1061053076</nm:simulation_information>
        <nm:estimation nm:number="1" nm:type="1">
         <nm:table_series>0</nm:table_series>
        </nm:estimation>
       </nm:problem>
      </nm:nonmem>
-     <nm:stop_datetime>2018-04-26T20:36:41.985</nm:stop_datetime>
-     <nm:total_cputime>0.206</nm:total_cputime>
+     <nm:stop_datetime>2018-10-12T20:22:30.976</nm:stop_datetime>
+     <nm:total_cputime>0.218</nm:total_cputime>
     </nm:output>
    </so>
   </job>

@@ -247,16 +247,27 @@ out14 <- sim(mod,ev)
 plot(out14)
 data14 <- to_data_set(out14,14)
 
+##' ### Steady state 1 and 2
+##' 
+##' 
+ev <- 
+  ev(amt = 100, ii = 24, addl = 3, ss = 1)  + 
+  ev(amt = 50,  ii = 24, addl = 3, ss = 2, time = 12)
+ev
+
+out15 <- sim(mod,ev)
+plot(out15)
+data15 <- to_data_set(out15,15)
 
 ##' # Collect `mrgsim` output
 sims <- list(out1,out1.1,out2,out2.1,out3,out4,out5,out6,out6.1,out6.2,out7,out7.1,
-             out8,out9,out10,out11,out12,out13,out14)
+             out8,out9,out10,out11,out12,out13,out14,out15)
 sims <- lapply(sims, as.data.frame)
 sims <- bind_rows(sims)
 
 ##' # Create a single data set for `nonmem`
 data <- bind_rows(data1,data1.1,data2,data2.1,data3,data4,data5,data6,data6.1,data6.2,data7,data7.1,
-                  data8,data9,data10,data11,data12,data13,data14)
+                  data8,data9,data10,data11,data12,data13,data14,data15)
 
 sv(data, "data/1001.csv")
 
@@ -288,11 +299,12 @@ group_by(data,ID) %>%
   summarise(mean = mean(diff), max = max(diff), min = min(diff))
 
 ##' # Plot
-#+ fig.height = 8
+#+ fig.height = 10
 ggplot(data = data) + 
   geom_point(aes(time,NM),color = "firebrick") + 
   geom_line(aes(time,MRGSIM,group = ID)) +
-  facet_wrap(~ID, scales = "free_y", ncol = 3)
+  facet_wrap(~ID, scales = "free_y", ncol = 2) + 
+  theme_bw()
 
 ##' \newpage
 ##' 
