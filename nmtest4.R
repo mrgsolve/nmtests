@@ -288,9 +288,7 @@ summary(out$CP - sims$CP)
 data$NM <- out$CP
 data$MRGSIM <- sims$CP
 
-##' 
-##' \newpage
-##' 
+
 ##' # Summary by RUN
 ##' 
 ##' `diff` is the simulated `CP` from `nonmem` minus the simulated

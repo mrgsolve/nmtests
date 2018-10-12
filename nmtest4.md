@@ -678,7 +678,6 @@ data$NM <- out$CP
 data$MRGSIM <- sims$CP
 ```
 
-\newpage
 Summary by RUN
 ==============
 
