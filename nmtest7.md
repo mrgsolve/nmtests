@@ -1,7 +1,9 @@
-Tests with NONMEM
+Bemchmark test with mrgsolve and NONMEM
 ================
 Metrum Research Group, LLC
 
+-   [Introduction](#introduction)
+-   [Setup](#setup)
 -   [Functions](#functions)
     -   [Save `mrgsim` output as a `nonmem` input data set](#save-mrgsim-output-as-a-nonmem-input-data-set)
     -   [Save the `nonmem` input data set](#save-the-nonmem-input-data-set)
@@ -12,7 +14,8 @@ Metrum Research Group, LLC
 -   [Assemble the scenarios](#assemble-the-scenarios)
 -   [Simulate with `nonmem`](#simulate-with-nonmem)
 -   [Numeric Summary](#numeric-summary)
--   [Summary by scenario number](#summary-by-scenario-number)
+    -   [Overall](#overall)
+    -   [Summary by scenario number](#summary-by-scenario-number)
 -   [Results](#results)
     -   [1: Bolus with additional](#bolus-with-additional)
     -   [2: Bolus with lag time and bioav](#bolus-with-lag-time-and-bioav)
@@ -36,6 +39,18 @@ Metrum Research Group, LLC
     -   [20: Steady state 1 and 2](#steady-state-1-and-2)
 -   [Control stream](#control-stream)
 -   [Session Info](#session-info)
+
+Introduction
+============
+
+This document runs simulations from a pharmacokinetic model using both NONMEM and mrgsolve and compares the results.
+
+All of the relevant code is presented so that the user can trace how the simulations are performed.
+
+The bottom line results are presented in graphical form [here](#results) and numeric form [here](#numeric-summary).
+
+Setup
+=====
 
 ``` r
 Sys.setenv(RSTUDIO_PANDOC = "/usr/lib/rstudio-server/bin/pandoc")
@@ -343,6 +358,9 @@ runs <- mutate(
 comp <- runs %>% select(ID,comp) %>% unnest()
 ```
 
+Overall
+-------
+
 This is the `nonmem` minus `mrgsim` summary
 
 ``` r
@@ -353,7 +371,7 @@ summary(comp$diff)
     .       0       0       0       0       0       0
 
 Summary by scenario number
-==========================
+--------------------------
 
 `diff` is the simulated `CP` from `nonmem` minus the simulated `CP` from `mrgsim`
 

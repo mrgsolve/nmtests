@@ -1,5 +1,5 @@
 ##' ---
-##' title: "Tests with NONMEM"
+##' title: "Bemchmark test with mrgsolve and NONMEM"
 ##' author: "Metrum Research Group, LLC"
 ##' date: ""
 ##' output: 
@@ -14,11 +14,23 @@
 ##'     extra_dependencies:
 ##'       fontenc: T1
 ##'       mathdesign: utopia
-
 ##'     
 ##' ---
 
-
+##' # Introduction
+##' 
+##' This document runs simulations from a pharmacokinetic model using both 
+##' NONMEM and mrgsolve and compares the results.  
+##' 
+##' All of the relevant code is presented so that the user can trace how 
+##' the simulations are performed.  
+##' 
+##' The bottom line results are presented in graphical
+##' form  [here](#results) and numeric form [here](#numeric-summary).
+##' 
+##' 
+##' 
+##' # Setup
 
 Sys.setenv(RSTUDIO_PANDOC = "/usr/lib/rstudio-server/bin/pandoc")
 
@@ -242,11 +254,12 @@ runs <- mutate(
 
 comp <- runs %>% select(ID,comp) %>% unnest()
 
-
+##' ## Overall
+##' 
 ##' This is the `nonmem` minus `mrgsim` summary
 summary(comp$diff)
 
-##' # Summary by scenario number
+##' ## Summary by scenario number
 ##' 
 ##' `diff` is the simulated `CP` from `nonmem` minus the simulated
 ##' `CP` from `mrgsim`
