@@ -40,6 +40,10 @@ carry <- c("cmt", "amt","ii", "addl", "rate", "evid", "ss")
 
 ##' # Functions
 ##' 
+##' These functions assemble data sets, run simulations, and 
+##' gather outputs.  All scenarios are handled in exactly the 
+##' same way.
+##' 
 ##' 
 ##' ## Save `mrgsim` output as a `nonmem` input data set
 to_data_set <- function(x,id=NULL) {
@@ -75,11 +79,6 @@ sim <- function(x, e,...) {
   mrgsim(x, events = e, carry.out = carry, digits = 5, ...) 
 }
 
-nmtest_plot <- function(x) {
-  plot(x, CP~time)  
-}
-
-##' 
 ##' 
 ##' # The `mrgsim` model
 
@@ -114,6 +113,14 @@ mod <- update(mod, end=130, delta = 1)
 ##'
 ##' # Assemble the scenarios
 ##' 
+##' There is a lot of code here.  See the [results](#results) section to 
+##' see input data objects next to simulated data output from 
+##' mrgsolve and NONMEM.
+##' 
+##' - Doses into `cmt` 2 are intravascular and doses into `cmt` 1 are extravascular
+##' - `LAGT` sets the dosing lag time
+##' - `BIOAV` sets the bioavailability fraction
+##' 
 ##'
 ##'
 env <- new.env()
@@ -132,18 +139,18 @@ push_back(env,ev, "Bolus with additional")
 
 #+
 ev <- ev(amt = 100, ii = 24, addl = 3, LAGT = 12.13, BIOAV = 2.23, cmt = 2) 
-push_back(env, ev, "Bolus with lag time and bioav")
+push_back(env, ev,"Bolus with lag time and bioav")
 #+
 ev <- ev(amt = 100, ii = 24, addl = 3, rate = 100/10, cmt = 2) 
-push_back(env,ev, "Infusion with additional")
+push_back(env,ev,"Infusion with additional")
 #+
 ev <- ev(amt = 100, ii = 24, addl = 3, rate = 100/12, cmt = 1) 
 push_back(env,ev,"Infusion doses to depot, with additional")
 #+
-ev4 <- ev(amt = 100, ii = 24, addl=3, rate = 100/10, LAGT = 4.15, cmt = 2) 
+ev <- ev(amt = 100, ii = 24, addl=3, rate = 100/10, LAGT = 4.15, cmt = 2) 
 push_back(env,ev,"Infusion doses, with additional and lag time")
 #+
-ev5 <- ev(amt = 100, ii = 24, addl = 3, rate = 100/10, LAGT = 3.25, BIOAV = 0.412, cmt = 2) 
+ev <- ev(amt = 100, ii = 24, addl = 3, rate = 100/10, LAGT = 3.25, BIOAV = 0.412, cmt = 2) 
 push_back(env,ev,"Infusion doses, with lag time and bioav factor")
 #+
 ev <- ev(amt = 100, ii = 24, addl = 3, rate = 100/10, LAGT = 3.16, BIOAV = 0.412, ss = 1, cmt = 2) 
@@ -164,10 +171,10 @@ push_back(env,ev,"Infusion doses at steady state where II == DUR, with bioav fac
 ev <- ev(amt = 100, ii = 10, addl = 8, rate = 100/10, ss = 1, cmt = 2) 
 push_back(env,ev,"Infusion doses at steady state, where II == DUR")
 #+
-ev <- ev(amt = 100, ii = 24, addl=3,  LAGT = 4, BIOAV = 0.412, ss = 1, cmt = 2) 
+ev <- ev(amt = 100, ii = 24, addl = 3,  LAGT = 4, BIOAV = 0.412, ss = 1, cmt = 2) 
 push_back(env,ev,"Bolus doses at steady state, with bioav factor and lag time")
 #+
-ev <- ev(amt = 100, ii = 24, addl=3,  LAGT = 5, BIOAV = 0.412, cmt = 2) 
+ev <- ev(amt = 100, ii = 24, addl = 3,  LAGT = 5, BIOAV = 0.412, cmt = 2) 
 push_back(env,ev,"Bolus doses with lag time and bioavability factor")
 #+
 ev <- 
@@ -214,7 +221,10 @@ sv(data, "data/1001.csv")
 ##' # Simulate with `nonmem`
 out <- run(1001)
 
-##' # Overall Summary
+##' 
+##' # Numeric Summary
+##' 
+##' Look at the difference between simulated values from mrgsolve and NONMEM.
 ##' 
 runs <- mutate(runs, out = split(out,out$ID))
 
@@ -236,18 +246,19 @@ comp <- runs %>% select(ID,comp) %>% unnest()
 ##' This is the `nonmem` minus `mrgsim` summary
 summary(comp$diff)
 
-##' # Summary by RUN
+##' # Summary by scenario number
 ##' 
 ##' `diff` is the simulated `CP` from `nonmem` minus the simulated
 ##' `CP` from `mrgsim`
 group_by(comp,ID) %>% summarise(mean = mean(diff), max = max(diff), min = min(diff))
 
 comp_plot <- function(comp) {
+  id <- comp$ID[1]
   ggplot(data = comp) + 
-    ggtitle(paste0("ID: ", comp$ID[1]), subtitle="Line: mrgsolve, Point: NONMEM") + 
+    ggtitle(label=NULL,subtitle=paste0("ID: ", id, "; line: mrgsolve, point: NONMEM")) + 
     geom_point(aes(time,NONMEM),color = "firebrick") + 
     geom_line(aes(time,MRGSIM,group = ID)) +
-    theme_bw() + ylab("Simulated value") + 
+    theme_bw() + ylab("Simulated value") + xlab("Time") + 
     scale_x_continuous(breaks = seq(0,130,24))  
 }
 
@@ -256,7 +267,11 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
 
 ##' # Results
 
-get_title <- function(i) unlist(slice(runs,i) %>% select(descr))
+#+ echo = FALSE
+get_title <- function(i) {
+  de <- unlist(slice(runs,i) %>% select(descr))
+  paste0(i, ": ",de)
+}
 
 ##' ## `r i <- 1; get_title(i)`
 #+ echo = FALSE

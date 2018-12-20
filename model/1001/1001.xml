@@ -5,7 +5,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://namespaces.oreilly.com/xmlnut/address output.xsd"
 xmlns:nm="http://namespaces.oreilly.com/xmlnut/address"
 >
-<nm:start_datetime>2018-12-20T05:05:45.995</nm:start_datetime>
+<nm:start_datetime>2018-12-20T05:27:18.213</nm:start_datetime>
 <nm:control_stream><![CDATA[
 $PROB RUN# 101
 
@@ -247,10 +247,10 @@ SEED   1 RESET TO INITIAL: YES
 </nm:estimation>
 <nm:post_process_times>
 <nm:post_elapsed_time>0.01</nm:post_elapsed_time>
-<nm:finaloutput_elapsed_time>0.22</nm:finaloutput_elapsed_time>
+<nm:finaloutput_elapsed_time>0.23</nm:finaloutput_elapsed_time>
 </nm:post_process_times>
 </nm:problem>
 </nm:nonmem>
-<nm:stop_datetime>2018-12-20T05:05:46.252</nm:stop_datetime>
-<nm:total_cputime>0.250</nm:total_cputime>
+<nm:stop_datetime>2018-12-20T05:27:18.482</nm:stop_datetime>
+<nm:total_cputime>0.262</nm:total_cputime>
 </nm:output>

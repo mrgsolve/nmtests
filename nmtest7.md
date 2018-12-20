@@ -11,29 +11,29 @@ Metrum Research Group, LLC
 -   [The `mrgsim` model](#the-mrgsim-model)
 -   [Assemble the scenarios](#assemble-the-scenarios)
 -   [Simulate with `nonmem`](#simulate-with-nonmem)
--   [Overall Summary](#overall-summary)
--   [Summary by RUN](#summary-by-run)
+-   [Numeric Summary](#numeric-summary)
+-   [Summary by scenario number](#summary-by-scenario-number)
 -   [Results](#results)
-    -   [Bolus with additional](#bolus-with-additional)
-    -   [Bolus with lag time and bioav](#bolus-with-lag-time-and-bioav)
-    -   [Infusion with additional](#infusion-with-additional)
-    -   [Infusion doses to depot, with additional](#infusion-doses-to-depot-with-additional)
-    -   [Infusion doses, with additional and lag time](#infusion-doses-with-additional-and-lag-time)
-    -   [Infusion doses, with lag time and bioav factor](#infusion-doses-with-lag-time-and-bioav-factor)
-    -   [Infusion doses, with lag time and bioav factor](#infusion-doses-with-lag-time-and-bioav-factor-1)
-    -   [Infusion doses at steady-state, with lag time and bioav factor](#infusion-doses-at-steady-state-with-lag-time-and-bioav-factor)
-    -   [Infusion doses, with lag time and bioav factor](#infusion-doses-with-lag-time-and-bioav-factor-2)
-    -   [Infusion doses at steady state, II &lt; DUR, no bioav factor](#infusion-doses-at-steady-state-ii-dur-no-bioav-factor)
-    -   [Infusion doses at steady state where II == DUR, with bioav factor](#infusion-doses-at-steady-state-where-ii-dur-with-bioav-factor)
-    -   [Infusion doses at steady state, where II == DUR](#infusion-doses-at-steady-state-where-ii-dur)
-    -   [Bolus doses at steady state, with bioav factor and lag time](#bolus-doses-at-steady-state-with-bioav-factor-and-lag-time)
-    -   [Bolus doses with lag time and bioavability factor](#bolus-doses-with-lag-time-and-bioavability-factor)
-    -   [Bolus then infusion](#bolus-then-infusion)
-    -   [Infusion with modeled duration, lag time, and bioav factor](#infusion-with-modeled-duration-lag-time-and-bioav-factor)
-    -   [Infusion with modeled duration, at steady state with bioav factor](#infusion-with-modeled-duration-at-steady-state-with-bioav-factor)
-    -   [Reset and dose (EVID 4) with additional](#reset-and-dose-evid-4-with-additional)
-    -   [Reset (EVID 3) with additional](#reset-evid-3-with-additional)
-    -   [Steady state 1 and 2](#steady-state-1-and-2)
+    -   [1: Bolus with additional](#bolus-with-additional)
+    -   [2: Bolus with lag time and bioav](#bolus-with-lag-time-and-bioav)
+    -   [3: Infusion with additional](#infusion-with-additional)
+    -   [4: Infusion doses to depot, with additional](#infusion-doses-to-depot-with-additional)
+    -   [5: Infusion doses, with additional and lag time](#infusion-doses-with-additional-and-lag-time)
+    -   [6: Infusion doses, with lag time and bioav factor](#infusion-doses-with-lag-time-and-bioav-factor)
+    -   [7: Infusion doses, with lag time and bioav factor](#infusion-doses-with-lag-time-and-bioav-factor-1)
+    -   [8: Infusion doses at steady-state, with lag time and bioav factor](#infusion-doses-at-steady-state-with-lag-time-and-bioav-factor)
+    -   [9: Infusion doses, with lag time and bioav factor](#infusion-doses-with-lag-time-and-bioav-factor-2)
+    -   [10: Infusion doses at steady state, II &lt; DUR, no bioav factor](#infusion-doses-at-steady-state-ii-dur-no-bioav-factor)
+    -   [11: Infusion doses at steady state where II == DUR, with bioav factor](#infusion-doses-at-steady-state-where-ii-dur-with-bioav-factor)
+    -   [12: Infusion doses at steady state, where II == DUR](#infusion-doses-at-steady-state-where-ii-dur)
+    -   [13: Bolus doses at steady state, with bioav factor and lag time](#bolus-doses-at-steady-state-with-bioav-factor-and-lag-time)
+    -   [14: Bolus doses with lag time and bioavability factor](#bolus-doses-with-lag-time-and-bioavability-factor)
+    -   [15: Bolus then infusion](#bolus-then-infusion)
+    -   [16: Infusion with modeled duration, lag time, and bioav factor](#infusion-with-modeled-duration-lag-time-and-bioav-factor)
+    -   [17: Infusion with modeled duration, at steady state with bioav factor](#infusion-with-modeled-duration-at-steady-state-with-bioav-factor)
+    -   [18: Reset and dose (EVID 4) with additional](#reset-and-dose-evid-4-with-additional)
+    -   [19: Reset (EVID 3) with additional](#reset-evid-3-with-additional)
+    -   [20: Steady state 1 and 2](#steady-state-1-and-2)
 -   [Control stream](#control-stream)
 -   [Session Info](#session-info)
 
@@ -58,6 +58,8 @@ carry <- c("cmt", "amt","ii", "addl", "rate", "evid", "ss")
 
 Functions
 =========
+
+These functions assemble data sets, run simulations, and gather outputs. All scenarios are handled in exactly the same way.
 
 Save `mrgsim` output as a `nonmem` input data set
 -------------------------------------------------
@@ -111,10 +113,6 @@ Simulate a scenario with `mrsim`
 sim <- function(x, e,...) {
   mrgsim(x, events = e, carry.out = carry, digits = 5, ...) 
 }
-
-nmtest_plot <- function(x) {
-  plot(x, CP~time)  
-}
 ```
 
 The `mrgsim` model
@@ -156,6 +154,12 @@ mod <- update(mod, end=130, delta = 1)
 Assemble the scenarios
 ======================
 
+There is a lot of code here. See the [results](#results) section to see input data objects next to simulated data output from mrgsolve and NONMEM.
+
+-   Doses into `cmt` 2 are intravascular and doses into `cmt` 1 are extravascular
+-   `LAGT` sets the dosing lag time
+-   `BIOAV` sets the bioavailability fraction
+
 ``` r
 env <- new.env()
 env$ev <- list()
@@ -175,12 +179,12 @@ push_back(env,ev, "Bolus with additional")
 
 ``` r
 ev <- ev(amt = 100, ii = 24, addl = 3, LAGT = 12.13, BIOAV = 2.23, cmt = 2) 
-push_back(env, ev, "Bolus with lag time and bioav")
+push_back(env, ev,"Bolus with lag time and bioav")
 ```
 
 ``` r
 ev <- ev(amt = 100, ii = 24, addl = 3, rate = 100/10, cmt = 2) 
-push_back(env,ev, "Infusion with additional")
+push_back(env,ev,"Infusion with additional")
 ```
 
 ``` r
@@ -189,12 +193,12 @@ push_back(env,ev,"Infusion doses to depot, with additional")
 ```
 
 ``` r
-ev4 <- ev(amt = 100, ii = 24, addl=3, rate = 100/10, LAGT = 4.15, cmt = 2) 
+ev <- ev(amt = 100, ii = 24, addl=3, rate = 100/10, LAGT = 4.15, cmt = 2) 
 push_back(env,ev,"Infusion doses, with additional and lag time")
 ```
 
 ``` r
-ev5 <- ev(amt = 100, ii = 24, addl = 3, rate = 100/10, LAGT = 3.25, BIOAV = 0.412, cmt = 2) 
+ev <- ev(amt = 100, ii = 24, addl = 3, rate = 100/10, LAGT = 3.25, BIOAV = 0.412, cmt = 2) 
 push_back(env,ev,"Infusion doses, with lag time and bioav factor")
 ```
 
@@ -229,12 +233,12 @@ push_back(env,ev,"Infusion doses at steady state, where II == DUR")
 ```
 
 ``` r
-ev <- ev(amt = 100, ii = 24, addl=3,  LAGT = 4, BIOAV = 0.412, ss = 1, cmt = 2) 
+ev <- ev(amt = 100, ii = 24, addl = 3,  LAGT = 4, BIOAV = 0.412, ss = 1, cmt = 2) 
 push_back(env,ev,"Bolus doses at steady state, with bioav factor and lag time")
 ```
 
 ``` r
-ev <- ev(amt = 100, ii = 24, addl=3,  LAGT = 5, BIOAV = 0.412, cmt = 2) 
+ev <- ev(amt = 100, ii = 24, addl = 3,  LAGT = 5, BIOAV = 0.412, cmt = 2) 
 push_back(env,ev,"Bolus doses with lag time and bioavability factor")
 ```
 
@@ -316,8 +320,10 @@ out <- run(1001)
     .   DV = col_double()
     . )
 
-Overall Summary
+Numeric Summary
 ===============
+
+Look at the difference between simulated values from mrgsolve and NONMEM.
 
 ``` r
 runs <- mutate(runs, out = split(out,out$ID))
@@ -346,8 +352,8 @@ summary(comp$diff)
     .    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
     .       0       0       0       0       0       0
 
-Summary by RUN
-==============
+Summary by scenario number
+==========================
 
 `diff` is the simulated `CP` from `nonmem` minus the simulated `CP` from `mrgsim`
 
@@ -381,11 +387,12 @@ group_by(comp,ID) %>% summarise(mean = mean(diff), max = max(diff), min = min(di
 
 ``` r
 comp_plot <- function(comp) {
+  id <- comp$ID[1]
   ggplot(data = comp) + 
-    ggtitle(paste0("ID: ", comp$ID[1]), subtitle="Line: mrgsolve, Point: NONMEM") + 
+    ggtitle(label=NULL,subtitle=paste0("ID: ", id, "; line: mrgsolve, point: NONMEM")) + 
     geom_point(aes(time,NONMEM),color = "firebrick") + 
     geom_line(aes(time,MRGSIM,group = ID)) +
-    theme_bw() + ylab("Simulated value") + 
+    theme_bw() + ylab("Simulated value") + xlab("Time") + 
     scale_x_continuous(breaks = seq(0,130,24))  
 }
 
@@ -396,12 +403,8 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
 Results
 =======
 
-``` r
-get_title <- function(i) unlist(slice(runs,i) %>% select(descr))
-```
-
-Bolus with additional
----------------------
+1: Bolus with additional
+------------------------
 
     . $ev
     . Events:
@@ -412,8 +415,8 @@ Bolus with additional
 
 ![](img/nmtest4-unnamed-chunk-39-1.png)
 
-Bolus with lag time and bioav
------------------------------
+2: Bolus with lag time and bioav
+--------------------------------
 
     . $ev
     . Events:
@@ -424,8 +427,8 @@ Bolus with lag time and bioav
 
 ![](img/nmtest4-unnamed-chunk-40-1.png)
 
-Infusion with additional
-------------------------
+3: Infusion with additional
+---------------------------
 
     . $ev
     . Events:
@@ -436,8 +439,8 @@ Infusion with additional
 
 ![](img/nmtest4-unnamed-chunk-41-1.png)
 
-Infusion doses to depot, with additional
-----------------------------------------
+4: Infusion doses to depot, with additional
+-------------------------------------------
 
     . $ev
     . Events:
@@ -448,32 +451,32 @@ Infusion doses to depot, with additional
 
 ![](img/nmtest4-unnamed-chunk-42-1.png)
 
-Infusion doses, with additional and lag time
---------------------------------------------
+5: Infusion doses, with additional and lag time
+-----------------------------------------------
 
     . $ev
     . Events:
-    .   time cmt amt evid ii addl     rate ID
-    . 1    0   1 100    1 24    3 8.333333  5
+    .   time cmt amt evid ii addl rate LAGT ID
+    . 1    0   2 100    1 24    3   10 4.15  5
     . 
     . $plot
 
 ![](img/nmtest4-unnamed-chunk-43-1.png)
 
-Infusion doses, with lag time and bioav factor
-----------------------------------------------
+6: Infusion doses, with lag time and bioav factor
+-------------------------------------------------
 
     . $ev
     . Events:
-    .   time cmt amt evid ii addl     rate ID
-    . 1    0   1 100    1 24    3 8.333333  6
+    .   time cmt amt evid ii addl rate LAGT BIOAV ID
+    . 1    0   2 100    1 24    3   10 3.25 0.412  6
     . 
     . $plot
 
 ![](img/nmtest4-unnamed-chunk-44-1.png)
 
-Infusion doses, with lag time and bioav factor
-----------------------------------------------
+7: Infusion doses, with lag time and bioav factor
+-------------------------------------------------
 
     . $ev
     . Events:
@@ -484,8 +487,8 @@ Infusion doses, with lag time and bioav factor
 
 ![](img/nmtest4-unnamed-chunk-45-1.png)
 
-Infusion doses at steady-state, with lag time and bioav factor
---------------------------------------------------------------
+8: Infusion doses at steady-state, with lag time and bioav factor
+-----------------------------------------------------------------
 
     . $ev
     . Events:
@@ -496,8 +499,8 @@ Infusion doses at steady-state, with lag time and bioav factor
 
 ![](img/nmtest4-unnamed-chunk-46-1.png)
 
-Infusion doses, with lag time and bioav factor
-----------------------------------------------
+9: Infusion doses, with lag time and bioav factor
+-------------------------------------------------
 
     . $ev
     . Events:
@@ -508,8 +511,8 @@ Infusion doses, with lag time and bioav factor
 
 ![](img/nmtest4-unnamed-chunk-47-1.png)
 
-Infusion doses at steady state, II &lt; DUR, no bioav factor
-------------------------------------------------------------
+10: Infusion doses at steady state, II &lt; DUR, no bioav factor
+----------------------------------------------------------------
 
     . $ev
     . Events:
@@ -520,8 +523,8 @@ Infusion doses at steady state, II &lt; DUR, no bioav factor
 
 ![](img/nmtest4-unnamed-chunk-48-1.png)
 
-Infusion doses at steady state where II == DUR, with bioav factor
------------------------------------------------------------------
+11: Infusion doses at steady state where II == DUR, with bioav factor
+---------------------------------------------------------------------
 
     . $ev
     . Events:
@@ -532,8 +535,8 @@ Infusion doses at steady state where II == DUR, with bioav factor
 
 ![](img/nmtest4-unnamed-chunk-49-1.png)
 
-Infusion doses at steady state, where II == DUR
------------------------------------------------
+12: Infusion doses at steady state, where II == DUR
+---------------------------------------------------
 
     . $ev
     . Events:
@@ -544,8 +547,8 @@ Infusion doses at steady state, where II == DUR
 
 ![](img/nmtest4-unnamed-chunk-50-1.png)
 
-Bolus doses at steady state, with bioav factor and lag time
------------------------------------------------------------
+13: Bolus doses at steady state, with bioav factor and lag time
+---------------------------------------------------------------
 
     . $ev
     . Events:
@@ -556,8 +559,8 @@ Bolus doses at steady state, with bioav factor and lag time
 
 ![](img/nmtest4-unnamed-chunk-51-1.png)
 
-Bolus doses with lag time and bioavability factor
--------------------------------------------------
+14: Bolus doses with lag time and bioavability factor
+-----------------------------------------------------
 
     . $ev
     . Events:
@@ -568,8 +571,8 @@ Bolus doses with lag time and bioavability factor
 
 ![](img/nmtest4-unnamed-chunk-52-1.png)
 
-Bolus then infusion
--------------------
+15: Bolus then infusion
+-----------------------
 
     . $ev
     . Events:
@@ -581,8 +584,8 @@ Bolus then infusion
 
 ![](img/nmtest4-unnamed-chunk-53-1.png)
 
-Infusion with modeled duration, lag time, and bioav factor
-----------------------------------------------------------
+16: Infusion with modeled duration, lag time, and bioav factor
+--------------------------------------------------------------
 
     . $ev
     . Events:
@@ -593,8 +596,8 @@ Infusion with modeled duration, lag time, and bioav factor
 
 ![](img/nmtest4-unnamed-chunk-54-1.png)
 
-Infusion with modeled duration, at steady state with bioav factor
------------------------------------------------------------------
+17: Infusion with modeled duration, at steady state with bioav factor
+---------------------------------------------------------------------
 
     . $ev
     . Events:
@@ -605,8 +608,8 @@ Infusion with modeled duration, at steady state with bioav factor
 
 ![](img/nmtest4-unnamed-chunk-55-1.png)
 
-Reset and dose (EVID 4) with additional
----------------------------------------
+18: Reset and dose (EVID 4) with additional
+-------------------------------------------
 
     . $ev
     . Events:
@@ -618,8 +621,8 @@ Reset and dose (EVID 4) with additional
 
 ![](img/nmtest4-unnamed-chunk-56-1.png)
 
-Reset (EVID 3) with additional
-------------------------------
+19: Reset (EVID 3) with additional
+----------------------------------
 
     . $ev
     . Events:
@@ -632,8 +635,8 @@ Reset (EVID 3) with additional
 
 ![](img/nmtest4-unnamed-chunk-57-1.png)
 
-Steady state 1 and 2
---------------------
+20: Steady state 1 and 2
+------------------------
 
     . $ev
     . Events:
