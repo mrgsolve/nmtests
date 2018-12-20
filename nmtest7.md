@@ -45,7 +45,7 @@ Introduction
 
 This document runs simulations from a pharmacokinetic model using both NONMEM and mrgsolve and compares the results.
 
-All of the relevant code is presented so that the user can trace how the simulations are performed.
+All of the relevant code is presented so that the user can trace how the simulations are performed. The complete source code can be viewed [here](nmtest7.R).
 
 The bottom line results are presented in graphical form [here](#results) and numeric form [here](#numeric-summary).
 
@@ -670,9 +670,10 @@ Control stream
 ==============
 
 ``` r
-writeLines(readLines("model/1001.ctl"))
+writeLines(readLines("model/1001/1001.lst"))
 ```
 
+       Thu Dec 20 05:38:42 UTC 2018
        $PROB RUN# 101
        
        $INPUT C ID TIME EVID AMT CMT SS II ADDL RATE LAGT MODE DUR2 RAT2 BIOAV DV
@@ -720,6 +721,151 @@ writeLines(readLines("model/1001.ctl"))
        $TABLE FILE=TAB ID TIME EVID CP IPRED PRED DV NOPRINT ONEHEADER NOAPPEND
        
        $SIMULATION (2674474) ONLYSIMULATION
+       
+       
+       NM-TRAN MESSAGES
+         
+        WARNINGS AND ERRORS (IF ANY) FOR PROBLEM    1
+                    
+        (WARNING  2) NM-TRAN INFERS THAT THE DATA ARE POPULATION.
+       
+       License Registered to: Metrum Research Group
+       Expiration Date:    14 JUL 2019
+       Current Date:       20 DEC 2018
+       Days until program expires : 209
+       1NONLINEAR MIXED EFFECTS MODEL PROGRAM (NONMEM) VERSION 7.4.3
+        ORIGINALLY DEVELOPED BY STUART BEAL, LEWIS SHEINER, AND ALISON BOECKMANN
+        CURRENT DEVELOPERS ARE ROBERT BAUER, ICON DEVELOPMENT SOLUTIONS,
+        AND ALISON BOECKMANN. IMPLEMENTATION, EFFICIENCY, AND STANDARDIZATION
+        PERFORMED BY NOUS INFOSYSTEMS.
+       
+        PROBLEM NO.:         1
+        RUN# 101
+       0DATA CHECKOUT RUN:              NO
+        DATA SET LOCATED ON UNIT NO.:    2
+        THIS UNIT TO BE REWOUND:        NO
+        NO. OF DATA RECS IN DATA SET:     2645
+        NO. OF DATA ITEMS IN DATA SET:  17
+        ID DATA ITEM IS DATA ITEM NO.:   2
+        DEP VARIABLE IS DATA ITEM NO.:  16
+        MDV DATA ITEM IS DATA ITEM NO.: 17
+       0INDICES PASSED TO SUBROUTINE PRED:
+          4   3   5  10   7   8   6   0   0   0   9
+       0LABELS FOR DATA ITEMS:
+        C ID TIME EVID AMT CMT SS II ADDL RATE LAGT MODE DUR2 RAT2 BIOAV DV MDV
+       0(NONBLANK) LABELS FOR PRED-DEFINED ITEMS:
+        IPRED CP
+       0FORMAT FOR DATA:
+        (E2.0,E3.0,E4.0,E2.0,E4.0,2E2.0,2E3.0,E17.0,E6.0,2E2.0,3E6.0,1F2.0)
+       
+        TOT. NO. OF OBS RECS:     2620
+        TOT. NO. OF INDIVIDUALS:       20
+       0LENGTH OF THETA:   3
+       0DEFAULT THETA BOUNDARY TEST OMITTED:    NO
+       0OMEGA HAS SIMPLE DIAGONAL FORM WITH DIMENSION:   3
+       0DEFAULT OMEGA BOUNDARY TEST OMITTED:    NO
+       0SIGMA HAS SIMPLE DIAGONAL FORM WITH DIMENSION:   1
+       0DEFAULT SIGMA BOUNDARY TEST OMITTED:    NO
+       0INITIAL ESTIMATE OF THETA:
+        LOWER BOUND    INITIAL EST    UPPER BOUND
+         0.1100E+01     0.1100E+01     0.1100E+01
+         0.2000E+02     0.2000E+02     0.2000E+02
+         0.1500E+01     0.1500E+01     0.1500E+01
+       0INITIAL ESTIMATE OF OMEGA:
+        0.0000E+00
+        0.0000E+00   0.0000E+00
+        0.0000E+00   0.0000E+00   0.0000E+00
+       0OMEGA CONSTRAINED TO BE THIS INITIAL ESTIMATE
+       0INITIAL ESTIMATE OF SIGMA:
+        0.0000E+00
+       0SIGMA CONSTRAINED TO BE THIS INITIAL ESTIMATE
+       0SIMULATION STEP OMITTED:    NO
+        OBJ FUNC EVALUATED:         NO
+        ORIGINAL DATA USED ON EACH NEW SIMULATION:         NO
+        SEEDS RESET ON EACH NEW SUPERSET ITERATION:        YES
+       0SIMULATION RANDOM METHOD SELECTED (RANMETHOD): 4U
+       SEED   1 RESET TO INITIAL: YES
+        SOURCE   1:
+          SEED1:       2674474   SEED2:             0   PSEUDO-NORMAL
+       0WARNING: NO. OF OBS RECS IN INDIVIDUAL REC NO.      1 (IN INDIVIDUAL
+        REC ORDERING) EXCEEDS ONE WHILE INITIAL ESTIMATE OF WITHIN INDIVIDUAL VARIANCE IS ZERO
+       0WARNING: NO. OF OBS RECS IN INDIVIDUAL REC NO.      2 (IN INDIVIDUAL
+        REC ORDERING) EXCEEDS ONE WHILE INITIAL ESTIMATE OF WITHIN INDIVIDUAL VARIANCE IS ZERO
+       0WARNING: NO. OF OBS RECS IN INDIVIDUAL REC NO.      3 (IN INDIVIDUAL
+        REC ORDERING) EXCEEDS ONE WHILE INITIAL ESTIMATE OF WITHIN INDIVIDUAL VARIANCE IS ZERO
+       0WARNING: NO. OF OBS RECS IN INDIVIDUAL REC NO.      4 (IN INDIVIDUAL
+        REC ORDERING) EXCEEDS ONE WHILE INITIAL ESTIMATE OF WITHIN INDIVIDUAL VARIANCE IS ZERO
+       0WARNING: NO. OF OBS RECS IN INDIVIDUAL REC NO.      5 (IN INDIVIDUAL
+        REC ORDERING) EXCEEDS ONE WHILE INITIAL ESTIMATE OF WITHIN INDIVIDUAL VARIANCE IS ZERO
+       0TABLES STEP OMITTED:    NO
+        NO. OF TABLES:           1
+        SEED NUMBER (SEED):    11456
+        RANMETHOD:             3U
+        MC SAMPLES (ESAMPLE):    300
+        WRES SQUARE ROOT TYPE (WRESCHOL): EIGENVALUE
+       0-- TABLE   1 --
+       0RECORDS ONLY:    ALL
+       04 COLUMNS APPENDED:    NO
+        PRINTED:                NO
+        HEADERS:               ONE
+        FILE TO BE FORWARDED:   NO
+        FORMAT:                S1PE11.4
+        LFORMAT:
+        RFORMAT:
+        FIXED_EFFECT_ETAS:
+       0USER-CHOSEN ITEMS:
+        ID TIME EVID CP IPRED PRED DV
+       1DOUBLE PRECISION PREDPP VERSION 7.4.3
+       
+        ONE COMPARTMENT MODEL WITH FIRST-ORDER ABSORPTION (ADVAN2)
+       0MAXIMUM NO. OF BASIC PK PARAMETERS:   3
+       0BASIC PK PARAMETERS (AFTER TRANSLATION):
+          ELIMINATION RATE (K) IS BASIC PK PARAMETER NO.:  1
+          ABSORPTION RATE (KA) IS BASIC PK PARAMETER NO.:  3
+       
+        TRANSLATOR WILL CONVERT PARAMETERS
+        CLEARANCE (CL) AND VOLUME (V) TO K (TRANS2)
+       0COMPARTMENT ATTRIBUTES
+        COMPT. NO.   FUNCTION   INITIAL    ON/OFF      DOSE      DEFAULT    DEFAULT
+                                STATUS     ALLOWED    ALLOWED    FOR DOSE   FOR OBS.
+           1         DEPOT        OFF        YES        YES        YES        NO
+           2         CENTRAL      ON         NO         YES        NO         YES
+           3         OUTPUT       OFF        YES        NO         NO         NO
+       1
+        ADDITIONAL PK PARAMETERS - ASSIGNMENT OF ROWS IN GG
+        COMPT. NO.                             INDICES
+                     SCALE      BIOAVAIL.   ZERO-ORDER  ZERO-ORDER  ABSORB
+                                FRACTION    RATE        DURATION    LAG
+           1            *           *           *           *           *
+           2            *           5           6           7           4
+           3            *           -           -           -           -
+                    - PARAMETER IS NOT ALLOWED FOR THIS MODEL
+                    * PARAMETER IS NOT SUPPLIED BY PK SUBROUTINE;
+                      WILL DEFAULT TO ONE IF APPLICABLE
+       0DATA ITEM INDICES USED BY PRED ARE:
+          EVENT ID DATA ITEM IS DATA ITEM NO.:      4
+          TIME DATA ITEM IS DATA ITEM NO.:          3
+          DOSE AMOUNT DATA ITEM IS DATA ITEM NO.:   5
+          DOSE RATE DATA ITEM IS DATA ITEM NO.:    10
+          STEADY STATE DATA ITEM IS DATA ITEM NO.:  7
+          INTERVAL DATA ITEM IS DATA ITEM NO.:      8
+          ADDL. DOSES DATA ITEM IS DATA ITEM NO.:   9
+          COMPT. NO. DATA ITEM IS DATA ITEM NO.:    6
+       
+       0PK SUBROUTINE CALLED WITH EVERY EVENT RECORD.
+        PK SUBROUTINE NOT CALLED AT NONEVENT (ADDITIONAL OR LAGGED) DOSE TIMES.
+       0ERROR SUBROUTINE CALLED WITH EVERY EVENT RECORD.
+       0ERROR SUBROUTINE INDICATES THAT DERIVATIVES OF COMPARTMENT AMOUNTS ARE USED.
+       1
+        SIMULATION STEP PERFORMED
+        SOURCE  1:
+           SEED1:    1840054855   SEED2:    1061053076
+        Elapsed simulation  time in seconds:     0.00
+        ESTIMATION STEP OMITTED:                 YES
+        Elapsed finaloutput time in seconds:     0.22
+        #CPUT: Total CPU Time in Seconds,        0.252
+       Stop Time:
+       Thu Dec 20 05:38:46 UTC 2018
 
 Session Info
 ============

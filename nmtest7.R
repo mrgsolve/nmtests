@@ -23,7 +23,8 @@
 ##' NONMEM and mrgsolve and compares the results.  
 ##' 
 ##' All of the relevant code is presented so that the user can trace how 
-##' the simulations are performed.  
+##' the simulations are performed.  The complete source code can be viewed
+##' [here](nmtest7.R).
 ##' 
 ##' The bottom line results are presented in graphical
 ##' form  [here](#results) and numeric form [here](#numeric-summary).
@@ -369,7 +370,7 @@ slice(runs, i) %>% select(ev,plot) %>% flatten()
 
 ##' # Control stream
 #+ comment = "  "
-writeLines(readLines("model/1001.ctl"))
+writeLines(readLines("model/1001/1001.lst"))
 
 ##'
 ##' 
