@@ -53,7 +53,7 @@ sv <- function(x,file) {
 ##' ## Run `nonmem`
 run <- function(number) {
   metrumrg::NONR(number, project = "model", 
-                 command = "/opt/NONMEM/nm73/nmqual/autolog.pl", 
+                 command = "/opt/NONMEM/nm74/nmqual/autolog.pl", 
                  checkrunno=FALSE)
   return(tabread(number))
 }
@@ -68,6 +68,10 @@ tabread <- function(number) {
 ##' ## Simulate a scenario with `mrsim`
 sim <- function(x, e,...) {
   mrgsim(x, events = e, carry.out = carry, digits = 5, ...) 
+}
+
+nmtest_plot <- function(x) {
+  plot(x, CP~time)  
 }
 
 ##' 
@@ -109,28 +113,32 @@ mod <- update(mod, end=130, delta = 1)
 ev <- ev(amt = 100, ii = 24, addl = 3) 
 ev
 out1 <- sim(mod,ev)
-plot(out1)
+nmtest_plot(out1)
 data1 <- to_data_set(out1, 1)
 
 ##' ### Bolus doses, lag time and bioav factor
-ev <- ev(amt = 100, ii = 24, addl = 3, LAGT = 12.13, BIOAV = 2.23, cmt = 2) 
+ev1.1 <- ev(amt = 100, ii = 24, addl = 3, LAGT = 12.13, BIOAV = 2.23, cmt = 2) 
+
+
+
+
 ev
 out1.1 <- sim(mod,ev)
-plot(out1.1)
+nmtest_plot(out1.1)
 data1.1 <- to_data_set(out1.1, 1.1)
 
 ##' ### Infusion doses, with additional
 ev <- ev(amt = 100, ii = 24, addl = 3, rate = 100/10, cmt = 2) 
 ev
 out2 <- sim(mod,ev)
-plot(out2)
+nmtest_plot(out2)
 data2 <- to_data_set(out2, 2)
 
 ##' ### Infusion doses to depot, with additional
 ev <- ev(amt = 100, ii = 24, addl = 3, rate = 100/12, cmt = 1) 
 ev
 out2.1 <- sim(mod,ev)
-plot(out2.1)
+nmtest_plot(out2.1)
 data2.1 <- to_data_set(out2.1, 2.1)
 
 
@@ -138,102 +146,102 @@ data2.1 <- to_data_set(out2.1, 2.1)
 ev <- ev(amt = 100, ii = 24, addl=3, rate = 100/10, LAGT = 4.15, cmt = 2) 
 ev
 out3 <- sim(mod,ev)
-plot(out3)
+nmtest_plot(out3)
 data3 <- to_data_set(out3, 3)
 
 ##' ### Infusion doses, with lag time and bioav factor
 ev <- ev(amt = 100, ii = 24, addl = 3, rate = 100/10, LAGT = 3.25, BIOAV = 0.412, cmt = 2) 
 ev
 out4 <- sim(mod,ev)
-plot(out4)
+nmtest_plot(out4)
 data4 <- to_data_set(out4, 4)
 
 ##' ### Infusion doses at steady-state, with lag time and bioav factor
 ev <- ev(amt = 100, ii = 24, addl = 3, rate = 100/10, LAGT = 3.16, BIOAV = 0.412, ss = 1, cmt = 2) 
 ev
 out5 <- sim(mod,ev)
-plot(out5)
+nmtest_plot(out5)
 data5 <- to_data_set(out5, 5)
 
 ##' ### Infusion doses at steady state, II < DUR, with bioav factor
-ev <- ev(amt = 100, ii = 6, addl = 12, rate = 100/10, BIOAV = 0.812, ss = 1, cmt = 2) 
+ev <- ev(amt = 100, ii = 12, addl = 4, rate = 100/50, BIOAV = 0.812, ss = 1, cmt = 2) 
 ev
 out6 <- sim(mod,ev)
-plot(out6)
+nmtest_plot(out6)
 data6 <- to_data_set(out6, 6)
 
 ##' ### Infusion doses at steady state, II < DUR, no bioav factor
-ev <- ev(amt = 100, ii = 6, addl = 12, rate = 100/10, ss = 1, cmt = 2) 
+ev <- ev(amt = 100, ii = 12, addl = 3, rate = 100/50, ss = 1, cmt = 2) 
 ev
 out6.1 <- sim(mod,ev)
-plot(out6.1)
+nmtest_plot(out6.1)
 data6.1 <- to_data_set(out6.1, 6.1)
 
 ##' ### Infusion doses at steady state where II is a multiple of DUR
 ev <- ev(amt = 100, ii = 6, addl = 12, rate = signif(100/12,5), ss = 1, cmt = 2) 
 ev
 out6.2 <- sim(mod,ev)
-plot(out6.2)
+nmtest_plot(out6.2)
 data6.2 <- to_data_set(out6.2, 6.2)
 
 ##' ### Infusion doses at steady state where II == DUR, with bioav factor
-ev <- ev(amt = 100, ii = 10, addl = 8, rate = 100/10, LAGT = 0, BIOAV = 0.412, ss = 1, cmt = 2) 
+ev <- ev(amt = 100, ii = 10, addl = 8, rate = 0.412*100/10,  BIOAV = 0.412, ss = 1, cmt = 2) 
 ev
 out7 <- sim(mod,ev)
-plot(out7)
+nmtest_plot(out7)
 data7 <- to_data_set(out7, 7)
 
 ##' ### Infusion doses at steady state, where II == DUR
 ev <- ev(amt = 100, ii = 10, addl = 8, rate = 100/10, ss = 1, cmt = 2) 
 ev
 out7.1 <- sim(mod,ev)
-plot(out7.1)
+nmtest_plot(out7.1)
 data7.1 <- to_data_set(out7.1, 7.1)
 
 ##' ### Bolus doses at steady state, with bioav factor and lag time
 ev <- ev(amt = 100, ii = 24, addl=3,  LAGT = 4, BIOAV = 0.412, ss = 1, cmt = 2) 
 ev
 out8 <- sim(mod,ev)
-plot(out8)
+nmtest_plot(out8)
 data8 <- to_data_set(out8, 8)
 
 ##' ### Bolus doses with lag time and bioavability factor
 ev <- ev(amt = 100, ii = 24, addl=3,  LAGT = 5, BIOAV = 0.412, cmt = 2) 
 ev
 out9 <- sim(mod,ev)
-plot(out9)
+nmtest_plot(out9)
 data9 <- to_data_set(out9, 9)
 
 ##' ### Bolus / infusion
 ev <- ev(amt = 100, cmt = 2, LAGT = 1) + ev(time = 13, amt = 50, ii = 24, addl = 2, rate = 24)
 ev
 out10 <- sim(mod,ev)
-plot(out10)
+nmtest_plot(out10)
 data10 <- to_data_set(out10, 10)
 
 ##' ### Infusion with modeled duration, lag time, and bioav factor
 ev <- ev(amt = 100, rate = -2, DUR2 = 9, MODE = 2, cmt = 2, ii = 24, addl = 3, LAGT = 5, BIOAV = 0.61)
 ev
 out11 <- sim(mod,ev)
-plot(out11)
+nmtest_plot(out11)
 data11 <- to_data_set(out11,11)
 
 ##' ### Infusion with modeled duration, at steady state with bioav factor
-ev <- ev(amt = 100, rate = -2, DUR2 = 9, MODE = 2, cmt = 2, ii = 12, addl = 5, ss = 1, BIOAV = 0.61)
+ev <- ev(amt = 100, rate = -2, DUR2 = 9, MODE = 2, cmt = 2, ii = 24, addl = 3, ss = 1, BIOAV = 0.61)
 ev
 out12 <- sim(mod,ev)
-plot(out12)
+nmtest_plot(out12)
 data12 <- to_data_set(out12,12)
 
 ##' ### Reset and dose (EVID 4) with additional
 ##' 
 ##' 
 ev <- 
-  ev(amt = 100, ii = 12, addl = 5, rate = 50, BIOAV = 0.61) + 
-  ev(amt = 120, evid = 4, time = 80, BIOAV = 0.5, ii = 12, addl = 2)
+  ev(amt = 100, ii = 12, addl = 2, rate = 50, BIOAV = 0.61) + 
+  ev(amt = 120, evid = 4, time = 50, BIOAV = 0.5, ii = 12, addl = 3)
 ev
 out13 <- sim(mod,ev)
-plot(out13)
+nmtest_plot(out13)
 data13 <- to_data_set(out13,13)
 
 ##' ### Reset (EVID 3) with additional
@@ -242,10 +250,10 @@ data13 <- to_data_set(out13,13)
 ev <- 
   ev(amt = 100, ii = 12, addl = 3, rate = 50, BIOAV = 0.61) + 
   ev(amt = 0, evid = 3, time = 50, cmt = 2) + 
-  ev(amt = 120, ii = 24, addl = 2, time = 54)
+  ev(amt = 120, ii = 16, addl = 2, time = 54)
 ev
 out14 <- sim(mod,ev)
-plot(out14)
+nmtest_plot(out14)
 data14 <- to_data_set(out14,14)
 
 ##' ### Steady state 1 and 2
@@ -257,7 +265,7 @@ ev <-
 ev
 
 out15 <- sim(mod,ev)
-plot(out15)
+nmtest_plot(out15)
 data15 <- to_data_set(out15,15)
 
 ##' # Collect `mrgsim` output
@@ -275,7 +283,6 @@ sv(data, "data/1001.csv")
 ##' # Simulate with `nonmem`
 out <- run(1001)
 
-
 ##' # Overall Summary
 ##' 
 ##' Dimensions for mrgsim and nonmem output
@@ -288,7 +295,6 @@ summary(out$CP - sims$CP)
 data$NM <- out$CP
 data$MRGSIM <- sims$CP
 
-
 ##' # Summary by RUN
 ##' 
 ##' `diff` is the simulated `CP` from `nonmem` minus the simulated
@@ -298,12 +304,20 @@ group_by(data,ID) %>%
   summarise(mean = mean(diff), max = max(diff), min = min(diff))
 
 ##' # Plot
-#+ fig.height = 10
-ggplot(data = data) + 
-  geom_point(aes(time,NM),color = "firebrick") + 
-  geom_line(aes(time,MRGSIM,group = ID)) +
-  facet_wrap(~ID, scales = "free_y", ncol = 2,strip.position = "right") + 
-  theme_bw()
+ids <- unique(data$ID)
+
+for(id in ids) {
+  tmp <- filter(data, ID==id)
+  p <- 
+    ggplot(data = tmp) + 
+    ggtitle(paste0("ID: ", tmp$ID[1]), subtitle="Line: mrgsolve, Point: NONMEM") + 
+    geom_point(aes(time,NM),color = "firebrick") + 
+    geom_line(aes(time,MRGSIM,group = ID)) +
+    theme_bw() + ylab("Simulated value") + 
+    scale_x_continuous(breaks = seq(0,130,24))
+  print(p)
+}
+
 
 ##' 
 ##' # Control stream
@@ -313,7 +327,8 @@ writeLines(readLines("model/1001.ctl"))
 ##'
 ##' 
 ##' # Session Info
-#+
+#+ 
+options(width = 120)
 devtools::session_info()
 
 

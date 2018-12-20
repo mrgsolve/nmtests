@@ -9,33 +9,32 @@ Metrum Research Group, LLC
     -   [Read in `nonmem` simulation results](#read-in-nonmem-simulation-results)
     -   [Simulate a scenario with `mrsim`](#simulate-a-scenario-with-mrsim)
 -   [The `mrgsim` model](#the-mrgsim-model)
--   [Scenarios](#scenarios)
-    -   [Bolus doses, with additional](#bolus-doses-with-additional)
-    -   [Bolus doses, lag time and bioav factor](#bolus-doses-lag-time-and-bioav-factor)
-    -   [Infusion doses, with additional](#infusion-doses-with-additional)
+-   [Assemble the scenarios](#assemble-the-scenarios)
+-   [Create a single data set for `nonmem`](#create-a-single-data-set-for-nonmem)
+-   [Simulate with `nonmem`](#simulate-with-nonmem)
+-   [Overall Summary](#overall-summary)
+-   [Summary by RUN](#summary-by-run)
+-   [Results](#results)
+    -   [Bolus with additional](#bolus-with-additional)
+    -   [Bolus with lag time and bioav](#bolus-with-lag-time-and-bioav)
+    -   [Infusion with additional](#infusion-with-additional)
     -   [Infusion doses to depot, with additional](#infusion-doses-to-depot-with-additional)
     -   [Infusion doses, with additional and lag time](#infusion-doses-with-additional-and-lag-time)
     -   [Infusion doses, with lag time and bioav factor](#infusion-doses-with-lag-time-and-bioav-factor)
+    -   [Infusion doses, with lag time and bioav factor](#infusion-doses-with-lag-time-and-bioav-factor-1)
     -   [Infusion doses at steady-state, with lag time and bioav factor](#infusion-doses-at-steady-state-with-lag-time-and-bioav-factor)
-    -   [Infusion doses at steady state, II &lt; DUR, with bioav factor](#infusion-doses-at-steady-state-ii-dur-with-bioav-factor)
+    -   [Infusion doses, with lag time and bioav factor](#infusion-doses-with-lag-time-and-bioav-factor-2)
     -   [Infusion doses at steady state, II &lt; DUR, no bioav factor](#infusion-doses-at-steady-state-ii-dur-no-bioav-factor)
-    -   [Infusion doses at steady state where II is a multiple of DUR](#infusion-doses-at-steady-state-where-ii-is-a-multiple-of-dur)
     -   [Infusion doses at steady state where II == DUR, with bioav factor](#infusion-doses-at-steady-state-where-ii-dur-with-bioav-factor)
     -   [Infusion doses at steady state, where II == DUR](#infusion-doses-at-steady-state-where-ii-dur)
     -   [Bolus doses at steady state, with bioav factor and lag time](#bolus-doses-at-steady-state-with-bioav-factor-and-lag-time)
     -   [Bolus doses with lag time and bioavability factor](#bolus-doses-with-lag-time-and-bioavability-factor)
-    -   [Bolus / infusion](#bolus-infusion)
+    -   [Bolus then infusion](#bolus-then-infusion)
     -   [Infusion with modeled duration, lag time, and bioav factor](#infusion-with-modeled-duration-lag-time-and-bioav-factor)
     -   [Infusion with modeled duration, at steady state with bioav factor](#infusion-with-modeled-duration-at-steady-state-with-bioav-factor)
     -   [Reset and dose (EVID 4) with additional](#reset-and-dose-evid-4-with-additional)
     -   [Reset (EVID 3) with additional](#reset-evid-3-with-additional)
     -   [Steady state 1 and 2](#steady-state-1-and-2)
--   [Collect `mrgsim` output](#collect-mrgsim-output)
--   [Create a single data set for `nonmem`](#create-a-single-data-set-for-nonmem)
--   [Simulate with `nonmem`](#simulate-with-nonmem)
--   [Overall Summary](#overall-summary)
--   [Summary by RUN](#summary-by-run)
--   [Plot](#plot)
 -   [Control stream](#control-stream)
 -   [Session Info](#session-info)
 
@@ -49,6 +48,9 @@ library(mrgsolve)
 library(dplyr)
 library(readr)
 library(ggplot2)
+library(parallel)
+library(purrr)
+library(tidyr)
 ```
 
 ``` r
@@ -62,7 +64,7 @@ Save `mrgsim` output as a `nonmem` input data set
 -------------------------------------------------
 
 ``` r
-to_data_set <- function(x,id = NULL) {
+to_data_set <- function(x,id=NULL) {
   x <- as.data.frame(x)
   x <- mutate(x, C = '.', DV = '.', cmt = if_else(cmt==0, 2, cmt))
   x <- dplyr::select(x, "C", everything())
@@ -152,477 +154,107 @@ mod <- mcode_cache("tests1", code)
 mod <- update(mod, end=130, delta = 1)
 ```
 
-Scenarios
-=========
+Assemble the scenarios
+======================
 
-### Bolus doses, with additional
+``` r
+env <- new.env()
+env$ev <- list()
+env$descr <- list()
+push_back <- function(env,ev,descr) {
+  n <- length(env$ev)+1
+  m <- length(env$descr)+1
+  env$ev[[n]] <- ev
+  env$descr[[m]] <- descr
+}
+```
 
 ``` r
 ev <- ev(amt = 100, ii = 24, addl = 3) 
-ev
-```
+push_back(env,ev, "Bolus with additional")
 
-    . Events:
-    .   time cmt amt evid ii addl
-    . 1    0   1 100    1 24    3
-
-``` r
-out1 <- sim(mod,ev)
-nmtest_plot(out1)
-```
-
-![](img/nmtest4-unnamed-chunk-11-1.png)
-
-``` r
-data1 <- to_data_set(out1, 1)
-```
-
-### Bolus doses, lag time and bioav factor
-
-``` r
 ev <- ev(amt = 100, ii = 24, addl = 3, LAGT = 12.13, BIOAV = 2.23, cmt = 2) 
-ev
-```
+push_back(env, ev, "Bolus with lag time and bioav")
 
-    . Events:
-    .   time cmt amt evid ii addl  LAGT BIOAV
-    . 1    0   2 100    1 24    3 12.13  2.23
-
-``` r
-out1.1 <- sim(mod,ev)
-nmtest_plot(out1.1)
-```
-
-![](img/nmtest4-unnamed-chunk-12-1.png)
-
-``` r
-data1.1 <- to_data_set(out1.1, 1.1)
-```
-
-### Infusion doses, with additional
-
-``` r
 ev <- ev(amt = 100, ii = 24, addl = 3, rate = 100/10, cmt = 2) 
-ev
-```
+push_back(env,ev, "Infusion with additional")
 
-    . Events:
-    .   time cmt amt evid ii addl rate
-    . 1    0   2 100    1 24    3   10
-
-``` r
-out2 <- sim(mod,ev)
-nmtest_plot(out2)
-```
-
-![](img/nmtest4-unnamed-chunk-13-1.png)
-
-``` r
-data2 <- to_data_set(out2, 2)
-```
-
-### Infusion doses to depot, with additional
-
-``` r
 ev <- ev(amt = 100, ii = 24, addl = 3, rate = 100/12, cmt = 1) 
-ev
-```
+push_back(env,ev,"Infusion doses to depot, with additional")
 
-    . Events:
-    .   time cmt amt evid ii addl     rate
-    . 1    0   1 100    1 24    3 8.333333
+ev4 <- ev(amt = 100, ii = 24, addl=3, rate = 100/10, LAGT = 4.15, cmt = 2) 
+push_back(env,ev,"Infusion doses, with additional and lag time")
 
-``` r
-out2.1 <- sim(mod,ev)
-nmtest_plot(out2.1)
-```
+ev5 <- ev(amt = 100, ii = 24, addl = 3, rate = 100/10, LAGT = 3.25, BIOAV = 0.412, cmt = 2) 
+push_back(env,ev,"Infusion doses, with lag time and bioav factor")
 
-![](img/nmtest4-unnamed-chunk-14-1.png)
-
-``` r
-data2.1 <- to_data_set(out2.1, 2.1)
-```
-
-### Infusion doses, with additional and lag time
-
-``` r
-ev <- ev(amt = 100, ii = 24, addl=3, rate = 100/10, LAGT = 4.15, cmt = 2) 
-ev
-```
-
-    . Events:
-    .   time cmt amt evid ii addl rate LAGT
-    . 1    0   2 100    1 24    3   10 4.15
-
-``` r
-out3 <- sim(mod,ev)
-nmtest_plot(out3)
-```
-
-![](img/nmtest4-unnamed-chunk-15-1.png)
-
-``` r
-data3 <- to_data_set(out3, 3)
-```
-
-### Infusion doses, with lag time and bioav factor
-
-``` r
-ev <- ev(amt = 100, ii = 24, addl = 3, rate = 100/10, LAGT = 3.25, BIOAV = 0.412, cmt = 2) 
-ev
-```
-
-    . Events:
-    .   time cmt amt evid ii addl rate LAGT BIOAV
-    . 1    0   2 100    1 24    3   10 3.25 0.412
-
-``` r
-out4 <- sim(mod,ev)
-nmtest_plot(out4)
-```
-
-![](img/nmtest4-unnamed-chunk-16-1.png)
-
-``` r
-data4 <- to_data_set(out4, 4)
-```
-
-### Infusion doses at steady-state, with lag time and bioav factor
-
-``` r
 ev <- ev(amt = 100, ii = 24, addl = 3, rate = 100/10, LAGT = 3.16, BIOAV = 0.412, ss = 1, cmt = 2) 
-ev
-```
+push_back(env,ev,"Infusion doses, with lag time and bioav factor")
 
-    . Events:
-    .   time cmt amt evid ii addl rate LAGT BIOAV ss
-    . 1    0   2 100    1 24    3   10 3.16 0.412  1
-
-``` r
-out5 <- sim(mod,ev)
-nmtest_plot(out5)
-```
-
-![](img/nmtest4-unnamed-chunk-17-1.png)
-
-``` r
-data5 <- to_data_set(out5, 5)
-```
-
-### Infusion doses at steady state, II &lt; DUR, with bioav factor
-
-``` r
 ev <- ev(amt = 100, ii = 12, addl = 4, rate = 100/50, BIOAV = 0.812, ss = 1, cmt = 2) 
-ev
-```
+push_back(env,ev,"Infusion doses at steady-state, with lag time and bioav factor")
 
-    . Events:
-    .   time cmt amt evid ii addl rate BIOAV ss
-    . 1    0   2 100    1 12    4    2 0.812  1
-
-``` r
-out6 <- sim(mod,ev)
-nmtest_plot(out6)
-```
-
-![](img/nmtest4-unnamed-chunk-18-1.png)
-
-``` r
-data6 <- to_data_set(out6, 6)
-```
-
-### Infusion doses at steady state, II &lt; DUR, no bioav factor
-
-``` r
 ev <- ev(amt = 100, ii = 12, addl = 3, rate = 100/50, ss = 1, cmt = 2) 
-ev
-```
+push_back(env,ev,"Infusion doses, with lag time and bioav factor")
 
-    . Events:
-    .   time cmt amt evid ii addl rate ss
-    . 1    0   2 100    1 12    3    2  1
-
-``` r
-out6.1 <- sim(mod,ev)
-nmtest_plot(out6.1)
-```
-
-![](img/nmtest4-unnamed-chunk-19-1.png)
-
-``` r
-data6.1 <- to_data_set(out6.1, 6.1)
-```
-
-### Infusion doses at steady state where II is a multiple of DUR
-
-``` r
 ev <- ev(amt = 100, ii = 6, addl = 12, rate = signif(100/12,5), ss = 1, cmt = 2) 
-ev
-```
+push_back(env,ev,"Infusion doses at steady state, II < DUR, no bioav factor")
 
-    . Events:
-    .   time cmt amt evid ii addl   rate ss
-    . 1    0   2 100    1  6   12 8.3333  1
-
-``` r
-out6.2 <- sim(mod,ev)
-nmtest_plot(out6.2)
-```
-
-![](img/nmtest4-unnamed-chunk-20-1.png)
-
-``` r
-data6.2 <- to_data_set(out6.2, 6.2)
-```
-
-### Infusion doses at steady state where II == DUR, with bioav factor
-
-``` r
 ev <- ev(amt = 100, ii = 10, addl = 8, rate = 0.412*100/10,  BIOAV = 0.412, ss = 1, cmt = 2) 
-ev
-```
+push_back(env,ev,"Infusion doses at steady state where II == DUR, with bioav factor")
 
-    . Events:
-    .   time cmt amt evid ii addl rate BIOAV ss
-    . 1    0   2 100    1 10    8 4.12 0.412  1
-
-``` r
-out7 <- sim(mod,ev)
-nmtest_plot(out7)
-```
-
-![](img/nmtest4-unnamed-chunk-21-1.png)
-
-``` r
-data7 <- to_data_set(out7, 7)
-```
-
-### Infusion doses at steady state, where II == DUR
-
-``` r
 ev <- ev(amt = 100, ii = 10, addl = 8, rate = 100/10, ss = 1, cmt = 2) 
-ev
-```
+push_back(env,ev,"Infusion doses at steady state, where II == DUR")
 
-    . Events:
-    .   time cmt amt evid ii addl rate ss
-    . 1    0   2 100    1 10    8   10  1
-
-``` r
-out7.1 <- sim(mod,ev)
-nmtest_plot(out7.1)
-```
-
-![](img/nmtest4-unnamed-chunk-22-1.png)
-
-``` r
-data7.1 <- to_data_set(out7.1, 7.1)
-```
-
-### Bolus doses at steady state, with bioav factor and lag time
-
-``` r
 ev <- ev(amt = 100, ii = 24, addl=3,  LAGT = 4, BIOAV = 0.412, ss = 1, cmt = 2) 
-ev
-```
+push_back(env,ev,"Bolus doses at steady state, with bioav factor and lag time")
 
-    . Events:
-    .   time cmt amt evid ii addl LAGT BIOAV ss
-    . 1    0   2 100    1 24    3    4 0.412  1
-
-``` r
-out8 <- sim(mod,ev)
-nmtest_plot(out8)
-```
-
-![](img/nmtest4-unnamed-chunk-23-1.png)
-
-``` r
-data8 <- to_data_set(out8, 8)
-```
-
-### Bolus doses with lag time and bioavability factor
-
-``` r
 ev <- ev(amt = 100, ii = 24, addl=3,  LAGT = 5, BIOAV = 0.412, cmt = 2) 
-ev
-```
+push_back(env,ev,"Bolus doses with lag time and bioavability factor")
 
-    . Events:
-    .   time cmt amt evid ii addl LAGT BIOAV
-    . 1    0   2 100    1 24    3    5 0.412
+ev <- 
+  ev(amt = 100, cmt = 2, LAGT = 1) + 
+  ev(time = 13, amt = 50, ii = 24, addl = 2, rate = 24)
 
-``` r
-out9 <- sim(mod,ev)
-nmtest_plot(out9)
-```
+push_back(env,ev,"Bolus then infusion")
 
-![](img/nmtest4-unnamed-chunk-24-1.png)
-
-``` r
-data9 <- to_data_set(out9, 9)
-```
-
-### Bolus / infusion
-
-``` r
-ev <- ev(amt = 100, cmt = 2, LAGT = 1) + ev(time = 13, amt = 50, ii = 24, addl = 2, rate = 24)
-ev
-```
-
-    . Events:
-    .   time cmt amt evid LAGT ii addl rate
-    . 1    0   2 100    1    1  0    0    0
-    . 2   13   1  50    1    0 24    2   24
-
-``` r
-out10 <- sim(mod,ev)
-nmtest_plot(out10)
-```
-
-![](img/nmtest4-unnamed-chunk-25-1.png)
-
-``` r
-data10 <- to_data_set(out10, 10)
-```
-
-### Infusion with modeled duration, lag time, and bioav factor
-
-``` r
 ev <- ev(amt = 100, rate = -2, DUR2 = 9, MODE = 2, cmt = 2, ii = 24, addl = 3, LAGT = 5, BIOAV = 0.61)
-ev
-```
+push_back(env,ev,"Infusion with modeled duration, lag time, and bioav factor")
 
-    . Events:
-    .   time cmt amt evid rate DUR2 MODE ii addl LAGT BIOAV
-    . 1    0   2 100    1   -2    9    2 24    3    5  0.61
-
-``` r
-out11 <- sim(mod,ev)
-nmtest_plot(out11)
-```
-
-![](img/nmtest4-unnamed-chunk-26-1.png)
-
-``` r
-data11 <- to_data_set(out11,11)
-```
-
-### Infusion with modeled duration, at steady state with bioav factor
-
-``` r
 ev <- ev(amt = 100, rate = -2, DUR2 = 9, MODE = 2, cmt = 2, ii = 24, addl = 3, ss = 1, BIOAV = 0.61)
-ev
-```
+push_back(env,ev,"Infusion with modeled duration, at steady state with bioav factor")
 
-    . Events:
-    .   time cmt amt evid rate DUR2 MODE ii addl ss BIOAV
-    . 1    0   2 100    1   -2    9    2 24    3  1  0.61
-
-``` r
-out12 <- sim(mod,ev)
-nmtest_plot(out12)
-```
-
-![](img/nmtest4-unnamed-chunk-27-1.png)
-
-``` r
-data12 <- to_data_set(out12,12)
-```
-
-### Reset and dose (EVID 4) with additional
-
-``` r
 ev <- 
   ev(amt = 100, ii = 12, addl = 2, rate = 50, BIOAV = 0.61) + 
   ev(amt = 120, evid = 4, time = 50, BIOAV = 0.5, ii = 12, addl = 3)
-ev
-```
+push_back(env,ev,"Reset and dose (EVID 4) with additional")
 
-    . Events:
-    .   time cmt amt evid ii addl rate BIOAV
-    . 1    0   1 100    1 12    2   50  0.61
-    . 2   50   1 120    4 12    3    0  0.50
-
-``` r
-out13 <- sim(mod,ev)
-nmtest_plot(out13)
-```
-
-![](img/nmtest4-unnamed-chunk-28-1.png)
-
-``` r
-data13 <- to_data_set(out13,13)
-```
-
-### Reset (EVID 3) with additional
-
-``` r
 ev <- 
   ev(amt = 100, ii = 12, addl = 3, rate = 50, BIOAV = 0.61) + 
   ev(amt = 0, evid = 3, time = 50, cmt = 2) + 
   ev(amt = 120, ii = 16, addl = 2, time = 54)
-ev
-```
+push_back(env,ev,"Reset (EVID 3) with additional")
 
-    . Events:
-    .   time cmt amt evid ii addl rate BIOAV
-    . 1    0   1 100    1 12    3   50  0.61
-    . 2   50   2   0    3  0    0    0  0.00
-    . 3   54   1 120    1 16    2    0  0.00
-
-``` r
-out14 <- sim(mod,ev)
-nmtest_plot(out14)
-```
-
-![](img/nmtest4-unnamed-chunk-29-1.png)
-
-``` r
-data14 <- to_data_set(out14,14)
-```
-
-### Steady state 1 and 2
-
-``` r
 ev <- 
   ev(amt = 100, ii = 24, addl = 3, ss = 1)  + 
   ev(amt = 50,  ii = 24, addl = 3, ss = 2, time = 12)
-ev
-```
+push_back(env,ev,"Steady state 1 and 2")
 
-    . Events:
-    .   time cmt amt evid ii addl ss
-    . 1    0   1 100    1 24    3  1
-    . 2   12   1  50    1 24    3  2
+update_id <- function(ev,id) mutate(ev, ID = id)
 
-``` r
-out15 <- sim(mod,ev)
-nmtest_plot(out15)
-```
+runs <- data_frame(ev = env$ev, descr = env$descr)
+runs <- mutate(runs, ID = seq(n()))
+runs <- mutate(runs,ev = map2(ev,ID, update_id))
+runs <- mutate(runs, sims = mclapply(ev, sim, x = mod))
 
-![](img/nmtest4-unnamed-chunk-30-1.png)
-
-``` r
-data15 <- to_data_set(out15,15)
-```
-
-Collect `mrgsim` output
-=======================
-
-``` r
-sims <- list(out1,out1.1,out2,out2.1,out3,out4,out5,out6,out6.1,out6.2,out7,out7.1,
-             out8,out9,out10,out11,out12,out13,out14,out15)
-sims <- lapply(sims, as.data.frame)
-sims <- bind_rows(sims)
+runs <- mutate(runs, data = map(sims, to_data_set))
 ```
 
 Create a single data set for `nonmem`
 =====================================
 
 ``` r
-data <- bind_rows(data1,data1.1,data2,data2.1,data3,data4,data5,data6,data6.1,data6.2,data7,data7.1,
-                  data8,data9,data10,data11,data12,data13,data14,data15)
+data <- runs[["data"]] %>% bind_rows()
 
 sv(data, "data/1001.csv")
 ```
@@ -640,6 +272,7 @@ out <- run(1001)
 
     . Parsed with column specification:
     . cols(
+    .   ID = col_double(),
     .   TIME = col_double(),
     .   EVID = col_double(),
     .   CP = col_double(),
@@ -651,33 +284,32 @@ out <- run(1001)
 Overall Summary
 ===============
 
-Dimensions for mrgsim and nonmem output
-
 ``` r
-dim(out)
+runs <- mutate(runs, out = split(out,out$ID))
+
+runs <- mutate(
+  runs, 
+  comp = map2(out,sims, .f=function(out,sims) {
+    data_frame(
+      ID = out$ID, 
+      time = sims$time, 
+      MRGSIM = sims$CP, 
+      NONMEM = out$CP, 
+      diff = MRGSIM-NONMEM)  
+  })
+)
+
+comp <- runs %>% select(ID,comp) %>% unnest()
 ```
-
-    . [1] 2645    6
-
-``` r
-dim(sims)
-```
-
-    . [1] 2645   16
 
 This is the `nonmem` minus `mrgsim` summary
 
 ``` r
-summary(out$CP - sims$CP)
+summary(comp$diff)
 ```
 
     .    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
     .       0       0       0       0       0       0
-
-``` r
-data$NM <- out$CP
-data$MRGSIM <- sims$CP
-```
 
 Summary by RUN
 ==============
@@ -685,55 +317,298 @@ Summary by RUN
 `diff` is the simulated `CP` from `nonmem` minus the simulated `CP` from `mrgsim`
 
 ``` r
-group_by(data,ID) %>% 
-  mutate(diff = NM - MRGSIM) %>%
-  summarise(mean = mean(diff), max = max(diff), min = min(diff))
+group_by(comp,ID) %>% summarise(mean = mean(diff), max = max(diff), min = min(diff))
 ```
 
     . # A tibble: 20 x 4
     .       ID  mean   max   min
-    .    <dbl> <dbl> <dbl> <dbl>
-    .  1   1       0     0     0
-    .  2   1.1     0     0     0
-    .  3   2       0     0     0
-    .  4   2.1     0     0     0
-    .  5   3       0     0     0
-    .  6   4       0     0     0
-    .  7   5       0     0     0
-    .  8   6       0     0     0
-    .  9   6.1     0     0     0
-    . 10   6.2     0     0     0
-    . 11   7       0     0     0
-    . 12   7.1     0     0     0
-    . 13   8       0     0     0
-    . 14   9       0     0     0
-    . 15  10       0     0     0
-    . 16  11       0     0     0
-    . 17  12       0     0     0
-    . 18  13       0     0     0
-    . 19  14       0     0     0
-    . 20  15       0     0     0
-
-Plot
-====
+    .    <int> <dbl> <dbl> <dbl>
+    .  1     1     0     0     0
+    .  2     2     0     0     0
+    .  3     3     0     0     0
+    .  4     4     0     0     0
+    .  5     5     0     0     0
+    .  6     6     0     0     0
+    .  7     7     0     0     0
+    .  8     8     0     0     0
+    .  9     9     0     0     0
+    . 10    10     0     0     0
+    . 11    11     0     0     0
+    . 12    12     0     0     0
+    . 13    13     0     0     0
+    . 14    14     0     0     0
+    . 15    15     0     0     0
+    . 16    16     0     0     0
+    . 17    17     0     0     0
+    . 18    18     0     0     0
+    . 19    19     0     0     0
+    . 20    20     0     0     0
 
 ``` r
-ids <- unique(data$ID)
-
-for(id in ids) {
-  tmp <- filter(data, ID==id)
-  p <- 
-    ggplot(data = tmp) + 
-    ggtitle(paste0("ID: ", tmp$ID[1]), subtitle="Line: mrgsolve, Point: NONMEM") + 
-    geom_point(aes(time,NM),color = "firebrick") + 
+comp_plot <- function(comp) {
+  ggplot(data = comp) + 
+    ggtitle(paste0("ID: ", comp$ID[1]), subtitle="Line: mrgsolve, Point: NONMEM") + 
+    geom_point(aes(time,NONMEM),color = "firebrick") + 
     geom_line(aes(time,MRGSIM,group = ID)) +
     theme_bw() + ylab("Simulated value") + 
-    scale_x_continuous(breaks = seq(0,130,24))
-  print(p)
+    scale_x_continuous(breaks = seq(0,130,24))  
 }
+
+
+runs <- mutate(runs, plot = map(comp, comp_plot))
 ```
 
-![](img/nmtest4-unnamed-chunk-37-1.png)![](img/nmtest4-unnamed-chunk-37-2.png)![](img/nmtest4-unnamed-chunk-37-3.png)![](img/nmtest4-unnamed-chunk-37-4.png)![](img/nmtest4-unnamed-chunk-37-5.png)![](img/nmtest4-unnamed-chunk-37-6.png)![](img/nmtest4-unnamed-chunk-37-7.png)![](img/nmtest4-unnamed-chunk-37-8.png)![](img/nmtest4-unnamed-chunk-37-9.png)![](img/nmtest4-unnamed-chunk-37-10.png)![](img/nmtest4-unnamed-chunk-37-11.png)![](img/nmtest4-unnamed-chunk-37-12.png)![](img/nmtest4-unnamed-chunk-37-13.png)![](img/nmtest4-unnamed-chunk-37-14.png)![](img/nmtest4-unnamed-chunk-37-15.png)![](img/nmtest4-unnamed-chunk-37-16.png)![](img/nmtest4-unnamed-chunk-37-17.png)![](img/nmtest4-unnamed-chunk-37-18.png)![](img/nmtest4-unnamed-chunk-37-19.png)![](img/nmtest4-unnamed-chunk-37-20.png)
+Results
+=======
+
+``` r
+get_title <- function(i) unlist(slice(runs,i) %>% select(descr))
+```
+
+Bolus with additional
+---------------------
+
+    . $ev
+    . Events:
+    .   time cmt amt evid ii addl ID
+    . 1    0   1 100    1 24    3  1
+    . 
+    . $plot
+
+![](img/nmtest4-unnamed-chunk-19-1.png)
+
+Bolus with lag time and bioav
+-----------------------------
+
+    . $ev
+    . Events:
+    .   time cmt amt evid ii addl  LAGT BIOAV ID
+    . 1    0   2 100    1 24    3 12.13  2.23  2
+    . 
+    . $plot
+
+![](img/nmtest4-unnamed-chunk-20-1.png)
+
+Infusion with additional
+------------------------
+
+    . $ev
+    . Events:
+    .   time cmt amt evid ii addl rate ID
+    . 1    0   2 100    1 24    3   10  3
+    . 
+    . $plot
+
+![](img/nmtest4-unnamed-chunk-21-1.png)
+
+Infusion doses to depot, with additional
+----------------------------------------
+
+    . $ev
+    . Events:
+    .   time cmt amt evid ii addl     rate ID
+    . 1    0   1 100    1 24    3 8.333333  4
+    . 
+    . $plot
+
+![](img/nmtest4-unnamed-chunk-22-1.png)
+
+Infusion doses, with additional and lag time
+--------------------------------------------
+
+    . $ev
+    . Events:
+    .   time cmt amt evid ii addl     rate ID
+    . 1    0   1 100    1 24    3 8.333333  5
+    . 
+    . $plot
+
+![](img/nmtest4-unnamed-chunk-23-1.png)
+
+Infusion doses, with lag time and bioav factor
+----------------------------------------------
+
+    . $ev
+    . Events:
+    .   time cmt amt evid ii addl     rate ID
+    . 1    0   1 100    1 24    3 8.333333  6
+    . 
+    . $plot
+
+![](img/nmtest4-unnamed-chunk-24-1.png)
+
+Infusion doses, with lag time and bioav factor
+----------------------------------------------
+
+    . $ev
+    . Events:
+    .   time cmt amt evid ii addl rate LAGT BIOAV ss ID
+    . 1    0   2 100    1 24    3   10 3.16 0.412  1  7
+    . 
+    . $plot
+
+![](img/nmtest4-unnamed-chunk-25-1.png)
+
+Infusion doses at steady-state, with lag time and bioav factor
+--------------------------------------------------------------
+
+    . $ev
+    . Events:
+    .   time cmt amt evid ii addl rate BIOAV ss ID
+    . 1    0   2 100    1 12    4    2 0.812  1  8
+    . 
+    . $plot
+
+![](img/nmtest4-unnamed-chunk-26-1.png)
+
+Infusion doses, with lag time and bioav factor
+----------------------------------------------
+
+    . $ev
+    . Events:
+    .   time cmt amt evid ii addl rate ss ID
+    . 1    0   2 100    1 12    3    2  1  9
+    . 
+    . $plot
+
+![](img/nmtest4-unnamed-chunk-27-1.png)
+
+Infusion doses at steady state, II &lt; DUR, no bioav factor
+------------------------------------------------------------
+
+    . $ev
+    . Events:
+    .   time cmt amt evid ii addl   rate ss ID
+    . 1    0   2 100    1  6   12 8.3333  1 10
+    . 
+    . $plot
+
+![](img/nmtest4-unnamed-chunk-28-1.png)
+
+Infusion doses at steady state where II == DUR, with bioav factor
+-----------------------------------------------------------------
+
+    . $ev
+    . Events:
+    .   time cmt amt evid ii addl rate BIOAV ss ID
+    . 1    0   2 100    1 10    8 4.12 0.412  1 11
+    . 
+    . $plot
+
+![](img/nmtest4-unnamed-chunk-29-1.png)
+
+Infusion doses at steady state, where II == DUR
+-----------------------------------------------
+
+    . $ev
+    . Events:
+    .   time cmt amt evid ii addl rate ss ID
+    . 1    0   2 100    1 10    8   10  1 12
+    . 
+    . $plot
+
+![](img/nmtest4-unnamed-chunk-30-1.png)
+
+Bolus doses at steady state, with bioav factor and lag time
+-----------------------------------------------------------
+
+    . $ev
+    . Events:
+    .   time cmt amt evid ii addl LAGT BIOAV ss ID
+    . 1    0   2 100    1 24    3    4 0.412  1 13
+    . 
+    . $plot
+
+![](img/nmtest4-unnamed-chunk-31-1.png)
+
+Bolus doses with lag time and bioavability factor
+-------------------------------------------------
+
+    . $ev
+    . Events:
+    .   time cmt amt evid ii addl LAGT BIOAV ID
+    . 1    0   2 100    1 24    3    5 0.412 14
+    . 
+    . $plot
+
+![](img/nmtest4-unnamed-chunk-32-1.png)
+
+Bolus then infusion
+-------------------
+
+    . $ev
+    . Events:
+    .   time cmt amt evid LAGT ii addl rate ID
+    . 1    0   2 100    1    1  0    0    0 15
+    . 2   13   1  50    1    0 24    2   24 15
+    . 
+    . $plot
+
+![](img/nmtest4-unnamed-chunk-33-1.png)
+
+Infusion with modeled duration, lag time, and bioav factor
+----------------------------------------------------------
+
+    . $ev
+    . Events:
+    .   time cmt amt evid rate DUR2 MODE ii addl LAGT BIOAV ID
+    . 1    0   2 100    1   -2    9    2 24    3    5  0.61 16
+    . 
+    . $plot
+
+![](img/nmtest4-unnamed-chunk-34-1.png)
+
+Infusion with modeled duration, at steady state with bioav factor
+-----------------------------------------------------------------
+
+    . $ev
+    . Events:
+    .   time cmt amt evid rate DUR2 MODE ii addl ss BIOAV ID
+    . 1    0   2 100    1   -2    9    2 24    3  1  0.61 17
+    . 
+    . $plot
+
+![](img/nmtest4-unnamed-chunk-35-1.png)
+
+Reset and dose (EVID 4) with additional
+---------------------------------------
+
+    . $ev
+    . Events:
+    .   time cmt amt evid ii addl rate BIOAV ID
+    . 1    0   1 100    1 12    2   50  0.61 18
+    . 2   50   1 120    4 12    3    0  0.50 18
+    . 
+    . $plot
+
+![](img/nmtest4-unnamed-chunk-36-1.png)
+
+Reset (EVID 3) with additional
+------------------------------
+
+    . $ev
+    . Events:
+    .   time cmt amt evid ii addl rate BIOAV ID
+    . 1    0   1 100    1 12    3   50  0.61 19
+    . 2   50   2   0    3  0    0    0  0.00 19
+    . 3   54   1 120    1 16    2    0  0.00 19
+    . 
+    . $plot
+
+![](img/nmtest4-unnamed-chunk-37-1.png)
+
+Steady state 1 and 2
+--------------------
+
+    . $ev
+    . Events:
+    .   time cmt amt evid ii addl ss ID
+    . 1    0   1 100    1 24    3  1 20
+    . 2   12   1  50    1 24    3  2 20
+    . 
+    . $plot
+
+![](img/nmtest4-unnamed-chunk-38-1.png)
 
 Control stream
 ==============
@@ -786,7 +661,7 @@ writeLines(readLines("model/1001.ctl"))
        $SIGMA
        0.00 FIX
        
-       $TABLE FILE=TAB TIME EVID CP IPRED PRED DV NOPRINT ONEHEADER NOAPPEND
+       $TABLE FILE=TAB ID TIME EVID CP IPRED PRED DV NOPRINT ONEHEADER NOAPPEND
        
        $SIMULATION (2674474) ONLYSIMULATION
 
@@ -851,7 +726,7 @@ devtools::session_info()
     .  prettyunits     1.0.2       2015-07-13 [1] CRAN (R 3.3.3)                               
     .  processx        3.2.1       2018-12-05 [1] CRAN (R 3.3.3)                               
     .  ps              1.2.1       2018-11-06 [1] CRAN (R 3.3.3)                               
-    .  purrr           0.2.5       2018-05-29 [1] CRAN (R 3.3.3)                               
+    .  purrr         * 0.2.5       2018-05-29 [1] CRAN (R 3.3.3)                               
     .  R6              2.3.0       2018-10-04 [1] CRAN (R 3.3.3)                               
     .  Rcpp            1.0.0       2018-11-07 [1] CRAN (R 3.3.3)                               
     .  RcppArmadillo   0.9.200.5.0 2018-11-28 [1] CRAN (R 3.3.3)                               
@@ -869,6 +744,7 @@ devtools::session_info()
     .  sys             2.1         2018-11-13 [1] CRAN (R 3.3.3)                               
     .  testthat        2.0.1       2018-10-13 [1] CRAN (R 3.3.3)                               
     .  tibble          1.4.2       2018-01-22 [1] CRAN (R 3.3.3)                               
+    .  tidyr         * 0.8.2       2018-10-28 [1] CRAN (R 3.3.3)                               
     .  tidyselect      0.2.5       2018-10-11 [1] CRAN (R 3.3.3)                               
     .  usethis         1.4.0       2018-08-14 [1] CRAN (R 3.3.3)                               
     .  utf8            1.1.4       2018-05-24 [1] CRAN (R 3.3.3)                               

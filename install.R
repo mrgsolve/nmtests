@@ -1,10 +1,14 @@
 .libPaths("/data/Rlibs/")
 
-library(devtools)
+devtools::install_github("metrumresearchgroup/mrgsolve", ref = "dev")
 
-devtools::install_github("metrumresearchgroup/mrgsolve", ref = "v0.8.10")
+#update.packages(lib.loc="/data/Rlibs")
+#install.packages("mrgsolve")
 
 
-devtools::install_github("metrumresearchgroup/metrumrg")
+#devtools::install_github("metrumresearchgroup/mrgsolve", ref = "v0.8.10")
+
+
+
 
 
