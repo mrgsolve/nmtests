@@ -300,6 +300,12 @@ push_back(env,ev,"Steady state 1 and 2")
 update_id <- function(ev,id) mutate(ev, ID = id)
 
 runs <- data_frame(ev = env$ev, descr = env$descr)
+```
+
+    . Warning: `data_frame()` is deprecated, use `tibble()`.
+    . This warning is displayed once per session.
+
+``` r
 runs <- mutate(runs, ID = seq(n()))
 runs <- mutate(runs,ev = map2(ev,ID, update_id))
 runs <- mutate(runs, sims = mclapply(ev, sim, x = mod))
@@ -328,11 +334,7 @@ out <- run(1001)
     . cols(
     .   ID = col_double(),
     .   TIME = col_double(),
-    .   EVID = col_double(),
-    .   CP = col_double(),
-    .   IPRED = col_double(),
-    .   PRED = col_double(),
-    .   DV = col_double()
+    .   CP = col_double()
     . )
 
 Numeric Summary
@@ -673,7 +675,7 @@ Control stream
 writeLines(readLines("model/1001/1001.lst"))
 ```
 
-       Thu Dec 20 05:38:42 UTC 2018
+       Wed Jan 16 19:56:40 UTC 2019
        $PROB RUN# 101
        
        $INPUT C ID TIME EVID AMT CMT SS II ADDL RATE LAGT MODE DUR2 RAT2 BIOAV DV
@@ -718,7 +720,7 @@ writeLines(readLines("model/1001/1001.lst"))
        $SIGMA
        0.00 FIX
        
-       $TABLE FILE=TAB ID TIME EVID CP IPRED PRED DV NOPRINT ONEHEADER NOAPPEND
+       $TABLE FILE=TAB ID TIME CP NOPRINT ONEHEADER NOAPPEND
        
        $SIMULATION (2674474) ONLYSIMULATION
        
@@ -731,8 +733,8 @@ writeLines(readLines("model/1001/1001.lst"))
        
        License Registered to: Metrum Research Group
        Expiration Date:    14 JUL 2019
-       Current Date:       20 DEC 2018
-       Days until program expires : 209
+       Current Date:       16 JAN 2019
+       Days until program expires : 178
        1NONLINEAR MIXED EFFECTS MODEL PROGRAM (NONMEM) VERSION 7.4.3
         ORIGINALLY DEVELOPED BY STUART BEAL, LEWIS SHEINER, AND ALISON BOECKMANN
         CURRENT DEVELOPERS ARE ROBERT BAUER, ICON DEVELOPMENT SOLUTIONS,
@@ -754,7 +756,7 @@ writeLines(readLines("model/1001/1001.lst"))
        0LABELS FOR DATA ITEMS:
         C ID TIME EVID AMT CMT SS II ADDL RATE LAGT MODE DUR2 RAT2 BIOAV DV MDV
        0(NONBLANK) LABELS FOR PRED-DEFINED ITEMS:
-        IPRED CP
+        CP
        0FORMAT FOR DATA:
         (E2.0,E3.0,E4.0,E2.0,E4.0,2E2.0,2E3.0,E17.0,E6.0,2E2.0,3E6.0,1F2.0)
        
@@ -814,7 +816,7 @@ writeLines(readLines("model/1001/1001.lst"))
         RFORMAT:
         FIXED_EFFECT_ETAS:
        0USER-CHOSEN ITEMS:
-        ID TIME EVID CP IPRED PRED DV
+        ID TIME CP
        1DOUBLE PRECISION PREDPP VERSION 7.4.3
        
         ONE COMPARTMENT MODEL WITH FIRST-ORDER ABSORPTION (ADVAN2)
@@ -860,12 +862,12 @@ writeLines(readLines("model/1001/1001.lst"))
         SIMULATION STEP PERFORMED
         SOURCE  1:
            SEED1:    1840054855   SEED2:    1061053076
-        Elapsed simulation  time in seconds:     0.00
+        Elapsed simulation  time in seconds:     0.01
         ESTIMATION STEP OMITTED:                 YES
-        Elapsed finaloutput time in seconds:     0.22
-        #CPUT: Total CPU Time in Seconds,        0.252
+        Elapsed finaloutput time in seconds:     0.24
+        #CPUT: Total CPU Time in Seconds,        0.261
        Stop Time:
-       Thu Dec 20 05:38:46 UTC 2018
+       Wed Jan 16 19:57:05 UTC 2019
 
 Session Info
 ============
@@ -885,7 +887,7 @@ devtools::session_info()
     .  collate  en_US.UTF-8                 
     .  ctype    en_US.UTF-8                 
     .  tz       Etc/UTC                     
-    .  date     2018-12-20                  
+    .  date     2019-01-16                  
     . 
     . ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
     .  package       * version     date       lib source                                       
@@ -893,7 +895,7 @@ devtools::session_info()
     .  backports       1.1.3       2018-12-14 [1] CRAN (R 3.3.3)                               
     .  bindr           0.1.1       2018-03-13 [1] CRAN (R 3.3.3)                               
     .  bindrcpp      * 0.2.2       2018-03-29 [1] CRAN (R 3.3.3)                               
-    .  callr           3.1.0       2018-12-10 [1] CRAN (R 3.3.3)                               
+    .  callr           3.1.1       2018-12-21 [1] CRAN (R 3.3.3)                               
     .  cli             1.0.1       2018-09-25 [1] CRAN (R 3.3.3)                               
     .  colorspace      1.3-2       2016-12-14 [4] CRAN (R 3.3.2)                               
     .  crayon          1.3.4       2017-09-16 [1] CRAN (R 3.3.3)                               
@@ -918,7 +920,7 @@ devtools::session_info()
     .  MASS            7.3-51.1    2018-11-01 [1] CRAN (R 3.3.3)                               
     .  memoise         1.0.0       2016-01-29 [4] CRAN (R 3.3.2)                               
     .  metrumrg        5.57        2017-10-14 [1] Github (metrumresearchgroup/metrumrg@2e5a541)
-    .  mrgsolve      * 0.8.12.9000 2018-12-19 [1] Github (metrumresearchgroup/mrgsolve@4286b09)
+    .  mrgsolve      * 0.9.0       2019-01-16 [1] Github (metrumresearchgroup/mrgsolve@fc8114f)
     .  munsell         0.5.0       2018-06-12 [1] CRAN (R 3.3.3)                               
     .  pillar          1.3.1       2018-12-15 [1] CRAN (R 3.3.3)                               
     .  pkgbuild        1.0.2       2018-10-16 [1] CRAN (R 3.3.3)                               
@@ -927,25 +929,24 @@ devtools::session_info()
     .  plyr            1.8.4       2016-06-08 [4] CRAN (R 3.3.2)                               
     .  prettyunits     1.0.2       2015-07-13 [1] CRAN (R 3.3.3)                               
     .  processx        3.2.1       2018-12-05 [1] CRAN (R 3.3.3)                               
-    .  ps              1.2.1       2018-11-06 [1] CRAN (R 3.3.3)                               
+    .  ps              1.3.0       2018-12-21 [1] CRAN (R 3.3.3)                               
     .  purrr         * 0.2.5       2018-05-29 [1] CRAN (R 3.3.3)                               
     .  R6              2.3.0       2018-10-04 [1] CRAN (R 3.3.3)                               
     .  Rcpp            1.0.0       2018-11-07 [1] CRAN (R 3.3.3)                               
     .  RcppArmadillo   0.9.200.5.0 2018-11-28 [1] CRAN (R 3.3.3)                               
-    .  readr         * 1.3.0       2018-12-11 [1] CRAN (R 3.3.3)                               
+    .  readr         * 1.3.1       2018-12-21 [1] CRAN (R 3.3.3)                               
     .  remotes         2.0.2       2018-10-30 [1] CRAN (R 3.3.3)                               
     .  reshape         0.8.8       2018-10-23 [1] CRAN (R 3.3.3)                               
-    .  rlang           0.3.0.1     2018-10-25 [1] CRAN (R 3.3.3)                               
+    .  rlang           0.3.1       2019-01-08 [1] CRAN (R 3.3.3)                               
     .  rmarkdown       1.11        2018-12-08 [1] CRAN (R 3.3.3)                               
     .  rprojroot       1.3-2       2018-01-03 [1] CRAN (R 3.3.3)                               
-    .  rstudioapi      0.8         2018-10-02 [1] CRAN (R 3.3.3)                               
     .  scales          1.0.0       2018-08-09 [1] CRAN (R 3.3.3)                               
     .  sessioninfo     1.1.1       2018-11-05 [1] CRAN (R 3.3.3)                               
     .  stringi         1.2.4       2018-07-20 [1] CRAN (R 3.3.3)                               
     .  stringr         1.3.1       2018-05-10 [1] CRAN (R 3.3.3)                               
     .  sys             2.1         2018-11-13 [1] CRAN (R 3.3.3)                               
     .  testthat        2.0.1       2018-10-13 [1] CRAN (R 3.3.3)                               
-    .  tibble          1.4.2       2018-01-22 [1] CRAN (R 3.3.3)                               
+    .  tibble          2.0.1       2019-01-12 [1] CRAN (R 3.3.3)                               
     .  tidyr         * 0.8.2       2018-10-28 [1] CRAN (R 3.3.3)                               
     .  tidyselect      0.2.5       2018-10-11 [1] CRAN (R 3.3.3)                               
     .  usethis         1.4.0       2018-08-14 [1] CRAN (R 3.3.3)                               
