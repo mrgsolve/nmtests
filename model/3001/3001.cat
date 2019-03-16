@@ -1,0 +1,7 @@
+Sat Mar 16 16:21:31 2019
+cannot locate *.tab in control stream for run 
+cannot locate *par.tab in control stream for run 
+cannot locate *.msf in control stream for run 
+perl -S /opt/NONMEM/nm74/nmqual/autolog.pl /opt/NONMEM/nm74/nmqual/log.xml run ce model/3001 3001
+Run 3001 has exit code 0
+cannot locate *.tab in control stream for run 3001
