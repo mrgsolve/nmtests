@@ -1,6 +1,6 @@
 ##' ---
 ##' title: "Bemchmark test with mrgsolve and NONMEM"
-##' author: "Metrum Research Group, LLC"
+##' author: "Metrum Research Group"
 ##' date: ""
 ##' output: 
 ##'   github_document:
@@ -89,7 +89,7 @@ tabread <- function(number) {
 
 ##' ## Simulate a scenario with `mrsim`
 sim <- function(x, e,...) {
-  mrgsim(x, events = e, carry.out = carry, digits = 5, ...) 
+  mrgsim(x, events = e, carry.out = carry, digits = 5, recsort=3, ...) 
 }
 
 ##' 
@@ -219,7 +219,7 @@ push_back(env,ev,"Steady state 1 and 2")
 #+
 update_id <- function(ev,id) mutate(ev, ID = id)
 
-runs <- data_frame(ev = env$ev, descr = env$descr)
+runs <- tibble(ev = env$ev, descr = env$descr)
 runs <- mutate(runs, ID = seq(n()))
 runs <- mutate(runs,ev = map2(ev,ID, update_id))
 runs <- mutate(runs, sims = mclapply(ev, sim, x = mod))
