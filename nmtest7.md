@@ -37,6 +37,7 @@ Metrum Research Group
     -   [18: Reset and dose (EVID 4) with additional](#reset-and-dose-evid-4-with-additional)
     -   [19: Reset (EVID 3) with additional](#reset-evid-3-with-additional)
     -   [20: Steady state 1 and 2](#steady-state-1-and-2)
+    -   [21: Steady state infusion](#steady-state-infusion)
 -   [Control stream](#control-stream)
 -   [Session Info](#session-info)
 
@@ -284,8 +285,8 @@ push_back(env,ev,"Reset and dose (EVID 4) with additional")
 ``` r
 ev <- 
   ev(amt = 100, ii = 12, addl = 3, rate = 50, BIOAV = 0.61) + 
-  ev(amt = 0, evid = 3, time = 50, cmt = 2) + 
-  ev(amt = 120, ii = 16, addl = 2, time = 54)
+  ev(amt = 0, evid = 3, time = 50, cmt = 2, BIOAV=1) + 
+  ev(amt = 120, ii = 16, addl = 2, time = 54, BIOAV=1)
 push_back(env,ev,"Reset (EVID 3) with additional")
 ```
 
@@ -294,6 +295,11 @@ ev <-
   ev(amt = 100, ii = 24, addl = 3, ss = 1)  + 
   ev(amt = 50,  ii = 24, addl = 3, ss = 2, time = 12)
 push_back(env,ev,"Steady state 1 and 2")
+```
+
+``` r
+ev <- ev(amt = 0, rate = 100, ii = 20, ss=1)
+push_back(env,ev,"Steady state infusion")
 ```
 
 ``` r
@@ -309,6 +315,11 @@ runs <- mutate(runs, data = map(sims, to_data_set))
 
 ``` r
 data <- runs[["data"]] %>% bind_rows()
+
+data <- mutate(
+  data, 
+  ii = ifelse(amt==0, 0, ii)
+)
 
 sv(data, "data/1001.csv")
 ```
@@ -377,32 +388,32 @@ Summary by scenario number
 `diff` is the simulated `CP` from `nonmem` minus the simulated `CP` from `mrgsim`
 
 ``` r
-group_by(comp,ID) %>% summarise(mean = mean(diff), max = max(diff), min = min(diff))
+group_by(comp,ID) %>% summarise(mean = mean(diff), max = max(diff), min = min(diff)) %>% 
+  as.data.frame
 ```
 
-    . # A tibble: 20 x 4
-    .       ID  mean   max   min
-    .    <int> <dbl> <dbl> <dbl>
-    .  1     1     0     0     0
-    .  2     2     0     0     0
-    .  3     3     0     0     0
-    .  4     4     0     0     0
-    .  5     5     0     0     0
-    .  6     6     0     0     0
-    .  7     7     0     0     0
-    .  8     8     0     0     0
-    .  9     9     0     0     0
-    . 10    10     0     0     0
-    . 11    11     0     0     0
-    . 12    12     0     0     0
-    . 13    13     0     0     0
-    . 14    14     0     0     0
-    . 15    15     0     0     0
-    . 16    16     0     0     0
-    . 17    17     0     0     0
-    . 18    18     0     0     0
-    . 19    19     0     0     0
-    . 20    20     0     0     0
+    .    ID mean max min
+    . 1   1    0   0   0
+    . 2   2    0   0   0
+    . 3   3    0   0   0
+    . 4   4    0   0   0
+    . 5   5    0   0   0
+    . 6   6    0   0   0
+    . 7   7    0   0   0
+    . 8   8    0   0   0
+    . 9   9    0   0   0
+    . 10 10    0   0   0
+    . 11 11    0   0   0
+    . 12 12    0   0   0
+    . 13 13    0   0   0
+    . 14 14    0   0   0
+    . 15 15    0   0   0
+    . 16 16    0   0   0
+    . 17 17    0   0   0
+    . 18 18    0   0   0
+    . 19 19    0   0   0
+    . 20 20    0   0   0
+    . 21 21    0   0   0
 
 ``` r
 comp_plot <- function(comp) {
@@ -432,7 +443,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-39-1.png)
+![](img/nmtest4-unnamed-chunk-40-1.png)
 
 2: Bolus with lag time and bioav
 --------------------------------
@@ -444,7 +455,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-40-1.png)
+![](img/nmtest4-unnamed-chunk-41-1.png)
 
 3: Infusion with additional
 ---------------------------
@@ -456,7 +467,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-41-1.png)
+![](img/nmtest4-unnamed-chunk-42-1.png)
 
 4: Infusion doses to depot, with additional
 -------------------------------------------
@@ -468,7 +479,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-42-1.png)
+![](img/nmtest4-unnamed-chunk-43-1.png)
 
 5: Infusion doses, with additional and lag time
 -----------------------------------------------
@@ -480,7 +491,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-43-1.png)
+![](img/nmtest4-unnamed-chunk-44-1.png)
 
 6: Infusion doses, with lag time and bioav factor
 -------------------------------------------------
@@ -492,7 +503,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-44-1.png)
+![](img/nmtest4-unnamed-chunk-45-1.png)
 
 7: Infusion doses, with lag time and bioav factor
 -------------------------------------------------
@@ -504,7 +515,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-45-1.png)
+![](img/nmtest4-unnamed-chunk-46-1.png)
 
 8: Infusion doses at steady-state, with lag time and bioav factor
 -----------------------------------------------------------------
@@ -516,7 +527,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-46-1.png)
+![](img/nmtest4-unnamed-chunk-47-1.png)
 
 9: Infusion doses, with lag time and bioav factor
 -------------------------------------------------
@@ -528,7 +539,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-47-1.png)
+![](img/nmtest4-unnamed-chunk-48-1.png)
 
 10: Infusion doses at steady state, II &lt; DUR, no bioav factor
 ----------------------------------------------------------------
@@ -540,7 +551,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-48-1.png)
+![](img/nmtest4-unnamed-chunk-49-1.png)
 
 11: Infusion doses at steady state where II == DUR, with bioav factor
 ---------------------------------------------------------------------
@@ -552,7 +563,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-49-1.png)
+![](img/nmtest4-unnamed-chunk-50-1.png)
 
 12: Infusion doses at steady state, where II == DUR
 ---------------------------------------------------
@@ -564,7 +575,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-50-1.png)
+![](img/nmtest4-unnamed-chunk-51-1.png)
 
 13: Bolus doses at steady state, with bioav factor and lag time
 ---------------------------------------------------------------
@@ -576,7 +587,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-51-1.png)
+![](img/nmtest4-unnamed-chunk-52-1.png)
 
 14: Bolus doses with lag time and bioavability factor
 -----------------------------------------------------
@@ -588,7 +599,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-52-1.png)
+![](img/nmtest4-unnamed-chunk-53-1.png)
 
 15: Bolus then infusion
 -----------------------
@@ -601,7 +612,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-53-1.png)
+![](img/nmtest4-unnamed-chunk-54-1.png)
 
 16: Infusion with modeled duration, lag time, and bioav factor
 --------------------------------------------------------------
@@ -613,7 +624,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-54-1.png)
+![](img/nmtest4-unnamed-chunk-55-1.png)
 
 17: Infusion with modeled duration, at steady state with bioav factor
 ---------------------------------------------------------------------
@@ -625,7 +636,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-55-1.png)
+![](img/nmtest4-unnamed-chunk-56-1.png)
 
 18: Reset and dose (EVID 4) with additional
 -------------------------------------------
@@ -638,7 +649,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-56-1.png)
+![](img/nmtest4-unnamed-chunk-57-1.png)
 
 19: Reset (EVID 3) with additional
 ----------------------------------
@@ -647,12 +658,12 @@ Results
     . Events:
     .   ID time amt rate ii addl cmt evid BIOAV
     . 1 19    0 100   50 12    3   1    1  0.61
-    . 2 19   50   0    0  0    0   2    3  0.00
-    . 3 19   54 120    0 16    2   1    1  0.00
+    . 2 19   50   0    0  0    0   2    3  1.00
+    . 3 19   54 120    0 16    2   1    1  1.00
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-57-1.png)
+![](img/nmtest4-unnamed-chunk-58-1.png)
 
 20: Steady state 1 and 2
 ------------------------
@@ -665,7 +676,19 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-58-1.png)
+![](img/nmtest4-unnamed-chunk-59-1.png)
+
+21: Steady state infusion
+-------------------------
+
+    . $ev
+    . Events:
+    .   ID time amt rate ii cmt evid ss
+    . 1 21    0   0  100 20   1    1  1
+    . 
+    . $plot
+
+![](img/nmtest4-unnamed-chunk-60-1.png)
 
 Control stream
 ==============
@@ -674,7 +697,7 @@ Control stream
 writeLines(readLines("model/1001/1001.lst"))
 ```
 
-       Mon Sep 30 17:27:48 UTC 2019
+       Tue Oct  1 21:56:26 UTC 2019
        $PROB RUN# 101
        
        $INPUT C ID TIME EVID AMT CMT SS II ADDL RATE LAGT MODE DUR2 RAT2 BIOAV DV
@@ -732,8 +755,8 @@ writeLines(readLines("model/1001/1001.lst"))
        
        License Registered to: Metrum Research Group
        Expiration Date:    14 JUL 2020
-       Current Date:       30 SEP 2019
-       Days until program expires : 289
+       Current Date:        1 OCT 2019
+       Days until program expires : 288
        1NONLINEAR MIXED EFFECTS MODEL PROGRAM (NONMEM) VERSION 7.4.3
         ORIGINALLY DEVELOPED BY STUART BEAL, LEWIS SHEINER, AND ALISON BOECKMANN
         CURRENT DEVELOPERS ARE ROBERT BAUER, ICON DEVELOPMENT SOLUTIONS,
@@ -745,7 +768,7 @@ writeLines(readLines("model/1001/1001.lst"))
        0DATA CHECKOUT RUN:              NO
         DATA SET LOCATED ON UNIT NO.:    2
         THIS UNIT TO BE REWOUND:        NO
-        NO. OF DATA RECS IN DATA SET:     2645
+        NO. OF DATA RECS IN DATA SET:     2777
         NO. OF DATA ITEMS IN DATA SET:  17
         ID DATA ITEM IS DATA ITEM NO.:   2
         DEP VARIABLE IS DATA ITEM NO.:  16
@@ -759,8 +782,8 @@ writeLines(readLines("model/1001/1001.lst"))
        0FORMAT FOR DATA:
         (E2.0,E3.0,E4.0,E2.0,E4.0,2E2.0,2E3.0,E17.0,E6.0,2E2.0,3E6.0,1F2.0)
        
-        TOT. NO. OF OBS RECS:     2620
-        TOT. NO. OF INDIVIDUALS:       20
+        TOT. NO. OF OBS RECS:     2751
+        TOT. NO. OF INDIVIDUALS:       21
        0LENGTH OF THETA:   3
        0DEFAULT THETA BOUNDARY TEST OMITTED:    NO
        0OMEGA HAS SIMPLE DIAGONAL FORM WITH DIMENSION:   3
@@ -860,13 +883,13 @@ writeLines(readLines("model/1001/1001.lst"))
        1
         SIMULATION STEP PERFORMED
         SOURCE  1:
-           SEED1:    1840054855   SEED2:    1061053076
+           SEED1:    1222495484   SEED2:             0
         Elapsed simulation  time in seconds:     0.01
         ESTIMATION STEP OMITTED:                 YES
-        Elapsed finaloutput time in seconds:     0.21
-        #CPUT: Total CPU Time in Seconds,        0.232
+        Elapsed finaloutput time in seconds:     0.22
+        #CPUT: Total CPU Time in Seconds,        0.240
        Stop Time:
-       Mon Sep 30 17:27:53 UTC 2019
+       Tue Oct  1 21:56:30 UTC 2019
 
 Session Info
 ============
@@ -886,7 +909,7 @@ devtools::session_info()
     .  collate  en_US.UTF-8                 
     .  ctype    en_US.UTF-8                 
     .  tz       Etc/UTC                     
-    .  date     2019-09-30                  
+    .  date     2019-10-01                  
     . 
     . ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
     .  package       * version     date       lib source           
@@ -901,7 +924,6 @@ devtools::session_info()
     .  digest          0.6.20      2019-07-04 [1] CRAN (R 3.5.1)   
     .  dplyr         * 0.8.3       2019-07-04 [1] CRAN (R 3.5.1)   
     .  evaluate        0.14        2019-05-28 [1] CRAN (R 3.5.1)   
-    .  fansi           0.4.0       2018-10-05 [1] CRAN (R 3.5.1)   
     .  fork            1.2.5       2019-02-01 [1] local            
     .  fs              1.3.1       2019-05-06 [1] CRAN (R 3.5.1)   
     .  ggplot2       * 3.2.0       2019-06-16 [1] CRAN (R 3.5.1)   
@@ -918,7 +940,7 @@ devtools::session_info()
     .  MASS            7.3-51.1    2018-11-01 [4] CRAN (R 3.5.1)   
     .  memoise         1.1.0       2017-04-21 [1] CRAN (R 3.5.1)   
     .  metrumrg        5.57        2015-10-08 [1] R-Forge (R 3.5.1)
-    .  mrgsolve      * 0.9.2.9000  2019-09-30 [1] local            
+    .  mrgsolve      * 0.9.2.9000  2019-10-01 [1] local            
     .  munsell         0.5.0       2018-06-12 [1] CRAN (R 3.5.1)   
     .  pillar          1.4.2       2019-06-29 [1] CRAN (R 3.5.1)   
     .  pkgbuild        1.0.3       2019-03-20 [1] CRAN (R 3.5.1)   
@@ -947,7 +969,6 @@ devtools::session_info()
     .  tidyr         * 0.8.3       2019-03-01 [1] CRAN (R 3.5.1)   
     .  tidyselect      0.2.5       2018-10-11 [1] CRAN (R 3.5.1)   
     .  usethis         1.5.1       2019-07-04 [1] CRAN (R 3.5.1)   
-    .  utf8            1.1.4       2018-05-24 [1] CRAN (R 3.5.1)   
     .  vctrs           0.2.0       2019-07-05 [1] CRAN (R 3.5.1)   
     .  withr           2.1.2       2018-03-15 [1] CRAN (R 3.5.1)   
     .  xfun            0.8         2019-06-25 [1] CRAN (R 3.5.1)   

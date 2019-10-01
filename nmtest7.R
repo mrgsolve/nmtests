@@ -208,14 +208,19 @@ push_back(env,ev,"Reset and dose (EVID 4) with additional")
 #+
 ev <- 
   ev(amt = 100, ii = 12, addl = 3, rate = 50, BIOAV = 0.61) + 
-  ev(amt = 0, evid = 3, time = 50, cmt = 2) + 
-  ev(amt = 120, ii = 16, addl = 2, time = 54)
+  ev(amt = 0, evid = 3, time = 50, cmt = 2, BIOAV=1) + 
+  ev(amt = 120, ii = 16, addl = 2, time = 54, BIOAV=1)
 push_back(env,ev,"Reset (EVID 3) with additional")
+
 #+
 ev <- 
   ev(amt = 100, ii = 24, addl = 3, ss = 1)  + 
   ev(amt = 50,  ii = 24, addl = 3, ss = 2, time = 12)
 push_back(env,ev,"Steady state 1 and 2")
+#+ 
+ev <- ev(amt = 0, rate = 100, ii = 20, ss=1)
+push_back(env,ev,"Steady state infusion")
+
 #+
 update_id <- function(ev,id) mutate(ev, ID = id)
 
@@ -228,6 +233,11 @@ runs <- mutate(runs, data = map(sims, to_data_set))
 
 #+
 data <- runs[["data"]] %>% bind_rows()
+
+data <- mutate(
+  data, 
+  ii = ifelse(amt==0, 0, ii)
+)
 
 sv(data, "data/1001.csv")
 
@@ -264,8 +274,8 @@ summary(comp$diff)
 ##' 
 ##' `diff` is the simulated `CP` from `nonmem` minus the simulated
 ##' `CP` from `mrgsim`
-group_by(comp,ID) %>% summarise(mean = mean(diff), max = max(diff), min = min(diff))
-
+group_by(comp,ID) %>% summarise(mean = mean(diff), max = max(diff), min = min(diff)) %>% 
+  as.data.frame
 comp_plot <- function(comp) {
   id <- comp$ID[1]
   ggplot(data = comp) + 
@@ -367,6 +377,9 @@ slice(runs, i) %>% select(ev,plot) %>% flatten()
 #+ echo = FALSE
 slice(runs, i) %>% select(ev,plot) %>% flatten()
 
+##' ## `r i <- 21; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% flatten()
 
 ##' # Control stream
 #+ comment = "  "
