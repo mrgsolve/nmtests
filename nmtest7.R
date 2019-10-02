@@ -218,7 +218,7 @@ ev <-
   ev(amt = 50,  ii = 24, addl = 3, ss = 2, time = 12)
 push_back(env,ev,"Steady state 1 and 2")
 #+ 
-ev <- ev(amt = 0, rate = 100, ii = 20, ss=1)
+ev <- ev(amt = 0, rate = 100,  ss=1)
 push_back(env,ev,"Steady state infusion")
 
 #+
@@ -234,10 +234,6 @@ runs <- mutate(runs, data = map(sims, to_data_set))
 #+
 data <- runs[["data"]] %>% bind_rows()
 
-data <- mutate(
-  data, 
-  ii = ifelse(amt==0, 0, ii)
-)
 
 sv(data, "data/1001.csv")
 

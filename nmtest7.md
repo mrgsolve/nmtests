@@ -298,7 +298,7 @@ push_back(env,ev,"Steady state 1 and 2")
 ```
 
 ``` r
-ev <- ev(amt = 0, rate = 100, ii = 20, ss=1)
+ev <- ev(amt = 0, rate = 100,  ss=1)
 push_back(env,ev,"Steady state infusion")
 ```
 
@@ -316,10 +316,6 @@ runs <- mutate(runs, data = map(sims, to_data_set))
 ``` r
 data <- runs[["data"]] %>% bind_rows()
 
-data <- mutate(
-  data, 
-  ii = ifelse(amt==0, 0, ii)
-)
 
 sv(data, "data/1001.csv")
 ```
@@ -683,8 +679,8 @@ Results
 
     . $ev
     . Events:
-    .   ID time amt rate ii cmt evid ss
-    . 1 21    0   0  100 20   1    1  1
+    .   ID time amt rate cmt evid ss
+    . 1 21    0   0  100   1    1  1
     . 
     . $plot
 
@@ -697,7 +693,7 @@ Control stream
 writeLines(readLines("model/1001/1001.lst"))
 ```
 
-       Tue Oct  1 21:56:26 UTC 2019
+       Wed Oct  2 03:09:27 UTC 2019
        $PROB RUN# 101
        
        $INPUT C ID TIME EVID AMT CMT SS II ADDL RATE LAGT MODE DUR2 RAT2 BIOAV DV
@@ -755,8 +751,8 @@ writeLines(readLines("model/1001/1001.lst"))
        
        License Registered to: Metrum Research Group
        Expiration Date:    14 JUL 2020
-       Current Date:        1 OCT 2019
-       Days until program expires : 288
+       Current Date:        2 OCT 2019
+       Days until program expires : 287
        1NONLINEAR MIXED EFFECTS MODEL PROGRAM (NONMEM) VERSION 7.4.3
         ORIGINALLY DEVELOPED BY STUART BEAL, LEWIS SHEINER, AND ALISON BOECKMANN
         CURRENT DEVELOPERS ARE ROBERT BAUER, ICON DEVELOPMENT SOLUTIONS,
@@ -884,12 +880,12 @@ writeLines(readLines("model/1001/1001.lst"))
         SIMULATION STEP PERFORMED
         SOURCE  1:
            SEED1:    1222495484   SEED2:             0
-        Elapsed simulation  time in seconds:     0.01
+        Elapsed simulation  time in seconds:     0.00
         ESTIMATION STEP OMITTED:                 YES
         Elapsed finaloutput time in seconds:     0.22
-        #CPUT: Total CPU Time in Seconds,        0.240
+        #CPUT: Total CPU Time in Seconds,        0.249
        Stop Time:
-       Tue Oct  1 21:56:30 UTC 2019
+       Wed Oct  2 03:09:32 UTC 2019
 
 Session Info
 ============
@@ -909,7 +905,7 @@ devtools::session_info()
     .  collate  en_US.UTF-8                 
     .  ctype    en_US.UTF-8                 
     .  tz       Etc/UTC                     
-    .  date     2019-10-01                  
+    .  date     2019-10-02                  
     . 
     . ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
     .  package       * version     date       lib source           
@@ -940,7 +936,7 @@ devtools::session_info()
     .  MASS            7.3-51.1    2018-11-01 [4] CRAN (R 3.5.1)   
     .  memoise         1.1.0       2017-04-21 [1] CRAN (R 3.5.1)   
     .  metrumrg        5.57        2015-10-08 [1] R-Forge (R 3.5.1)
-    .  mrgsolve      * 0.9.2.9000  2019-10-01 [1] local            
+    .  mrgsolve      * 0.9.2.9000  2019-10-02 [1] local            
     .  munsell         0.5.0       2018-06-12 [1] CRAN (R 3.5.1)   
     .  pillar          1.4.2       2019-06-29 [1] CRAN (R 3.5.1)   
     .  pkgbuild        1.0.3       2019-03-20 [1] CRAN (R 3.5.1)   
