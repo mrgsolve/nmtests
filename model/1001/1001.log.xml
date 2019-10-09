@@ -251,11 +251,11 @@
       </job>
       <job>
        <do>date</do>
-       <so>Wed Oct  2 03:09:27 UTC 2019</so>
+       <so>Wed Oct  9 20:13:08 UTC 2019</so>
       </job>
       <job>
        <do>perl -e 'use POSIX; print join qq(,),uname'</do>
-       <so>Linux,ip-172-16-2-146,3.13.0-93-generic,#140-Ubuntu SMP Mon Jul 18 21:21:05 UTC 2016,x86_64</so>
+       <so>Linux,ip-172-16-2-247,3.13.0-93-generic,#140-Ubuntu SMP Mon Jul 18 21:21:05 UTC 2016,x86_64</so>
       </job>
       <job>
        <do>echo $SHELL</do>
@@ -297,9 +297,9 @@
    Starting nonmem execution ...
    License Registered to: Metrum Research Group
    Expiration Date:    14 JUL 2020
-   Current Date:        2 OCT 2019
-   Days until program expires : 287
-    Elapsed simulation  time in seconds:     0.00
+   Current Date:        9 OCT 2019
+   Days until program expires : 280
+    Elapsed simulation  time in seconds:     0.01
     Elapsed finaloutput time in seconds:     0.22
    Done with nonmem execution</so>
   </job>
@@ -307,7 +307,7 @@
    <do in="model/1001">if [ -e 1001.xml ];then cat 1001.xml;else echo \&lt;nofile/\>; fi</do>
    <so>
     <nm:output xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:nm="http://namespaces.oreilly.com/xmlnut/address" xsi:schemaLocation="http://namespaces.oreilly.com/xmlnut/address output.xsd">
-     <nm:start_datetime>2019-10-02T03:09:32.206</nm:start_datetime>
+     <nm:start_datetime>2019-10-09T20:13:12.695</nm:start_datetime>
      <nm:control_stream>
      $PROB RUN# 101
      
@@ -366,8 +366,8 @@
       <nm:license_information>
       License Registered to: Metrum Research Group
       Expiration Date:    14 JUL 2020
-      Current Date:        2 OCT 2019
-      Days until program expires : 287</nm:license_information>
+      Current Date:        9 OCT 2019
+      Days until program expires : 280</nm:license_information>
       <nm:program_information>
       1NONLINEAR MIXED EFFECTS MODEL PROGRAM (NONMEM) VERSION 7.4.3
        ORIGINALLY DEVELOPED BY STUART BEAL, LEWIS SHEINER, AND ALISON BOECKMANN
@@ -517,7 +517,7 @@
         SOURCE  1:
            SEED1:    1222495484   SEED2:             0</nm:simulation_information>
        <nm:sim_info nm:sim_bootstrap="0" nm:sim_seed1_01="1222495484" nm:sim_seed2_01="0"/>
-       <nm:sim_elapsed_time>0.00</nm:sim_elapsed_time>
+       <nm:sim_elapsed_time>0.01</nm:sim_elapsed_time>
        <nm:estimation nm:number="1" nm:type="1">
         <nm:table_series>0</nm:table_series>
         <nm:estimation_information>
@@ -530,8 +530,8 @@
        </nm:post_process_times>
       </nm:problem>
      </nm:nonmem>
-     <nm:stop_datetime>2019-10-02T03:09:32.463</nm:stop_datetime>
-     <nm:total_cputime>0.249</nm:total_cputime>
+     <nm:stop_datetime>2019-10-09T20:13:12.943</nm:stop_datetime>
+     <nm:total_cputime>0.238</nm:total_cputime>
     </nm:output>
    </so>
   </job>

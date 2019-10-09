@@ -250,7 +250,7 @@ runs <- mutate(runs, out = split(out,out$ID))
 runs <- mutate(
   runs, 
   comp = map2(out,sims, .f=function(out,sims) {
-    data_frame(
+    tibble(
       ID = out$ID, 
       time = sims$time, 
       MRGSIM = sims$CP, 
