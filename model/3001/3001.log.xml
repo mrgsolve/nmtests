@@ -251,11 +251,11 @@
       </job>
       <job>
        <do>date</do>
-       <so>Sat Mar 16 16:21:31 UTC 2019</so>
+       <so>Wed Feb 12 20:17:03 UTC 2020</so>
       </job>
       <job>
        <do>perl -e 'use POSIX; print join qq(,),uname'</do>
-       <so>Linux,ip-172-16-2-60,3.13.0-93-generic,#140-Ubuntu SMP Mon Jul 18 21:21:05 UTC 2016,x86_64</so>
+       <so>Linux,ip-172-16-2-182,3.13.0-93-generic,#140-Ubuntu SMP Mon Jul 18 21:21:05 UTC 2016,x86_64</so>
       </job>
       <job>
        <do>echo $SHELL</do>
@@ -299,9 +299,9 @@
    Building NONMEM Executable
    Starting nonmem execution ...
    License Registered to: Metrum Research Group
-   Expiration Date:    14 JUL 2019
-   Current Date:       16 MAR 2019
-   Days until program expires : 118
+   Expiration Date:    14 JUL 2020
+   Current Date:       12 FEB 2020
+   Days until program expires : 152
     Elapsed simulation  time in seconds:     0.00
     Elapsed finaloutput time in seconds:     0.00
    Done with nonmem execution</so>
@@ -310,7 +310,7 @@
    <do in="model/3001">if [ -e 3001.xml ];then cat 3001.xml;else echo \&lt;nofile/\>; fi</do>
    <so>
     <nm:output xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:nm="http://namespaces.oreilly.com/xmlnut/address" xsi:schemaLocation="http://namespaces.oreilly.com/xmlnut/address output.xsd">
-     <nm:start_datetime>2019-03-16T16:21:36.142</nm:start_datetime>
+     <nm:start_datetime>2020-02-12T20:17:07.584</nm:start_datetime>
      <nm:control_stream>
      $PROB RUN 3001; see nmtest_time_varying.R
      
@@ -365,9 +365,9 @@
      <nm:nonmem nm:version="7.4.3">
       <nm:license_information>
       License Registered to: Metrum Research Group
-      Expiration Date:    14 JUL 2019
-      Current Date:       16 MAR 2019
-      Days until program expires : 118</nm:license_information>
+      Expiration Date:    14 JUL 2020
+      Current Date:       12 FEB 2020
+      Days until program expires : 152</nm:license_information>
       <nm:program_information>
       1NONLINEAR MIXED EFFECTS MODEL PROGRAM (NONMEM) VERSION 7.4.3
        ORIGINALLY DEVELOPED BY STUART BEAL, LEWIS SHEINER, AND ALISON BOECKMANN
@@ -522,8 +522,8 @@
        </nm:post_process_times>
       </nm:problem>
      </nm:nonmem>
-     <nm:stop_datetime>2019-03-16T16:21:36.160</nm:stop_datetime>
-     <nm:total_cputime>0.011</nm:total_cputime>
+     <nm:stop_datetime>2020-02-12T20:17:07.602</nm:stop_datetime>
+     <nm:total_cputime>0.010</nm:total_cputime>
     </nm:output>
    </so>
   </job>

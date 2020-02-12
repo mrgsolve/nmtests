@@ -1,4 +1,4 @@
-Wed Oct  9 20:13:08 UTC 2019
+Wed Feb 12 20:16:40 UTC 2020
 $PROB RUN# 101
 
 $INPUT C ID TIME EVID AMT CMT SS II ADDL RATE LAGT MODE DUR2 RAT2 BIOAV DV
@@ -56,8 +56,8 @@ NM-TRAN MESSAGES
 
 License Registered to: Metrum Research Group
 Expiration Date:    14 JUL 2020
-Current Date:        9 OCT 2019
-Days until program expires : 280
+Current Date:       12 FEB 2020
+Days until program expires : 152
 1NONLINEAR MIXED EFFECTS MODEL PROGRAM (NONMEM) VERSION 7.4.3
  ORIGINALLY DEVELOPED BY STUART BEAL, LEWIS SHEINER, AND ALISON BOECKMANN
  CURRENT DEVELOPERS ARE ROBERT BAUER, ICON DEVELOPMENT SOLUTIONS,
@@ -187,7 +187,7 @@ SEED   1 RESET TO INITIAL: YES
     SEED1:    1222495484   SEED2:             0
  Elapsed simulation  time in seconds:     0.01
  ESTIMATION STEP OMITTED:                 YES
- Elapsed finaloutput time in seconds:     0.22
- #CPUT: Total CPU Time in Seconds,        0.238
+ Elapsed finaloutput time in seconds:     0.24
+ #CPUT: Total CPU Time in Seconds,        0.273
 Stop Time:
-Wed Oct  9 20:13:12 UTC 2019
+Wed Feb 12 20:16:45 UTC 2020

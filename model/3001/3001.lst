@@ -1,4 +1,4 @@
-Sat Mar 16 16:21:31 UTC 2019
+Wed Feb 12 20:17:03 UTC 2020
 $PROB RUN 3001; see nmtest_time_varying.R
 
 $INPUT C ID TIME WT EVID AMT CMT SS II ADDL RATE LAGT MODE DUR2 RAT2 BIOAV DV
@@ -52,9 +52,9 @@ NM-TRAN MESSAGES
  THE DV DATA ITEM IS POSITIVE, BUT THE MDV DATA ITEM IS 1
 
 License Registered to: Metrum Research Group
-Expiration Date:    14 JUL 2019
-Current Date:       16 MAR 2019
-Days until program expires : 118
+Expiration Date:    14 JUL 2020
+Current Date:       12 FEB 2020
+Days until program expires : 152
 1NONLINEAR MIXED EFFECTS MODEL PROGRAM (NONMEM) VERSION 7.4.3
  ORIGINALLY DEVELOPED BY STUART BEAL, LEWIS SHEINER, AND ALISON BOECKMANN
  CURRENT DEVELOPERS ARE ROBERT BAUER, ICON DEVELOPMENT SOLUTIONS,
@@ -177,6 +177,6 @@ SEED   1 RESET TO INITIAL: YES
  Elapsed simulation  time in seconds:     0.00
  ESTIMATION STEP OMITTED:                 YES
  Elapsed finaloutput time in seconds:     0.00
- #CPUT: Total CPU Time in Seconds,        0.011
+ #CPUT: Total CPU Time in Seconds,        0.010
 Stop Time:
-Sat Mar 16 16:21:36 UTC 2019
+Wed Feb 12 20:17:07 UTC 2020

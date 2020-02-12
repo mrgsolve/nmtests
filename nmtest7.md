@@ -688,7 +688,7 @@ Control stream
 writeLines(readLines("model/1001/1001.lst"))
 ```
 
-       Wed Oct  9 20:13:08 UTC 2019
+       Mon Oct 14 22:11:59 UTC 2019
        $PROB RUN# 101
        
        $INPUT C ID TIME EVID AMT CMT SS II ADDL RATE LAGT MODE DUR2 RAT2 BIOAV DV
@@ -746,8 +746,8 @@ writeLines(readLines("model/1001/1001.lst"))
        
        License Registered to: Metrum Research Group
        Expiration Date:    14 JUL 2020
-       Current Date:        9 OCT 2019
-       Days until program expires : 280
+       Current Date:       14 OCT 2019
+       Days until program expires : 275
        1NONLINEAR MIXED EFFECTS MODEL PROGRAM (NONMEM) VERSION 7.4.3
         ORIGINALLY DEVELOPED BY STUART BEAL, LEWIS SHEINER, AND ALISON BOECKMANN
         CURRENT DEVELOPERS ARE ROBERT BAUER, ICON DEVELOPMENT SOLUTIONS,
@@ -875,12 +875,12 @@ writeLines(readLines("model/1001/1001.lst"))
         SIMULATION STEP PERFORMED
         SOURCE  1:
            SEED1:    1222495484   SEED2:             0
-        Elapsed simulation  time in seconds:     0.01
+        Elapsed simulation  time in seconds:     0.00
         ESTIMATION STEP OMITTED:                 YES
         Elapsed finaloutput time in seconds:     0.22
-        #CPUT: Total CPU Time in Seconds,        0.238
+        #CPUT: Total CPU Time in Seconds,        0.245
        Stop Time:
-       Wed Oct  9 20:13:12 UTC 2019
+       Mon Oct 14 22:12:04 UTC 2019
 
 Session Info
 ============
@@ -900,7 +900,7 @@ devtools::session_info()
     .  collate  en_US.UTF-8                 
     .  ctype    en_US.UTF-8                 
     .  tz       Etc/UTC                     
-    .  date     2019-10-09                  
+    .  date     2019-10-14                  
     . 
     . ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
     .  package       * version     date       lib source           
@@ -931,7 +931,7 @@ devtools::session_info()
     .  MASS            7.3-51.1    2018-11-01 [4] CRAN (R 3.5.1)   
     .  memoise         1.1.0       2017-04-21 [1] CRAN (R 3.5.1)   
     .  metrumrg        5.57        2015-10-08 [1] R-Forge (R 3.5.1)
-    .  mrgsolve      * 0.9.2.9002  2019-10-09 [1] local            
+    .  mrgsolve      * 0.10.0      2019-10-14 [1] local            
     .  munsell         0.5.0       2018-06-12 [1] CRAN (R 3.5.1)   
     .  pillar          1.4.2       2019-06-29 [1] CRAN (R 3.5.1)   
     .  pkgbuild        1.0.3       2019-03-20 [1] CRAN (R 3.5.1)   
