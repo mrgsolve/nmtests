@@ -1,0 +1,7 @@
+Thu Feb 13 14:26:26 2020
+cannot locate *.tab in control stream for run 
+cannot locate *par.tab in control stream for run 
+cannot locate *.msf in control stream for run 
+perl -S /opt/NONMEM/nm74/nmqual/autolog.pl /opt/NONMEM/nm74/nmqual/log.xml run ce model/1001-ode 1001-ode
+Run 1001-ode has exit code 0
+cannot locate *.tab in control stream for run 1001-ode
