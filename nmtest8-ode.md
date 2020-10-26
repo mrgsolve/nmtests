@@ -1,4 +1,4 @@
-Bemchmark test with mrgsolve and NONMEM
+Bemchmark test with mrgsolve and NONMEM - ODE MODEL
 ================
 Metrum Research Group
 
@@ -46,7 +46,7 @@ Introduction
 
 This document runs simulations from a pharmacokinetic model using both NONMEM and mrgsolve and compares the results.
 
-All of the relevant code is presented so that the user can trace how the simulations are performed. The complete source code can be viewed [here](nmtest7.R).
+All of the relevant code is presented so that the user can trace how the simulations are performed. The complete source code can be viewed [here](nmtest8-ode.R).
 
 The bottom line results are presented in graphical form [here](#results) and numeric form [here](#numeric-summary).
 
@@ -127,7 +127,7 @@ Simulate a scenario with `mrsim`
 
 ``` r
 sim <- function(x, e,...) {
-  mrgsim(x, events = e, carry.out = carry, digits = 5, recsort=3, ...) 
+  mrgsim(x, events = e, carry.out = carry, recsort=3, digits = 5, ...) 
 }
 ```
 
@@ -140,7 +140,10 @@ $SET req = ""
 $PARAM CL = 1.1, V = 20, KA = 1.5
 LAGT = 0, MODE = 0, DUR2 = 2, RAT2 = 10, BIOAV = 1
 
-$PKMODEL cmt = "GUT CENT", depot = TRUE
+$CMT GUT CENT
+$ODE
+dxdt_GUT = -KA*GUT;
+dxdt_CENT = KA*GUT - (CL/V)*CENT;
 
 $MAIN
 
@@ -164,7 +167,7 @@ mod <- mcode_cache("tests1", code)
     . Building tests1 ... done.
 
 ``` r
-mod <- update(mod, end=130, delta = 1)
+mod <- update(mod, end=130, delta = 1, atol=1e-10, rtol = 1e-10)
 ```
 
 Assemble the scenarios
@@ -317,17 +320,17 @@ runs <- mutate(runs, data = map(sims, to_data_set))
 data <- runs[["data"]] %>% bind_rows()
 
 
-sv(data, "data/1001.csv")
+sv(data, "data/1001-ode.csv")
 ```
 
 Simulate with `nonmem`
 ======================
 
 ``` r
-out <- run(1001)
+out <- run("1001-ode")
 ```
 
-    . Run 1001 complete.
+    . Run 1001-ode complete.
 
     . NONR complete.
 
@@ -360,6 +363,9 @@ runs <- mutate(
 
 comp <- runs %>% select(ID,comp) %>% unnest()
 ```
+
+    . Warning: `cols` is now required.
+    . Please use `cols = c(comp)`
 
 Overall
 -------
@@ -434,7 +440,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-40-1.png)
+![](img/nmtest8-unnamed-chunk-40-1.png)
 
 2: Bolus with lag time and bioav
 --------------------------------
@@ -446,7 +452,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-41-1.png)
+![](img/nmtest8-unnamed-chunk-41-1.png)
 
 3: Infusion with additional
 ---------------------------
@@ -458,7 +464,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-42-1.png)
+![](img/nmtest8-unnamed-chunk-42-1.png)
 
 4: Infusion doses to depot, with additional
 -------------------------------------------
@@ -470,7 +476,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-43-1.png)
+![](img/nmtest8-unnamed-chunk-43-1.png)
 
 5: Infusion doses, with additional and lag time
 -----------------------------------------------
@@ -482,7 +488,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-44-1.png)
+![](img/nmtest8-unnamed-chunk-44-1.png)
 
 6: Infusion doses, with lag time and bioav factor
 -------------------------------------------------
@@ -494,7 +500,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-45-1.png)
+![](img/nmtest8-unnamed-chunk-45-1.png)
 
 7: Infusion doses, with lag time and bioav factor
 -------------------------------------------------
@@ -506,7 +512,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-46-1.png)
+![](img/nmtest8-unnamed-chunk-46-1.png)
 
 8: Infusion doses at steady-state, with lag time and bioav factor
 -----------------------------------------------------------------
@@ -518,7 +524,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-47-1.png)
+![](img/nmtest8-unnamed-chunk-47-1.png)
 
 9: Infusion doses, with lag time and bioav factor
 -------------------------------------------------
@@ -530,7 +536,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-48-1.png)
+![](img/nmtest8-unnamed-chunk-48-1.png)
 
 10: Infusion doses at steady state, II &lt; DUR, no bioav factor
 ----------------------------------------------------------------
@@ -542,7 +548,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-49-1.png)
+![](img/nmtest8-unnamed-chunk-49-1.png)
 
 11: Infusion doses at steady state where II == DUR, with bioav factor
 ---------------------------------------------------------------------
@@ -554,7 +560,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-50-1.png)
+![](img/nmtest8-unnamed-chunk-50-1.png)
 
 12: Infusion doses at steady state, where II == DUR
 ---------------------------------------------------
@@ -566,7 +572,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-51-1.png)
+![](img/nmtest8-unnamed-chunk-51-1.png)
 
 13: Bolus doses at steady state, with bioav factor and lag time
 ---------------------------------------------------------------
@@ -578,7 +584,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-52-1.png)
+![](img/nmtest8-unnamed-chunk-52-1.png)
 
 14: Bolus doses with lag time and bioavability factor
 -----------------------------------------------------
@@ -590,7 +596,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-53-1.png)
+![](img/nmtest8-unnamed-chunk-53-1.png)
 
 15: Bolus then infusion
 -----------------------
@@ -603,7 +609,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-54-1.png)
+![](img/nmtest8-unnamed-chunk-54-1.png)
 
 16: Infusion with modeled duration, lag time, and bioav factor
 --------------------------------------------------------------
@@ -615,7 +621,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-55-1.png)
+![](img/nmtest8-unnamed-chunk-55-1.png)
 
 17: Infusion with modeled duration, at steady state with bioav factor
 ---------------------------------------------------------------------
@@ -627,7 +633,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-56-1.png)
+![](img/nmtest8-unnamed-chunk-56-1.png)
 
 18: Reset and dose (EVID 4) with additional
 -------------------------------------------
@@ -640,7 +646,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-57-1.png)
+![](img/nmtest8-unnamed-chunk-57-1.png)
 
 19: Reset (EVID 3) with additional
 ----------------------------------
@@ -654,7 +660,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-58-1.png)
+![](img/nmtest8-unnamed-chunk-58-1.png)
 
 20: Steady state 1 and 2
 ------------------------
@@ -667,7 +673,7 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-59-1.png)
+![](img/nmtest8-unnamed-chunk-59-1.png)
 
 21: Steady state infusion
 -------------------------
@@ -679,23 +685,25 @@ Results
     . 
     . $plot
 
-![](img/nmtest4-unnamed-chunk-60-1.png)
+![](img/nmtest8-unnamed-chunk-60-1.png)
 
 Control stream
 ==============
 
 ``` r
-writeLines(readLines("model/1001/1001.lst"))
+writeLines(readLines("model/1001-ode/1001-ode.lst"))
 ```
 
-       Mon Oct 14 22:11:59 UTC 2019
+       Thu Feb 13 14:26:26 UTC 2020
        $PROB RUN# 101
        
        $INPUT C ID TIME EVID AMT CMT SS II ADDL RATE LAGT MODE DUR2 RAT2 BIOAV DV
        
-       $DATA ../../data/1001.csv IGNORE=C
+       $DATA ../../data/1001-ode.csv IGNORE=C
        
-       $SUBROUTINES ADVAN2 TRANS2
+       $SUBROUTINES ADVAN13 TOL = 10
+       
+       $MODEL NCOMP=2
        
        $PK
        
@@ -713,6 +721,10 @@ writeLines(readLines("model/1001/1001.lst"))
        
        IF(MODE.EQ.1) R2 = RAT2
        IF(MODE.EQ.2) D2 = DUR2
+       
+       $DES
+       DADT(1) = -KA*A(1)
+       DADT(2) = KA*A(1) - (CL/V)*A(2)
        
        $ERROR
        IPRED=A(2)/(V/1000)
@@ -746,8 +758,8 @@ writeLines(readLines("model/1001/1001.lst"))
        
        License Registered to: Metrum Research Group
        Expiration Date:    14 JUL 2020
-       Current Date:       14 OCT 2019
-       Days until program expires : 275
+       Current Date:       13 FEB 2020
+       Days until program expires : 151
        1NONLINEAR MIXED EFFECTS MODEL PROGRAM (NONMEM) VERSION 7.4.3
         ORIGINALLY DEVELOPED BY STUART BEAL, LEWIS SHEINER, AND ALISON BOECKMANN
         CURRENT DEVELOPERS ARE ROBERT BAUER, ICON DEVELOPMENT SOLUTIONS,
@@ -832,20 +844,21 @@ writeLines(readLines("model/1001/1001.lst"))
         ID TIME CP
        1DOUBLE PRECISION PREDPP VERSION 7.4.3
        
-        ONE COMPARTMENT MODEL WITH FIRST-ORDER ABSORPTION (ADVAN2)
+        GENERAL NONLINEAR KINETICS MODEL WITH STIFF/NONSTIFF EQUATIONS (LSODA, ADVAN13)
+       0MODEL SUBROUTINE USER-SUPPLIED - ID NO. 9999
        0MAXIMUM NO. OF BASIC PK PARAMETERS:   3
-       0BASIC PK PARAMETERS (AFTER TRANSLATION):
-          ELIMINATION RATE (K) IS BASIC PK PARAMETER NO.:  1
-          ABSORPTION RATE (KA) IS BASIC PK PARAMETER NO.:  3
-       
-        TRANSLATOR WILL CONVERT PARAMETERS
-        CLEARANCE (CL) AND VOLUME (V) TO K (TRANS2)
        0COMPARTMENT ATTRIBUTES
         COMPT. NO.   FUNCTION   INITIAL    ON/OFF      DOSE      DEFAULT    DEFAULT
                                 STATUS     ALLOWED    ALLOWED    FOR DOSE   FOR OBS.
-           1         DEPOT        OFF        YES        YES        YES        NO
-           2         CENTRAL      ON         NO         YES        NO         YES
+           1         COMP 1       ON         YES        YES        YES        YES
+           2         COMP 2       ON         YES        YES        NO         NO
            3         OUTPUT       OFF        YES        NO         NO         NO
+       0GENERAL STEADY STATE (SS) ROUTINE IS BEING USED
+        INITIAL (BASE) TOLERANCE SETTINGS:
+        NRD (RELATIVE) VALUE(S) OF TOLERANCE:  10
+        ANRD (ABSOLUTE) VALUE(S) OF TOLERANCE:  12
+        NRD(0) (RELATIVE SS SOLUTION) VALUE OF TOLERANCE:  10
+        ANRD(0) (ABSOLUTE SS SOLUTION) VALUE OF TOLERANCE:  12
        1
         ADDITIONAL PK PARAMETERS - ASSIGNMENT OF ROWS IN GG
         COMPT. NO.                             INDICES
@@ -871,16 +884,27 @@ writeLines(readLines("model/1001/1001.lst"))
         PK SUBROUTINE NOT CALLED AT NONEVENT (ADDITIONAL OR LAGGED) DOSE TIMES.
        0ERROR SUBROUTINE CALLED WITH EVERY EVENT RECORD.
        0ERROR SUBROUTINE INDICATES THAT DERIVATIVES OF COMPARTMENT AMOUNTS ARE USED.
+       0DES SUBROUTINE USES COMPACT STORAGE MODE.
+        TOLERANCES FOR SIMULATION STEP:
+        NRD (RELATIVE) VALUE(S) OF TOLERANCE:  10
+        ANRD (ABSOLUTE) VALUE(S) OF TOLERANCE:  12
+        NRD(0) (RELATIVE SS SOLUTION) VALUE OF TOLERANCE:  10
+        ANRD(0) (ABSOLUTE SS SOLUTION) VALUE OF TOLERANCE:  12
+        TOLERANCES FOR TABLE/SCATTER STEP:
+        NRD (RELATIVE) VALUE(S) OF TOLERANCE:  10
+        ANRD (ABSOLUTE) VALUE(S) OF TOLERANCE:  12
+        NRD(0) (RELATIVE SS SOLUTION) VALUE OF TOLERANCE:  10
+        ANRD(0) (ABSOLUTE SS SOLUTION) VALUE OF TOLERANCE:  12
        1
         SIMULATION STEP PERFORMED
         SOURCE  1:
            SEED1:    1222495484   SEED2:             0
-        Elapsed simulation  time in seconds:     0.00
+        Elapsed simulation  time in seconds:     0.03
         ESTIMATION STEP OMITTED:                 YES
-        Elapsed finaloutput time in seconds:     0.22
-        #CPUT: Total CPU Time in Seconds,        0.245
+        Elapsed finaloutput time in seconds:     0.19
+        #CPUT: Total CPU Time in Seconds,        0.243
        Stop Time:
-       Mon Oct 14 22:12:04 UTC 2019
+       Thu Feb 13 14:26:30 UTC 2020
 
 Session Info
 ============
@@ -900,7 +924,7 @@ devtools::session_info()
     .  collate  en_US.UTF-8                 
     .  ctype    en_US.UTF-8                 
     .  tz       Etc/UTC                     
-    .  date     2019-10-14                  
+    .  date     2020-02-13                  
     . 
     . ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
     .  package       * version     date       lib source           
@@ -927,11 +951,12 @@ devtools::session_info()
     .  labeling        0.3         2014-08-23 [1] CRAN (R 3.5.1)   
     .  lattice         0.20-38     2018-11-04 [4] CRAN (R 3.5.1)   
     .  lazyeval        0.2.2       2019-03-15 [1] CRAN (R 3.5.1)   
+    .  lifecycle       0.1.0       2019-08-01 [1] CRAN (R 3.5.1)   
     .  magrittr        1.5         2014-11-22 [1] CRAN (R 3.5.1)   
     .  MASS            7.3-51.1    2018-11-01 [4] CRAN (R 3.5.1)   
     .  memoise         1.1.0       2017-04-21 [1] CRAN (R 3.5.1)   
     .  metrumrg        5.57        2015-10-08 [1] R-Forge (R 3.5.1)
-    .  mrgsolve      * 0.10.0      2019-10-14 [1] local            
+    .  mrgsolve      * 0.10.1      2020-02-12 [1] local            
     .  munsell         0.5.0       2018-06-12 [1] CRAN (R 3.5.1)   
     .  pillar          1.4.2       2019-06-29 [1] CRAN (R 3.5.1)   
     .  pkgbuild        1.0.3       2019-03-20 [1] CRAN (R 3.5.1)   
@@ -957,7 +982,7 @@ devtools::session_info()
     .  stringr         1.4.0       2019-02-10 [1] CRAN (R 3.5.1)   
     .  testthat        2.1.1       2019-04-23 [1] CRAN (R 3.5.1)   
     .  tibble          2.1.3       2019-06-06 [1] CRAN (R 3.5.1)   
-    .  tidyr         * 0.8.3       2019-03-01 [1] CRAN (R 3.5.1)   
+    .  tidyr         * 1.0.0       2019-09-11 [1] CRAN (R 3.5.1)   
     .  tidyselect      0.2.5       2018-10-11 [1] CRAN (R 3.5.1)   
     .  usethis         1.5.1       2019-07-04 [1] CRAN (R 3.5.1)   
     .  vctrs           0.2.0       2019-07-05 [1] CRAN (R 3.5.1)   
