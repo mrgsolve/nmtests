@@ -17,6 +17,9 @@
 ##'     
 ##' ---
 
+#' # mrgsolve package version
+packageVersion("mrgsolve")
+
 ##' # Introduction
 ##' 
 ##' This document runs simulations from a pharmacokinetic model using both 
@@ -46,10 +49,12 @@ library(purrr)
 library(tidyr)
 
 #+ echo = FALSE
-knitr::opts_chunk$set(comment = '.', fig.path = "img/nmtest4-")
+knitr::opts_chunk$set(comment = '.', fig.path = "img/nmtest7-")
 #+
 
 carry <- c("cmt", "amt","ii", "addl", "rate", "evid", "ss")
+
+
 
 ##' # Functions
 ##' 
@@ -75,7 +80,7 @@ sv <- function(x,file) {
 ##' ## Run `nonmem`
 run <- function(number) {
   metrumrg::NONR(number, project = "model", 
-                 command = "/opt/NONMEM/nm74/nmqual/autolog.pl", 
+                 command = "/opt/NONMEM/nm74gf/nmqual/autolog.pl", 
                  checkrunno=FALSE)
   return(tabread(number))
 }
