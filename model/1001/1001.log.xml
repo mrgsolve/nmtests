@@ -247,15 +247,15 @@
       </config>
       <job>
        <do>pwd</do>
-       <so>/data/home/kyleb/nmtests</so>
+       <so>/data/home/kyleb/git/mrgsolve/nmtests</so>
       </job>
       <job>
        <do>date</do>
-       <so>Wed Aug  4 10:51:18 EDT 2021</so>
+       <so>Thu Mar 24 09:50:36 EDT 2022</so>
       </job>
       <job>
        <do>perl -e 'use POSIX; print join qq(,),uname'</do>
-       <so>Linux,ip-10-128-8-108,5.4.0-1034-aws,#35~18.04.1-Ubuntu SMP Fri Dec 18 01:06:34 UTC 2020,x86_64</so>
+       <so>Linux,ip-10-128-24-107,5.4.0-1054-aws,#57~18.04.1-Ubuntu SMP Thu Jul 15 03:21:36 UTC 2021,x86_64</so>
       </job>
       <job>
        <do>echo $SHELL</do>
@@ -267,7 +267,7 @@
       </job>
       <job>
        <do>echo $PATH</do>
-       <so>/data/apps:/usr/local/mpich2/bin:/opt/intel/bin/intel64:/data/home/kyleb/.local/bin::/opt/sge/bin:/opt/sge/bin/lx-amd64:/usr/bin:/opt/amazon/openmpi/bin/:/opt/amazon/efa/bin/:/opt/conda/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/opt/julia/bin:/opt/conda/bin:/usr/lib/rstudio-server/bin/postback:/opt/conda/bin</so>
+       <so>/opt/python/3.7.7/bin:/data/apps:/usr/local/mpich2/bin:/opt/intel/bin/intel64:/usr/local/texlive/2021/bin/x86_64-linux:/opt/sge/bin:/opt/sge/bin/lx-amd64:/opt/python/3.7.7/bin:/opt/python/miniconda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/opt/amazon/efa/bin/:/opt/amazon/openmpi/bin/:/opt/julia/bin:/usr/lib/rstudio-server/bin/postback</so>
       </job>
       <job>
        <do>head -n 5 /opt/NONMEM/nm74gf/util/nmfe74</do>
@@ -295,19 +295,19 @@
    Recompiling certain components
    Building NONMEM Executable
    Starting nonmem execution ...
-   License Registered to: Metrum Research Group
+   License Registered to: Metrum Research Group (with RADAR5NM)
    Expiration Date:    14 JUL 2022
-   Current Date:        4 AUG 2021
-   Days until program expires : 345
+   Current Date:       24 MAR 2022
+   Days until program expires : 110
     Elapsed simulation  time in seconds:     0.00
-    Elapsed finaloutput time in seconds:     0.03
+    Elapsed finaloutput time in seconds:     0.04
    Done with nonmem execution</so>
   </job>
   <job>
    <do in="model/1001">if [ -e 1001.xml ];then cat 1001.xml;else echo \&lt;nofile/\>; fi</do>
    <so>
     <nm:output xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:nm="http://namespaces.oreilly.com/xmlnut/address" xsi:schemaLocation="http://namespaces.oreilly.com/xmlnut/address output.xsd">
-     <nm:start_datetime>2021-08-04T10:51:22.210</nm:start_datetime>
+     <nm:start_datetime>2022-03-24T09:50:42.967</nm:start_datetime>
      <nm:control_stream>
      $PROB RUN# 101
      
@@ -364,10 +364,10 @@
       (WARNING  2) NM-TRAN INFERS THAT THE DATA ARE POPULATION.</nm:nmtran>
      <nm:nonmem nm:version="7.4.4">
       <nm:license_information>
-      License Registered to: Metrum Research Group
+      License Registered to: Metrum Research Group (with RADAR5NM)
       Expiration Date:    14 JUL 2022
-      Current Date:        4 AUG 2021
-      Days until program expires : 345</nm:license_information>
+      Current Date:       24 MAR 2022
+      Days until program expires : 110</nm:license_information>
       <nm:program_information>
       1NONLINEAR MIXED EFFECTS MODEL PROGRAM (NONMEM) VERSION 7.4.4
        ORIGINALLY DEVELOPED BY STUART BEAL, LEWIS SHEINER, AND ALISON BOECKMANN
@@ -398,7 +398,7 @@
        0DATA CHECKOUT RUN:              NO
         DATA SET LOCATED ON UNIT NO.:    2
         THIS UNIT TO BE REWOUND:        NO
-        NO. OF DATA RECS IN DATA SET:     2777
+        NO. OF DATA RECS IN DATA SET:     2909
         NO. OF DATA ITEMS IN DATA SET:  17
         ID DATA ITEM IS DATA ITEM NO.:   2
         DEP VARIABLE IS DATA ITEM NO.:  16
@@ -412,8 +412,8 @@
        0FORMAT FOR DATA:
         (E2.0,E3.0,E4.0,E2.0,E4.0,2E2.0,2E3.0,E17.0,E6.0,2E2.0,3E6.0,1F2.0)
        
-        TOT. NO. OF OBS RECS:     2751
-        TOT. NO. OF INDIVIDUALS:       21
+        TOT. NO. OF OBS RECS:     2882
+        TOT. NO. OF INDIVIDUALS:       22
        0LENGTH OF THETA:   3
        0DEFAULT THETA BOUNDARY TEST OMITTED:    NO
        0OMEGA HAS SIMPLE DIAGONAL FORM WITH DIMENSION:   3
@@ -510,13 +510,13 @@
         PK SUBROUTINE NOT CALLED AT NONEVENT (ADDITIONAL OR LAGGED) DOSE TIMES.
        0ERROR SUBROUTINE CALLED WITH EVERY EVENT RECORD.
        0ERROR SUBROUTINE INDICATES THAT DERIVATIVES OF COMPARTMENT AMOUNTS ARE USED.</nm:problem_information>
-       <nm:problem_options nm:data_checkout_run="no" nm:data_unit="2" nm:data_rewind="no" nm:data_nrec="2777" nm:data_nitems="17" nm:data_id="2" nm:data_l2="0" nm:data_dv="16" nm:data_mdv="17" nm:data_mrg="0" nm:data_raw="0" nm:data_rpt="0" nm:data_sub_array1="0" nm:data_sub_array2="0" nm:data_sub_array3="0" nm:data_pred_indices="4,3,5,10,7,8,6,0,0,0,9" nm:data_format="(e2.0,e3.0,e4.0,e2.0,e4.0,2e2.0,2e3.0,e17.0,e6.0,2e2.0,3e6.0,1f2.0)" nm:data_nobs="2751" nm:data_nind="21" nm:data_mdv100="0" nm:nthetat="3" nm:theta_bound_test_omitted="no" nm:omega_diagdim="3" nm:omega_bound_test_omitted="no" nm:sigma_diagdim="1" nm:sigma_bound_test_omitted="no" nm:sim_omitted="no" nm:sim_obj_evaluated="no" nm:sim_rewind="no" nm:sim_supreset="yes" nm:sim_ranmethod="4u" nm:sim_seed1_01="2674474" nm:sim_seed2_01="0" nm:sim_dist_01="pseudo-normal" nm:sim_newran="0" nm:sim_etader_order_max="0" nm:tab_omitted="no" nm:tab_number="1" nm:tab_seed="11456" nm:tab_ranmethod="3u" nm:tab_esample="300" nm:tab_wres="eigenvalue" nm:tab_fixedetas_01="BLANK" nm:pred_advan="2" nm:pred_evid="4" nm:pred_time="3" nm:pred_amt="5" nm:pred_rate="10" nm:pred_ss="7" nm:pred_ii="8" nm:pred_addl="9" nm:pred_cmt="6"/>
+       <nm:problem_options nm:data_checkout_run="no" nm:data_unit="2" nm:data_rewind="no" nm:data_nrec="2909" nm:data_nitems="17" nm:data_id="2" nm:data_l2="0" nm:data_dv="16" nm:data_mdv="17" nm:data_mrg="0" nm:data_raw="0" nm:data_rpt="0" nm:data_sub_array1="0" nm:data_sub_array2="0" nm:data_sub_array3="0" nm:data_pred_indices="4,3,5,10,7,8,6,0,0,0,9" nm:data_format="(e2.0,e3.0,e4.0,e2.0,e4.0,2e2.0,2e3.0,e17.0,e6.0,2e2.0,3e6.0,1f2.0)" nm:data_nobs="2882" nm:data_nind="22" nm:data_mdv100="0" nm:nthetat="3" nm:theta_bound_test_omitted="no" nm:omega_diagdim="3" nm:omega_bound_test_omitted="no" nm:sigma_diagdim="1" nm:sigma_bound_test_omitted="no" nm:sim_omitted="no" nm:sim_obj_evaluated="no" nm:sim_rewind="no" nm:sim_supreset="yes" nm:sim_ranmethod="4u" nm:sim_seed1_01="2674474" nm:sim_seed2_01="0" nm:sim_dist_01="pseudo-normal" nm:sim_newran="0" nm:sim_etader_order_max="0" nm:tab_omitted="no" nm:tab_number="1" nm:tab_seed="11456" nm:tab_ranmethod="3u" nm:tab_esample="300" nm:tab_wres="eigenvalue" nm:tab_fixedetas_01="BLANK" nm:pred_advan="2" nm:pred_evid="4" nm:pred_time="3" nm:pred_amt="5" nm:pred_rate="10" nm:pred_ss="7" nm:pred_ii="8" nm:pred_addl="9" nm:pred_cmt="6"/>
        <nm:simulation_information>
        1
         SIMULATION STEP PERFORMED
         SOURCE  1:
-           SEED1:    1222495484   SEED2:             0</nm:simulation_information>
-       <nm:sim_info nm:sim_bootstrap="0" nm:sim_seed1_01="1222495484" nm:sim_seed2_01="0"/>
+           SEED1:    1429575333   SEED2:   -1105086081</nm:simulation_information>
+       <nm:sim_info nm:sim_bootstrap="0" nm:sim_seed1_01="1429575333" nm:sim_seed2_01="-1105086081"/>
        <nm:sim_elapsed_time>0.00</nm:sim_elapsed_time>
        <nm:estimation nm:number="1" nm:type="1">
         <nm:table_series>0</nm:table_series>
@@ -526,12 +526,12 @@
        </nm:estimation>
        <nm:post_process_times>
         <nm:post_elapsed_time>0.00</nm:post_elapsed_time>
-        <nm:finaloutput_elapsed_time>0.03</nm:finaloutput_elapsed_time>
+        <nm:finaloutput_elapsed_time>0.04</nm:finaloutput_elapsed_time>
        </nm:post_process_times>
       </nm:problem>
      </nm:nonmem>
-     <nm:stop_datetime>2021-08-04T10:51:22.255</nm:stop_datetime>
-     <nm:total_cputime>0.045</nm:total_cputime>
+     <nm:stop_datetime>2022-03-24T09:50:43.019</nm:stop_datetime>
+     <nm:total_cputime>0.052</nm:total_cputime>
     </nm:output>
    </so>
   </job>
@@ -662,7 +662,7 @@
       </config>
       <job>
        <do>date</do>
-       <so>Thu Jan  7 19:44:24 EST 2021</so>
+       <so>Sat Jul  3 14:34:23 EDT 2021</so>
       </job>
       <job>
        <do>rm -rf /mnt/nmqual-8.4.0/temp</do>
@@ -816,7 +816,7 @@
           Starting nonmem execution ...
           License Registered to: Temporary license for Installation of NONMEM 7.4.4
           Expiration Date:    12 DEC 2019
-          Current Date:        7 JAN 2021
+          Current Date:        3 JUL 2021
            
             **** NONMEM LICENSE HAS EXPIRED ****
             ****     NONMEM TERMINATING     ****
@@ -1034,11 +1034,11 @@
           </job>
           <job>
            <do>date</do>
-           <so>Thu Jan  7 19:48:00 EST 2021</so>
+           <so>Sat Jul  3 14:37:51 EDT 2021</so>
           </job>
           <job>
            <do>perl -e 'use POSIX; print join qq(,),uname'</do>
-           <so>Linux,ip-10-192-87-202,5.4.0-1034-aws,#35~18.04.1-Ubuntu SMP Fri Dec 18 01:06:34 UTC 2020,x86_64</so>
+           <so>Linux,ip-10-192-84-174,5.4.0-1051-aws,#53~18.04.1-Ubuntu SMP Fri Jun 18 14:53:38 UTC 2021,x86_64</so>
           </job>
           <job>
            <do>echo $SHELL</do>

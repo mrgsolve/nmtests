@@ -36,7 +36,7 @@
 Sys.setenv(RSTUDIO_PANDOC = "/usr/lib/rstudio-server/bin/pandoc")
 
 #+ message = FALSE
-.libPaths("/data/Rlibs")
+.libPaths("/data/home/Rlibs")
 library(mrgsolve)
 library(dplyr)
 library(readr)

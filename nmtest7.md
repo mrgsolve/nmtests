@@ -26,39 +26,39 @@ Metrum Research Group
     -   [2: Bolus with lag time and
         bioav](#2-bolus-with-lag-time-and-bioav)
     -   [3: Infusion with additional](#3-infusion-with-additional)
-    -   [4: Infusion doses to depot, with
-        additional](#4-infusion-doses-to-depot-with-additional)
-    -   [5: Infusion doses, with additional and lag
-        time](#5-infusion-doses-with-additional-and-lag-time)
-    -   [6: Infusion doses, with lag time and bioav
-        factor](#6-infusion-doses-with-lag-time-and-bioav-factor)
+    -   [4: Infusion with bioav factor](#4-infusion-with-bioav-factor)
+    -   [5: Infusion doses to depot, with
+        additional](#5-infusion-doses-to-depot-with-additional)
+    -   [6: Infusion doses, with additional and lag
+        time](#6-infusion-doses-with-additional-and-lag-time)
     -   [7: Infusion doses, with lag time and bioav
         factor](#7-infusion-doses-with-lag-time-and-bioav-factor)
-    -   [8: Infusion doses at steady-state, with lag time and bioav
-        factor](#8-infusion-doses-at-steady-state-with-lag-time-and-bioav-factor)
-    -   [9: Infusion doses, with lag time and bioav
-        factor](#9-infusion-doses-with-lag-time-and-bioav-factor)
-    -   [10: Infusion doses at steady state, II &lt; DUR, no bioav
-        factor](#10-infusion-doses-at-steady-state-ii--dur-no-bioav-factor)
-    -   [11: Infusion doses at steady state where II == DUR, with bioav
-        factor](#11-infusion-doses-at-steady-state-where-ii--dur-with-bioav-factor)
-    -   [12: Infusion doses at steady state, where II ==
-        DUR](#12-infusion-doses-at-steady-state-where-ii--dur)
-    -   [13: Bolus doses at steady state, with bioav factor and lag
-        time](#13-bolus-doses-at-steady-state-with-bioav-factor-and-lag-time)
-    -   [14: Bolus doses with lag time and bioavability
-        factor](#14-bolus-doses-with-lag-time-and-bioavability-factor)
-    -   [15: Bolus then infusion](#15-bolus-then-infusion)
-    -   [16: Infusion with modeled duration, lag time, and bioav
-        factor](#16-infusion-with-modeled-duration-lag-time-and-bioav-factor)
-    -   [17: Infusion with modeled duration, at steady state with bioav
-        factor](#17-infusion-with-modeled-duration-at-steady-state-with-bioav-factor)
-    -   [18: Reset and dose (EVID 4) with
-        additional](#18-reset-and-dose-evid-4-with-additional)
-    -   [19: Reset (EVID 3) with
-        additional](#19-reset-evid-3-with-additional)
-    -   [20: Steady state 1 and 2](#20-steady-state-1-and-2)
-    -   [21: Steady state infusion](#21-steady-state-infusion)
+    -   [8: Infusion doses, with lag time and bioav
+        factor](#8-infusion-doses-with-lag-time-and-bioav-factor)
+    -   [9: Infusion doses at steady-state, with lag time and bioav
+        factor](#9-infusion-doses-at-steady-state-with-lag-time-and-bioav-factor)
+    -   [10: Infusion doses, with lag time and bioav
+        factor](#10-infusion-doses-with-lag-time-and-bioav-factor)
+    -   [11: Infusion doses at steady state, II &lt; DUR, no bioav
+        factor](#11-infusion-doses-at-steady-state-ii--dur-no-bioav-factor)
+    -   [12: Infusion doses at steady state where II == DUR, with bioav
+        factor](#12-infusion-doses-at-steady-state-where-ii--dur-with-bioav-factor)
+    -   [13: Infusion doses at steady state, where II ==
+        DUR](#13-infusion-doses-at-steady-state-where-ii--dur)
+    -   [14: Bolus doses at steady state, with bioav factor and lag
+        time](#14-bolus-doses-at-steady-state-with-bioav-factor-and-lag-time)
+    -   [15: Bolus doses with lag time and bioavability
+        factor](#15-bolus-doses-with-lag-time-and-bioavability-factor)
+    -   [16: Bolus then infusion](#16-bolus-then-infusion)
+    -   [17: Infusion with modeled duration, lag time, and bioav
+        factor](#17-infusion-with-modeled-duration-lag-time-and-bioav-factor)
+    -   [18: Infusion with modeled duration, at steady state with bioav
+        factor](#18-infusion-with-modeled-duration-at-steady-state-with-bioav-factor)
+    -   [19: Reset and dose (EVID 4) with
+        additional](#19-reset-and-dose-evid-4-with-additional)
+    -   [20: Reset (EVID 3) with
+        additional](#20-reset-evid-3-with-additional)
+    -   [21: Steady state 1 and 2](#21-steady-state-1-and-2)
 -   [Control stream](#control-stream)
 -   [Session Info](#session-info)
 
@@ -68,7 +68,7 @@ Metrum Research Group
 packageVersion("mrgsolve")
 ```
 
-    ## [1] '0.11.1'
+    ## [1] '1.0.3'
 
 # Introduction
 
@@ -89,7 +89,7 @@ Sys.setenv(RSTUDIO_PANDOC = "/usr/lib/rstudio-server/bin/pandoc")
 ```
 
 ``` r
-.libPaths("/data/Rlibs")
+.libPaths("/data/home/Rlibs")
 library(mrgsolve)
 library(dplyr)
 library(readr)
@@ -228,6 +228,11 @@ push_back(env, ev,"Bolus with lag time and bioav")
 ``` r
 ev <- ev(amt = 100, ii = 24, addl = 3, rate = 100/10, cmt = 2) 
 push_back(env,ev,"Infusion with additional")
+```
+
+``` r
+ev <- ev(amt = 480, ii = 0, addl = 0, rate = 10, cmt = 2, BIOAV = 0.5) 
+push_back(env,ev,"Infusion with bioav factor")
 ```
 
 ``` r
@@ -385,11 +390,8 @@ runs <- mutate(
   })
 )
 
-comp <- runs %>% select(ID,comp) %>% unnest()
+comp <- runs %>% select(comp) %>% unnest(cols = c(comp))
 ```
-
-    . Warning: `cols` is now required when using unnest().
-    . Please use `cols = c(comp)`
 
 ## Overall
 
@@ -434,6 +436,7 @@ group_by(comp,ID) %>% summarise(mean = mean(diff), max = max(diff), min = min(di
     . 19 19    0   0   0
     . 20 20    0   0   0
     . 21 21    0   0   0
+    . 22 22    0   0   0
 
 ``` r
 comp_plot <- function(comp) {
@@ -461,7 +464,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $`1`
 
-![](img/nmtest7-unnamed-chunk-41-1.png)<!-- -->
+![](img/nmtest7-unnamed-chunk-42-1.png)<!-- -->
 
 ## 2: Bolus with lag time and bioav
 
@@ -472,7 +475,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $`2`
 
-![](img/nmtest7-unnamed-chunk-42-1.png)<!-- -->
+![](img/nmtest7-unnamed-chunk-43-1.png)<!-- -->
 
 ## 3: Infusion with additional
 
@@ -483,210 +486,210 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $`3`
 
-![](img/nmtest7-unnamed-chunk-43-1.png)<!-- -->
+![](img/nmtest7-unnamed-chunk-44-1.png)<!-- -->
 
-## 4: Infusion doses to depot, with additional
+## 4: Infusion with bioav factor
+
+    . $ev
+    . Events:
+    .   ID time amt rate ii addl cmt evid BIOAV
+    . 1  4    0 480   10  0    0   2    1   0.5
+    . 
+    . $`4`
+
+![](img/nmtest7-unnamed-chunk-45-1.png)<!-- -->
+
+## 5: Infusion doses to depot, with additional
 
     . $ev
     . Events:
     .   ID time amt     rate ii addl cmt evid
-    . 1  4    0 100 8.333333 24    3   1    1
+    . 1  5    0 100 8.333333 24    3   1    1
     . 
-    . $`4`
+    . $`5`
 
-![](img/nmtest7-unnamed-chunk-44-1.png)<!-- -->
+![](img/nmtest7-unnamed-chunk-46-1.png)<!-- -->
 
-## 5: Infusion doses, with additional and lag time
+## 6: Infusion doses, with additional and lag time
 
     . $ev
     . Events:
     .   ID time amt rate ii addl cmt evid LAGT
-    . 1  5    0 100   10 24    3   2    1 4.15
-    . 
-    . $`5`
-
-![](img/nmtest7-unnamed-chunk-45-1.png)<!-- -->
-
-## 6: Infusion doses, with lag time and bioav factor
-
-    . $ev
-    . Events:
-    .   ID time amt rate ii addl cmt evid LAGT BIOAV
-    . 1  6    0 100   10 24    3   2    1 3.25 0.412
+    . 1  6    0 100   10 24    3   2    1 4.15
     . 
     . $`6`
 
-![](img/nmtest7-unnamed-chunk-46-1.png)<!-- -->
+![](img/nmtest7-unnamed-chunk-47-1.png)<!-- -->
 
 ## 7: Infusion doses, with lag time and bioav factor
 
     . $ev
     . Events:
-    .   ID time amt rate ii addl cmt evid ss LAGT BIOAV
-    . 1  7    0 100   10 24    3   2    1  1 3.16 0.412
+    .   ID time amt rate ii addl cmt evid LAGT BIOAV
+    . 1  7    0 100   10 24    3   2    1 3.25 0.412
     . 
     . $`7`
 
-![](img/nmtest7-unnamed-chunk-47-1.png)<!-- -->
+![](img/nmtest7-unnamed-chunk-48-1.png)<!-- -->
 
-## 8: Infusion doses at steady-state, with lag time and bioav factor
+## 8: Infusion doses, with lag time and bioav factor
+
+    . $ev
+    . Events:
+    .   ID time amt rate ii addl cmt evid ss LAGT BIOAV
+    . 1  8    0 100   10 24    3   2    1  1 3.16 0.412
+    . 
+    . $`8`
+
+![](img/nmtest7-unnamed-chunk-49-1.png)<!-- -->
+
+## 9: Infusion doses at steady-state, with lag time and bioav factor
 
     . $ev
     . Events:
     .   ID time amt rate ii addl cmt evid ss BIOAV
-    . 1  8    0 100    2 12    4   2    1  1 0.812
+    . 1  9    0 100    2 12    4   2    1  1 0.812
     . 
-    . $`8`
+    . $`9`
 
-![](img/nmtest7-unnamed-chunk-48-1.png)<!-- -->
+![](img/nmtest7-unnamed-chunk-50-1.png)<!-- -->
 
-## 9: Infusion doses, with lag time and bioav factor
+## 10: Infusion doses, with lag time and bioav factor
 
     . $ev
     . Events:
     .   ID time amt rate ii addl cmt evid ss
-    . 1  9    0 100    2 12    3   2    1  1
+    . 1 10    0 100    2 12    3   2    1  1
     . 
-    . $`9`
+    . $`10`
 
-![](img/nmtest7-unnamed-chunk-49-1.png)<!-- -->
+![](img/nmtest7-unnamed-chunk-51-1.png)<!-- -->
 
-## 10: Infusion doses at steady state, II &lt; DUR, no bioav factor
+## 11: Infusion doses at steady state, II &lt; DUR, no bioav factor
 
     . $ev
     . Events:
     .   ID time amt   rate ii addl cmt evid ss
-    . 1 10    0 100 8.3333  6   12   2    1  1
+    . 1 11    0 100 8.3333  6   12   2    1  1
     . 
-    . $`10`
+    . $`11`
 
-![](img/nmtest7-unnamed-chunk-50-1.png)<!-- -->
+![](img/nmtest7-unnamed-chunk-52-1.png)<!-- -->
 
-## 11: Infusion doses at steady state where II == DUR, with bioav factor
+## 12: Infusion doses at steady state where II == DUR, with bioav factor
 
     . $ev
     . Events:
     .   ID time amt rate ii addl cmt evid ss BIOAV
-    . 1 11    0 100 4.12 10    8   2    1  1 0.412
+    . 1 12    0 100 4.12 10    8   2    1  1 0.412
     . 
-    . $`11`
+    . $`12`
 
-![](img/nmtest7-unnamed-chunk-51-1.png)<!-- -->
+![](img/nmtest7-unnamed-chunk-53-1.png)<!-- -->
 
-## 12: Infusion doses at steady state, where II == DUR
+## 13: Infusion doses at steady state, where II == DUR
 
     . $ev
     . Events:
     .   ID time amt rate ii addl cmt evid ss
-    . 1 12    0 100   10 10    8   2    1  1
+    . 1 13    0 100   10 10    8   2    1  1
     . 
-    . $`12`
+    . $`13`
 
-![](img/nmtest7-unnamed-chunk-52-1.png)<!-- -->
+![](img/nmtest7-unnamed-chunk-54-1.png)<!-- -->
 
-## 13: Bolus doses at steady state, with bioav factor and lag time
+## 14: Bolus doses at steady state, with bioav factor and lag time
 
     . $ev
     . Events:
     .   ID time amt ii addl cmt evid ss LAGT BIOAV
-    . 1 13    0 100 24    3   2    1  1    4 0.412
+    . 1 14    0 100 24    3   2    1  1    4 0.412
     . 
-    . $`13`
+    . $`14`
 
-![](img/nmtest7-unnamed-chunk-53-1.png)<!-- -->
+![](img/nmtest7-unnamed-chunk-55-1.png)<!-- -->
 
-## 14: Bolus doses with lag time and bioavability factor
+## 15: Bolus doses with lag time and bioavability factor
 
     . $ev
     . Events:
     .   ID time amt ii addl cmt evid LAGT BIOAV
-    . 1 14    0 100 24    3   2    1    5 0.412
+    . 1 15    0 100 24    3   2    1    5 0.412
     . 
-    . $`14`
+    . $`15`
 
-![](img/nmtest7-unnamed-chunk-54-1.png)<!-- -->
+![](img/nmtest7-unnamed-chunk-56-1.png)<!-- -->
 
-## 15: Bolus then infusion
+## 16: Bolus then infusion
 
     . $ev
     . Events:
     .   ID time amt rate ii addl cmt evid LAGT
-    . 1 15    0 100    0  0    0   2    1    1
-    . 2 15   13  50   24 24    2   1    1    0
+    . 1 16    0 100    0  0    0   2    1    1
+    . 2 16   13  50   24 24    2   1    1    0
     . 
-    . $`15`
+    . $`16`
 
-![](img/nmtest7-unnamed-chunk-55-1.png)<!-- -->
+![](img/nmtest7-unnamed-chunk-57-1.png)<!-- -->
 
-## 16: Infusion with modeled duration, lag time, and bioav factor
+## 17: Infusion with modeled duration, lag time, and bioav factor
 
     . $ev
     . Events:
     .   ID time amt rate ii addl cmt evid DUR2 MODE LAGT BIOAV
-    . 1 16    0 100   -2 24    3   2    1    9    2    5  0.61
+    . 1 17    0 100   -2 24    3   2    1    9    2    5  0.61
     . 
-    . $`16`
+    . $`17`
 
-![](img/nmtest7-unnamed-chunk-56-1.png)<!-- -->
+![](img/nmtest7-unnamed-chunk-58-1.png)<!-- -->
 
-## 17: Infusion with modeled duration, at steady state with bioav factor
+## 18: Infusion with modeled duration, at steady state with bioav factor
 
     . $ev
     . Events:
     .   ID time amt rate ii addl cmt evid ss DUR2 MODE BIOAV
-    . 1 17    0 100   -2 24    3   2    1  1    9    2  0.61
-    . 
-    . $`17`
-
-![](img/nmtest7-unnamed-chunk-57-1.png)<!-- -->
-
-## 18: Reset and dose (EVID 4) with additional
-
-    . $ev
-    . Events:
-    .   ID time amt rate ii addl cmt evid BIOAV
-    . 1 18    0 100   50 12    2   1    1  0.61
-    . 2 18   50 120    0 12    3   1    4  0.50
+    . 1 18    0 100   -2 24    3   2    1  1    9    2  0.61
     . 
     . $`18`
 
-![](img/nmtest7-unnamed-chunk-58-1.png)<!-- -->
+![](img/nmtest7-unnamed-chunk-59-1.png)<!-- -->
 
-## 19: Reset (EVID 3) with additional
+## 19: Reset and dose (EVID 4) with additional
 
     . $ev
     . Events:
     .   ID time amt rate ii addl cmt evid BIOAV
-    . 1 19    0 100   50 12    3   1    1  0.61
-    . 2 19   50   0    0  0    0   2    3  1.00
-    . 3 19   54 120    0 16    2   1    1  1.00
+    . 1 19    0 100   50 12    2   1    1  0.61
+    . 2 19   50 120    0 12    3   1    4  0.50
     . 
     . $`19`
 
-![](img/nmtest7-unnamed-chunk-59-1.png)<!-- -->
+![](img/nmtest7-unnamed-chunk-60-1.png)<!-- -->
 
-## 20: Steady state 1 and 2
+## 20: Reset (EVID 3) with additional
+
+    . $ev
+    . Events:
+    .   ID time amt rate ii addl cmt evid BIOAV
+    . 1 20    0 100   50 12    3   1    1  0.61
+    . 2 20   50   0    0  0    0   2    3  1.00
+    . 3 20   54 120    0 16    2   1    1  1.00
+    . 
+    . $`20`
+
+![](img/nmtest7-unnamed-chunk-61-1.png)<!-- -->
+
+## 21: Steady state 1 and 2
 
     . $ev
     . Events:
     .   ID time amt ii addl cmt evid ss
-    . 1 20    0 100 24    3   1    1  1
-    . 2 20   12  50 24    3   1    1  2
-    . 
-    . $`20`
-
-![](img/nmtest7-unnamed-chunk-60-1.png)<!-- -->
-
-## 21: Steady state infusion
-
-    . $ev
-    . Events:
-    .   ID time amt rate cmt evid ss
-    . 1 21    0   0  100   1    1  1
+    . 1 21    0 100 24    3   1    1  1
+    . 2 21   12  50 24    3   1    1  2
     . 
     . $`21`
 
-![](img/nmtest7-unnamed-chunk-61-1.png)<!-- -->
+![](img/nmtest7-unnamed-chunk-62-1.png)<!-- -->
 
 # Control stream
 
@@ -694,7 +697,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
 writeLines(readLines("model/1001/1001.lst"))
 ```
 
-       Wed Aug  4 10:51:18 EDT 2021
+       Thu Mar 24 09:50:36 EDT 2022
        $PROB RUN# 101
        
        $INPUT C ID TIME EVID AMT CMT SS II ADDL RATE LAGT MODE DUR2 RAT2 BIOAV DV
@@ -750,10 +753,10 @@ writeLines(readLines("model/1001/1001.lst"))
                     
         (WARNING  2) NM-TRAN INFERS THAT THE DATA ARE POPULATION.
        
-       License Registered to: Metrum Research Group
+       License Registered to: Metrum Research Group (with RADAR5NM)
        Expiration Date:    14 JUL 2022
-       Current Date:        4 AUG 2021
-       Days until program expires : 345
+       Current Date:       24 MAR 2022
+       Days until program expires : 110
        1NONLINEAR MIXED EFFECTS MODEL PROGRAM (NONMEM) VERSION 7.4.4
         ORIGINALLY DEVELOPED BY STUART BEAL, LEWIS SHEINER, AND ALISON BOECKMANN
         CURRENT DEVELOPERS ARE ROBERT BAUER, ICON DEVELOPMENT SOLUTIONS,
@@ -765,7 +768,7 @@ writeLines(readLines("model/1001/1001.lst"))
        0DATA CHECKOUT RUN:              NO
         DATA SET LOCATED ON UNIT NO.:    2
         THIS UNIT TO BE REWOUND:        NO
-        NO. OF DATA RECS IN DATA SET:     2777
+        NO. OF DATA RECS IN DATA SET:     2909
         NO. OF DATA ITEMS IN DATA SET:  17
         ID DATA ITEM IS DATA ITEM NO.:   2
         DEP VARIABLE IS DATA ITEM NO.:  16
@@ -779,8 +782,8 @@ writeLines(readLines("model/1001/1001.lst"))
        0FORMAT FOR DATA:
         (E2.0,E3.0,E4.0,E2.0,E4.0,2E2.0,2E3.0,E17.0,E6.0,2E2.0,3E6.0,1F2.0)
        
-        TOT. NO. OF OBS RECS:     2751
-        TOT. NO. OF INDIVIDUALS:       21
+        TOT. NO. OF OBS RECS:     2882
+        TOT. NO. OF INDIVIDUALS:       22
        0LENGTH OF THETA:   3
        0DEFAULT THETA BOUNDARY TEST OMITTED:    NO
        0OMEGA HAS SIMPLE DIAGONAL FORM WITH DIMENSION:   3
@@ -880,13 +883,13 @@ writeLines(readLines("model/1001/1001.lst"))
        1
         SIMULATION STEP PERFORMED
         SOURCE  1:
-           SEED1:    1222495484   SEED2:             0
+           SEED1:    1429575333   SEED2:   -1105086081
         Elapsed simulation  time in seconds:     0.00
         ESTIMATION STEP OMITTED:                 YES
-        Elapsed finaloutput time in seconds:     0.03
-        #CPUT: Total CPU Time in Seconds,        0.045
+        Elapsed finaloutput time in seconds:     0.04
+        #CPUT: Total CPU Time in Seconds,        0.052
        Stop Time:
-       Wed Aug  4 10:51:22 EDT 2021
+       Thu Mar 24 09:50:43 EDT 2022
 
 # Session Info
 
@@ -896,88 +899,91 @@ devtools::session_info()
 ```
 
     . ─ Session info ───────────────────────────────────────────────────────────────────────────────────────────────────────
-    .  setting  value                       
-    .  version  R version 4.0.3 (2020-10-10)
-    .  os       Ubuntu 18.04.5 LTS          
-    .  system   x86_64, linux-gnu           
-    .  ui       X11                         
-    .  language (EN)                        
-    .  collate  en_US.UTF-8                 
-    .  ctype    en_US.UTF-8                 
-    .  tz       America/New_York            
-    .  date     2021-08-04                  
+    .  setting  value
+    .  version  R version 4.1.1 (2021-08-10)
+    .  os       Ubuntu 18.04.5 LTS
+    .  system   x86_64, linux-gnu
+    .  ui       X11
+    .  language (EN)
+    .  collate  en_US.UTF-8
+    .  ctype    en_US.UTF-8
+    .  tz       America/New_York
+    .  date     2022-03-24
+    .  pandoc   2.11.4 @ /usr/lib/rstudio-server/bin/pandoc/ (via rmarkdown)
     . 
     . ─ Packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────
-    .  package     * version  date       lib source           
-    .  assertthat    0.2.1    2019-03-21 [1] CRAN (R 4.0.3)   
-    .  cachem        1.0.5    2021-05-15 [1] CRAN (R 4.0.3)   
-    .  callr         3.7.0    2021-04-20 [1] CRAN (R 4.0.3)   
-    .  cli           2.5.0    2021-04-26 [1] CRAN (R 4.0.3)   
-    .  colorspace    2.0-1    2021-05-04 [1] CRAN (R 4.0.3)   
-    .  crayon        1.4.1    2021-02-08 [1] CRAN (R 4.0.3)   
-    .  DBI           1.1.1    2021-01-15 [1] CRAN (R 4.0.3)   
-    .  desc          1.3.0    2021-03-05 [1] CRAN (R 4.0.3)   
-    .  devtools      2.4.2    2021-06-07 [1] CRAN (R 4.0.3)   
-    .  digest        0.6.27   2020-10-24 [1] CRAN (R 4.0.3)   
-    .  dplyr       * 1.0.7    2021-06-18 [1] CRAN (R 4.0.3)   
-    .  ellipsis      0.3.2    2021-04-29 [1] CRAN (R 4.0.3)   
-    .  evaluate      0.14     2019-05-28 [1] CRAN (R 4.0.3)   
-    .  fansi         0.5.0    2021-05-25 [1] CRAN (R 4.0.3)   
-    .  farver        2.1.0    2021-02-28 [1] CRAN (R 4.0.3)   
-    .  fastmap       1.1.0    2021-01-25 [1] CRAN (R 4.0.3)   
-    .  fork          1.2.5    2021-02-11 [1] local            
-    .  fs            1.5.0    2020-07-31 [1] CRAN (R 4.0.3)   
-    .  generics      0.1.0    2020-10-31 [1] CRAN (R 4.0.3)   
-    .  ggplot2     * 3.3.4    2021-06-16 [1] CRAN (R 4.0.3)   
-    .  glue          1.4.2    2020-08-27 [1] CRAN (R 4.0.3)   
-    .  gtable        0.3.0    2019-03-25 [1] CRAN (R 4.0.3)   
-    .  highr         0.9      2021-04-16 [1] CRAN (R 4.0.3)   
-    .  hms           1.1.0    2021-05-17 [1] CRAN (R 4.0.3)   
-    .  htmltools     0.5.1.1  2021-01-22 [1] CRAN (R 4.0.3)   
-    .  knitr         1.33     2021-04-24 [1] CRAN (R 4.0.3)   
-    .  labeling      0.4.2    2020-10-20 [1] CRAN (R 4.0.3)   
-    .  lattice       0.20-44  2021-05-02 [1] CRAN (R 4.0.3)   
-    .  lifecycle     1.0.0    2021-02-15 [1] CRAN (R 4.0.3)   
-    .  magrittr      2.0.1    2020-11-17 [1] CRAN (R 4.0.3)   
-    .  MASS          7.3-54   2021-05-03 [1] CRAN (R 4.0.3)   
-    .  memoise       2.0.0    2021-01-26 [1] CRAN (R 4.0.3)   
-    .  metrumrg      5.57     2015-10-08 [1] R-Forge (R 4.0.3)
-    .  mrgsolve    * 0.11.1   2021-05-10 [1] CRAN (R 4.0.3)   
-    .  munsell       0.5.0    2018-06-12 [1] CRAN (R 4.0.3)   
-    .  pillar        1.6.1    2021-05-16 [1] CRAN (R 4.0.3)   
-    .  pkgbuild      1.2.0    2020-12-15 [1] CRAN (R 4.0.3)   
-    .  pkgconfig     2.0.3    2019-09-22 [1] CRAN (R 4.0.3)   
-    .  pkgload       1.2.1    2021-04-06 [1] CRAN (R 4.0.3)   
-    .  plyr          1.8.6    2020-03-03 [1] CRAN (R 4.0.3)   
-    .  prettyunits   1.1.1    2020-01-24 [1] CRAN (R 4.0.3)   
-    .  processx      3.5.2    2021-04-30 [1] CRAN (R 4.0.3)   
-    .  ps            1.6.0    2021-02-28 [1] CRAN (R 4.0.3)   
-    .  purrr       * 0.3.4    2020-04-17 [1] CRAN (R 4.0.3)   
-    .  R6            2.5.0    2020-10-28 [1] CRAN (R 4.0.3)   
-    .  Rcpp          1.0.6    2021-01-15 [1] CRAN (R 4.0.3)   
-    .  readr       * 1.4.0    2020-10-05 [1] CRAN (R 4.0.3)   
-    .  remotes       2.4.0    2021-06-02 [1] CRAN (R 4.0.3)   
-    .  reshape       0.8.8    2018-10-23 [1] CRAN (R 4.0.3)   
-    .  rlang         0.4.11   2021-04-30 [1] CRAN (R 4.0.3)   
-    .  rmarkdown     2.9      2021-06-15 [1] CRAN (R 4.0.3)   
-    .  rprojroot     2.0.2    2020-11-15 [1] CRAN (R 4.0.3)   
-    .  rstudioapi    0.13     2020-11-12 [1] CRAN (R 4.0.3)   
-    .  scales        1.1.1    2020-05-11 [1] CRAN (R 4.0.3)   
-    .  sessioninfo   1.1.1    2018-11-05 [1] CRAN (R 4.0.3)   
-    .  stringi       1.6.2    2021-05-17 [1] CRAN (R 4.0.3)   
-    .  stringr       1.4.0    2019-02-10 [1] CRAN (R 4.0.3)   
-    .  testthat      3.0.3    2021-06-16 [1] CRAN (R 4.0.3)   
-    .  tibble        3.1.2    2021-05-16 [1] CRAN (R 4.0.3)   
-    .  tidyr       * 1.1.3    2021-03-03 [1] CRAN (R 4.0.3)   
-    .  tidyselect    1.1.1    2021-04-30 [1] CRAN (R 4.0.3)   
-    .  usethis       2.0.1    2021-02-10 [1] CRAN (R 4.0.3)   
-    .  utf8          1.2.1    2021-03-12 [1] CRAN (R 4.0.3)   
-    .  vctrs         0.3.8    2021-04-29 [1] CRAN (R 4.0.3)   
-    .  withr         2.4.2    2021-04-18 [1] CRAN (R 4.0.3)   
-    .  xfun          0.24     2021-06-15 [1] CRAN (R 4.0.3)   
-    .  XML           3.99-0.6 2021-03-16 [1] CRAN (R 4.0.3)   
-    .  yaml          2.2.1    2020-02-01 [1] CRAN (R 4.0.3)   
+    .  package     * version  date (UTC) lib source
+    .  assertthat    0.2.1    2019-03-21 [1] CRAN (R 4.1.1)
+    .  brio          1.1.3    2021-11-30 [1] CRAN (R 4.1.1)
+    .  cachem        1.0.6    2021-08-19 [1] CRAN (R 4.1.1)
+    .  callr         3.7.0    2021-04-20 [1] CRAN (R 4.1.1)
+    .  cli           3.2.0    2022-02-14 [1] CRAN (R 4.1.1)
+    .  colorspace    2.0-3    2022-02-21 [1] CRAN (R 4.1.1)
+    .  crayon        1.5.0    2022-02-14 [1] CRAN (R 4.1.1)
+    .  DBI           1.1.2    2021-12-20 [1] CRAN (R 4.1.1)
+    .  desc          1.4.1    2022-03-06 [1] CRAN (R 4.1.1)
+    .  devtools      2.4.3    2021-11-30 [1] CRAN (R 4.1.1)
+    .  digest        0.6.29   2021-12-01 [1] CRAN (R 4.1.1)
+    .  dplyr       * 1.0.8    2022-02-08 [1] CRAN (R 4.1.1)
+    .  ellipsis      0.3.2    2021-04-29 [1] CRAN (R 4.1.1)
+    .  evaluate      0.15     2022-02-18 [1] CRAN (R 4.1.1)
+    .  fansi         1.0.2    2022-01-14 [1] CRAN (R 4.1.1)
+    .  farver        2.1.0    2021-02-28 [1] CRAN (R 4.1.1)
+    .  fastmap       1.1.0    2021-01-25 [1] CRAN (R 4.1.1)
+    .  fs            1.5.2    2021-12-08 [1] CRAN (R 4.1.1)
+    .  generics      0.1.2    2022-01-31 [1] CRAN (R 4.1.1)
+    .  ggplot2     * 3.3.5    2021-06-25 [1] CRAN (R 4.1.1)
+    .  glue          1.6.2    2022-02-24 [1] CRAN (R 4.1.1)
+    .  gtable        0.3.0    2019-03-25 [1] CRAN (R 4.1.1)
+    .  highr         0.9      2021-04-16 [1] CRAN (R 4.1.1)
+    .  hms           1.1.1    2021-09-26 [1] CRAN (R 4.1.1)
+    .  htmltools     0.5.2    2021-08-25 [1] CRAN (R 4.1.1)
+    .  knitr         1.37     2021-12-16 [1] CRAN (R 4.1.1)
+    .  labeling      0.4.2    2020-10-20 [1] CRAN (R 4.1.1)
+    .  lattice       0.20-45  2021-09-22 [1] CRAN (R 4.1.1)
+    .  lifecycle     1.0.1    2021-09-24 [1] CRAN (R 4.1.1)
+    .  magrittr      2.0.2    2022-01-26 [1] CRAN (R 4.1.1)
+    .  MASS          7.3-55   2022-01-13 [1] CRAN (R 4.1.1)
+    .  memoise       2.0.1    2021-11-26 [1] CRAN (R 4.1.1)
+    .  metrumrg      5.57     2015-10-08 [1] R-Forge (R 4.1.1)
+    .  mrgsolve    * 1.0.3    2022-03-24 [1] MPNDEV (R 4.1.1)
+    .  munsell       0.5.0    2018-06-12 [1] CRAN (R 4.1.1)
+    .  pillar        1.7.0    2022-02-01 [1] CRAN (R 4.1.1)
+    .  pkgbuild      1.3.1    2021-12-20 [1] CRAN (R 4.1.1)
+    .  pkgconfig     2.0.3    2019-09-22 [1] CRAN (R 4.1.1)
+    .  pkgload       1.2.4    2021-11-30 [1] CRAN (R 4.1.1)
+    .  plyr          1.8.6    2020-03-03 [1] CRAN (R 4.1.1)
+    .  prettyunits   1.1.1    2020-01-24 [1] CRAN (R 4.1.1)
+    .  processx      3.5.2    2021-04-30 [1] CRAN (R 4.1.1)
+    .  ps            1.6.0    2021-02-28 [1] CRAN (R 4.1.1)
+    .  purrr       * 0.3.4    2020-04-17 [1] CRAN (R 4.1.1)
+    .  R6            2.5.1    2021-08-19 [1] CRAN (R 4.1.1)
+    .  Rcpp          1.0.8.3  2022-03-17 [1] CRAN (R 4.1.1)
+    .  readr       * 2.1.2    2022-01-30 [1] CRAN (R 4.1.1)
+    .  remotes       2.4.2    2021-11-30 [1] CRAN (R 4.1.1)
+    .  reshape       0.8.8    2018-10-23 [1] CRAN (R 4.1.1)
+    .  rlang         1.0.2    2022-03-04 [1] CRAN (R 4.1.1)
+    .  rmarkdown     2.13     2022-03-10 [1] CRAN (R 4.1.1)
+    .  rprojroot     2.0.2    2020-11-15 [1] CRAN (R 4.1.1)
+    .  rstudioapi    0.13     2020-11-12 [1] CRAN (R 4.1.1)
+    .  scales        1.1.1    2020-05-11 [1] CRAN (R 4.1.1)
+    .  sessioninfo   1.2.2    2021-12-06 [1] CRAN (R 4.1.1)
+    .  stringi       1.7.6    2021-11-29 [1] CRAN (R 4.1.1)
+    .  stringr       1.4.0    2019-02-10 [1] CRAN (R 4.1.1)
+    .  testthat      3.1.2    2022-01-20 [1] CRAN (R 4.1.1)
+    .  tibble        3.1.6    2021-11-07 [1] CRAN (R 4.1.1)
+    .  tidyr       * 1.2.0    2022-02-01 [1] CRAN (R 4.1.1)
+    .  tidyselect    1.1.2    2022-02-21 [1] CRAN (R 4.1.1)
+    .  tzdb          0.2.0    2021-10-27 [1] CRAN (R 4.1.1)
+    .  usethis       2.1.5    2021-12-09 [1] CRAN (R 4.1.1)
+    .  utf8          1.2.2    2021-07-24 [1] CRAN (R 4.1.1)
+    .  vctrs         0.3.8    2021-04-29 [1] CRAN (R 4.1.1)
+    .  withr         2.5.0    2022-03-03 [1] CRAN (R 4.1.1)
+    .  xfun          0.30     2022-03-02 [1] CRAN (R 4.1.1)
+    .  XML           3.99-0.9 2022-02-24 [1] CRAN (R 4.1.1)
+    .  yaml          2.3.5    2022-02-21 [1] CRAN (R 4.1.1)
     . 
-    . [1] /data/Rlibs
-    . [2] /opt/rpkgs/4.0
-    . [3] /opt/R/4.0.3/lib/R/library
+    .  [1] /data/home/Rlibs
+    .  [2] /opt/R/4.1.1/lib/R/library
+    . 
+    . ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────

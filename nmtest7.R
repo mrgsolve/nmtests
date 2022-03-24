@@ -39,7 +39,7 @@ packageVersion("mrgsolve")
 Sys.setenv(RSTUDIO_PANDOC = "/usr/lib/rstudio-server/bin/pandoc")
 
 #+ message = FALSE
-.libPaths("/data/Rlibs")
+.libPaths("/data/home/Rlibs")
 library(mrgsolve)
 library(dplyr)
 library(readr)
@@ -161,6 +161,9 @@ push_back(env, ev,"Bolus with lag time and bioav")
 #+
 ev <- ev(amt = 100, ii = 24, addl = 3, rate = 100/10, cmt = 2) 
 push_back(env,ev,"Infusion with additional")
+#+ 
+ev <- ev(amt = 480, ii = 0, addl = 0, rate = 10, cmt = 2, BIOAV = 0.5) 
+push_back(env,ev,"Infusion with bioav factor")
 #+
 ev <- ev(amt = 100, ii = 24, addl = 3, rate = 100/12, cmt = 1) 
 push_back(env,ev,"Infusion doses to depot, with additional")
@@ -264,7 +267,7 @@ runs <- mutate(
   })
 )
 
-comp <- runs %>% select(ID,comp) %>% unnest()
+comp <- runs %>% select(comp) %>% unnest(cols = c(comp))
 
 ##' ## Overall
 ##' 

@@ -1,4 +1,4 @@
-Wed Aug  4 10:51:18 EDT 2021
+Thu Mar 24 09:50:36 EDT 2022
 $PROB RUN# 101
 
 $INPUT C ID TIME EVID AMT CMT SS II ADDL RATE LAGT MODE DUR2 RAT2 BIOAV DV
@@ -54,10 +54,10 @@ NM-TRAN MESSAGES
              
  (WARNING  2) NM-TRAN INFERS THAT THE DATA ARE POPULATION.
 
-License Registered to: Metrum Research Group
+License Registered to: Metrum Research Group (with RADAR5NM)
 Expiration Date:    14 JUL 2022
-Current Date:        4 AUG 2021
-Days until program expires : 345
+Current Date:       24 MAR 2022
+Days until program expires : 110
 1NONLINEAR MIXED EFFECTS MODEL PROGRAM (NONMEM) VERSION 7.4.4
  ORIGINALLY DEVELOPED BY STUART BEAL, LEWIS SHEINER, AND ALISON BOECKMANN
  CURRENT DEVELOPERS ARE ROBERT BAUER, ICON DEVELOPMENT SOLUTIONS,
@@ -69,7 +69,7 @@ Days until program expires : 345
 0DATA CHECKOUT RUN:              NO
  DATA SET LOCATED ON UNIT NO.:    2
  THIS UNIT TO BE REWOUND:        NO
- NO. OF DATA RECS IN DATA SET:     2777
+ NO. OF DATA RECS IN DATA SET:     2909
  NO. OF DATA ITEMS IN DATA SET:  17
  ID DATA ITEM IS DATA ITEM NO.:   2
  DEP VARIABLE IS DATA ITEM NO.:  16
@@ -83,8 +83,8 @@ Days until program expires : 345
 0FORMAT FOR DATA:
  (E2.0,E3.0,E4.0,E2.0,E4.0,2E2.0,2E3.0,E17.0,E6.0,2E2.0,3E6.0,1F2.0)
 
- TOT. NO. OF OBS RECS:     2751
- TOT. NO. OF INDIVIDUALS:       21
+ TOT. NO. OF OBS RECS:     2882
+ TOT. NO. OF INDIVIDUALS:       22
 0LENGTH OF THETA:   3
 0DEFAULT THETA BOUNDARY TEST OMITTED:    NO
 0OMEGA HAS SIMPLE DIAGONAL FORM WITH DIMENSION:   3
@@ -184,10 +184,10 @@ SEED   1 RESET TO INITIAL: YES
 1
  SIMULATION STEP PERFORMED
  SOURCE  1:
-    SEED1:    1222495484   SEED2:             0
+    SEED1:    1429575333   SEED2:   -1105086081
  Elapsed simulation  time in seconds:     0.00
  ESTIMATION STEP OMITTED:                 YES
- Elapsed finaloutput time in seconds:     0.03
- #CPUT: Total CPU Time in Seconds,        0.045
+ Elapsed finaloutput time in seconds:     0.04
+ #CPUT: Total CPU Time in Seconds,        0.052
 Stop Time:
-Wed Aug  4 10:51:22 EDT 2021
+Thu Mar 24 09:50:43 EDT 2022
