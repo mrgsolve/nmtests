@@ -164,6 +164,9 @@ push_back(env,ev,"Infusion with additional")
 #+ 
 ev <- ev(amt = 480, ii = 0, addl = 0, rate = 10, cmt = 2, BIOAV = 0.5) 
 push_back(env,ev,"Infusion with bioav factor")
+#+ 
+ev <- ev(amt = 480, ii = 0, addl = 0, rate = -2, cmt = 2, BIOAV = 0.5, MODE = 2, DUR2 = 48) 
+push_back(env,ev,"Infusion with bioav factor and dur")
 #+
 ev <- ev(amt = 100, ii = 24, addl = 3, rate = 100/12, cmt = 1) 
 push_back(env,ev,"Infusion doses to depot, with additional")
