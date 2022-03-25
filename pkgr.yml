@@ -1,0 +1,21 @@
+Version: 1
+
+Rpath: ${R_EXE_4_1}
+
+Packages:
+  - renv
+  - dplyr
+  - ggplot2
+  - data.table
+  - mrgsolve
+  - rmarkdown
+  - knitr
+  - purrr
+  - tidyr
+  - jsonlite
+
+Repos:
+  - MPN: https://mpn.metworx.com/snapshots/stable/2022-03-21
+
+Lockfile:
+    Type: renv

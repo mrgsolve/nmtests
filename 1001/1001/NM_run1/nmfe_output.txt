@@ -1,0 +1,15 @@
+Starting NMTRAN
+  
+ WARNINGS AND ERRORS (IF ANY) FOR PROBLEM    1
+             
+ (WARNING  2) NM-TRAN INFERS THAT THE DATA ARE POPULATION.
+Recompiling certain components
+Building NONMEM Executable
+Starting nonmem execution ...
+License Registered to: Metrum Research Group (with RADAR5NM)
+Expiration Date:    14 JUL 2022
+Current Date:       25 MAR 2022
+Days until program expires : 109
+ Elapsed simulation  time in seconds:     0.00
+ Elapsed finaloutput time in seconds:     0.03
+Done with nonmem execution

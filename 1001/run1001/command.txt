@@ -1,0 +1,1 @@
+/usr/local/bin/execute -model_subdir -silent -directory=run1001 model/1001.ctl

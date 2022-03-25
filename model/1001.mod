@@ -1,0 +1,20 @@
+$SET req = ""
+
+$PARAM CL = 1.1, V = 20, KA = 1.5
+LAGT = 0, MODE = 0, DUR2 = 2, RAT2 = 10, BIOAV = 1
+
+$PKMODEL cmt = "GUT CENT", depot = TRUE
+
+$MAIN
+
+F_CENT = BIOAV;
+ALAG_CENT = LAGT;
+
+if(MODE==1) R_CENT = RAT2;
+if(MODE==2) D_CENT = DUR2;
+
+$TABLE
+capture DV = (CENT/(V/1000));
+capture CP = DV;
+
+$CAPTURE LAGT MODE DUR2 RAT2 BIOAV
