@@ -320,7 +320,7 @@ pwalk(runs, function(...) {
   i <- x$ID
   writeLines("#+ results = 'asis'\n")
   writeLines(paste0("## ", get_title(i)))
-  writeLines("#+ results = 'markup'\n")
+  #writeLines("#+ results = 'markup'\n")
   print(x$ev)
   print(x$plot)
 })
