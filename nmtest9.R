@@ -41,6 +41,7 @@ Sys.setenv(RSTUDIO_PANDOC = "/usr/lib/rstudio-server/bin/pandoc")
 mrgsolve.loc <- NULL
 library(mrgsolve, lib.loc = mrgsolve.loc)
 # --------------------------------
+#+ message = FALSE
 library(dplyr)
 library(data.table)
 library(ggplot2)
@@ -51,7 +52,7 @@ library(tools)
 library(parallel)
 
 #+ echo = FALSE
-knitr::opts_chunk$set(comment = '.', fig.path = "img/nmtest8-")
+knitr::opts_chunk$set(comment = '.', fig.path = "results/img/nmtest9/id-")
 #+
 
 stopifnot(grepl("PsN", system("execute --version", intern=TRUE)))
@@ -241,26 +242,6 @@ runs <- mutate(
 )
 
 comp <- select(runs, comp) %>% unnest(cols = c(comp))
-sims <- pull(runs, sims) %>% lapply(as_tibble) %>% rbindlist()
-fwrite(x = comp, file = "results/1001.csv")
-fwrite(x = sims, file = "results/1001-sims.csv")
-fwrite(x = nm, file = "results/1001-nm.csv")
-
-meta <- list()
-meta$md5 <- list()
-meta$md5$data <- md5sum("data/1001.csv")
-meta$md5$ctl <- md5sum("model/1001.ctl")
-meta$md5$mod <- md5sum("model/1001.mod")
-meta$md5$result <- md5sum("results/1001.csv")
-meta$md5$sims <- md5sum("results/1001-sims.csv")
-meta$md5$sims <- md5sum("results/1001-nm.csv")
-meta$date <- date()
-meta$user <- Sys.info()[["user"]]
-write_json(
-  x = meta, 
-  path = "results/1001.json",
-  pretty = TRUE
-)
 
 #' ## Overall
 #' 
@@ -289,6 +270,43 @@ comp_plot <- function(comp) {
 
 runs <- mutate(runs, plot = map(comp, comp_plot))
 
+#+ include = FALSE
+pdf(file = "results/1001.pdf", width = 5, height = 5)
+runs$plot
+dev.off()
+
+sims <- pull(runs, sims) %>% lapply(as_tibble) %>% rbindlist()
+fwrite(x = comp, file = "results/1001.csv")
+fwrite(x = sims, file = "results/1001-sims.csv")
+fwrite(x = nm, file = "results/1001-nm.csv")
+
+meta <- list()
+meta$md5 <- list()
+meta$md5$data <- md5sum("data/1001.csv")
+meta$md5$ctl <- md5sum("model/1001.ctl")
+meta$md5$mod <- md5sum("model/1001.mod")
+meta$md5$result <- md5sum("results/1001.csv")
+meta$md5$sims <- md5sum("results/1001-sims.csv")
+meta$md5$sims <- md5sum("results/1001-nm.csv")
+meta$results <- c(
+  "data/1001.csv", 
+  "model/1001.ctl", 
+  "model/1001.mod", 
+  "results/1001.csv", 
+  "results/1001-sims.csv", 
+  "results/1001-nm.csv", 
+  "results/1001.pdf"
+)
+meta$date <- date()
+meta$user <- Sys.info()[["user"]]
+write_json(
+  x = meta, 
+  path = "results/1001.json",
+  pretty = TRUE
+)
+#+
+
+
 #' # Results
 #+ echo = FALSE
 get_title <- function(i) {
@@ -296,89 +314,14 @@ get_title <- function(i) {
   paste0(i, ": ", de)
 }
 
-#' ## `r i <- 1; get_title(i)`
-#+ echo = FALSE
-slice(runs, i) %>% select(ev, plot) %>% flatten()
-
-#' ## `r i <- 2; get_title(i)`
-#+ echo = FALSE
-slice(runs, i) %>% select(ev, plot) %>% flatten()
-
-#' ## `r i <- 3; get_title(i)`
-#+ echo = FALSE
-slice(runs, i) %>% select(ev, plot) %>% flatten()
-
-#' ## `r i <- 4; get_title(i)`
-#+ echo = FALSE
-slice(runs, i) %>% select(ev, plot) %>% flatten()
-
-#' ## `r i <- 5; get_title(i)`
-#+ echo = FALSE
-slice(runs, i) %>% select(ev,plot) %>% flatten()
-
-#' ## `r i <- 6; get_title(i)`
-#+ echo = FALSE
-slice(runs, i) %>% select(ev, plot) %>% flatten()
-
-#' ## `r i <- 7; get_title(i)`
-#+ echo = FALSE
-slice(runs, i) %>% select(ev, plot) %>% flatten()
-
-#' ## `r i <- 8; get_title(i)`
-#+ echo = FALSE
-slice(runs, i) %>% select(ev, plot) %>% flatten()
-
-#' ## `r i <- 9; get_title(i)`
-#+ echo = FALSE
-slice(runs, i) %>% select(ev,plot) %>% flatten()
-
-#' ## `r i <- 10; get_title(i)`
-#+ echo = FALSE
-slice(runs, i) %>% select(ev, plot) %>% flatten()
-
-#' ## `r i <- 11; get_title(i)`
-#+ echo = FALSE
-slice(runs, i) %>% select(ev, plot) %>% flatten()
-
-#' ## `r i <- 12; get_title(i)`
-#+ echo = FALSE
-slice(runs, i) %>% select(ev, plot) %>% flatten()
-
-#' ## `r i <- 13; get_title(i)`
-#+ echo = FALSE
-slice(runs, i) %>% select(ev, plot) %>% flatten()
-
-#' ## `r i <- 14; get_title(i)`
-#+ echo = FALSE
-slice(runs, i) %>% select(ev, plot) %>% flatten()
-
-#' ## `r i <- 15; get_title(i)`
-#+ echo = FALSE
-slice(runs, i) %>% select(ev, plot) %>% flatten()
-
-#' ## `r i <- 16; get_title(i)`
-#+ echo = FALSE
-slice(runs, i) %>% select(ev, plot) %>% flatten()
-
-#' ## `r i <- 17; get_title(i)`
-#+ echo = FALSE
-slice(runs, i) %>% select(ev, plot) %>% flatten()
-
-#' ## `r i <- 18; get_title(i)`
-#+ echo = FALSE
-slice(runs, i) %>% select(ev, plot) %>% flatten()
-
-#' ## `r i <- 19; get_title(i)`
-#+ echo = FALSE
-slice(runs, i) %>% select(ev, plot) %>% flatten()
-
-#' ## `r i <- 20; get_title(i)`
-#+ echo = FALSE
-slice(runs, i) %>% select(ev,plot) %>% flatten()
-
-#' ## `r i <- 21; get_title(i)`
-#+ echo = FALSE
-slice(runs, i) %>% select(ev,plot) %>% flatten()
+pwalk(runs, function(...) {
+  x <- list(...)
+  i <- x$ID
+  header <- paste0("## ", get_title(i))
+  writeLines(header)
+  print(x$ev)
+  print(x$plot)
+})
 
 #' # Control stream
 #+ comment = "  "

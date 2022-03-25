@@ -22,44 +22,6 @@ Metrum Research Group
     -   [Overall](#overall)
     -   [Summary by scenario number](#summary-by-scenario-number)
 -   [Results](#results)
-    -   [1: Bolus with additional](#1-bolus-with-additional)
-    -   [2: Bolus with lag time and
-        bioav](#2-bolus-with-lag-time-and-bioav)
-    -   [3: Infusion with additional](#3-infusion-with-additional)
-    -   [4: Infusion with bioav factor](#4-infusion-with-bioav-factor)
-    -   [5: Infusion with bioav factor and
-        dur](#5-infusion-with-bioav-factor-and-dur)
-    -   [6: Infusion doses to depot, with
-        additional](#6-infusion-doses-to-depot-with-additional)
-    -   [7: Infusion doses, with additional and lag
-        time](#7-infusion-doses-with-additional-and-lag-time)
-    -   [8: Infusion doses, with lag time and bioav
-        factor](#8-infusion-doses-with-lag-time-and-bioav-factor)
-    -   [9: Infusion doses, with lag time and bioav
-        factor](#9-infusion-doses-with-lag-time-and-bioav-factor)
-    -   [10: Infusion doses at steady-state, with lag time and bioav
-        factor](#10-infusion-doses-at-steady-state-with-lag-time-and-bioav-factor)
-    -   [11: Infusion doses, with lag time and bioav
-        factor](#11-infusion-doses-with-lag-time-and-bioav-factor)
-    -   [12: Infusion doses at steady state, II &lt; DUR, no bioav
-        factor](#12-infusion-doses-at-steady-state-ii--dur-no-bioav-factor)
-    -   [13: Infusion doses at steady state where II == DUR, with bioav
-        factor](#13-infusion-doses-at-steady-state-where-ii--dur-with-bioav-factor)
-    -   [14: Infusion doses at steady state, where II ==
-        DUR](#14-infusion-doses-at-steady-state-where-ii--dur)
-    -   [15: Bolus doses at steady state, with bioav factor and lag
-        time](#15-bolus-doses-at-steady-state-with-bioav-factor-and-lag-time)
-    -   [16: Bolus doses with lag time and bioavability
-        factor](#16-bolus-doses-with-lag-time-and-bioavability-factor)
-    -   [17: Bolus then infusion](#17-bolus-then-infusion)
-    -   [18: Infusion with modeled duration, lag time, and bioav
-        factor](#18-infusion-with-modeled-duration-lag-time-and-bioav-factor)
-    -   [19: Infusion with modeled duration, at steady state with bioav
-        factor](#19-infusion-with-modeled-duration-at-steady-state-with-bioav-factor)
-    -   [20: Reset and dose (EVID 4) with
-        additional](#20-reset-and-dose-evid-4-with-additional)
-    -   [21: Reset (EVID 3) with
-        additional](#21-reset-evid-3-with-additional)
 -   [Control stream](#control-stream)
 -   [Session Info](#session-info)
 
@@ -96,55 +58,11 @@ library(mrgsolve, lib.loc = mrgsolve.loc)
 
 ``` r
 library(dplyr)
-```
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
 library(data.table)
-```
-
-    ## 
-    ## Attaching package: 'data.table'
-
-    ## The following objects are masked from 'package:dplyr':
-    ## 
-    ##     between, first, last
-
-``` r
 library(ggplot2)
 library(purrr)
-```
-
-    ## 
-    ## Attaching package: 'purrr'
-
-    ## The following object is masked from 'package:data.table':
-    ## 
-    ##     transpose
-
-``` r
 library(tidyr)
 library(jsonlite)
-```
-
-    ## 
-    ## Attaching package: 'jsonlite'
-
-    ## The following object is masked from 'package:purrr':
-    ## 
-    ##     flatten
-
-``` r
 library(tools)
 library(parallel)
 ```
@@ -416,26 +334,6 @@ runs <- mutate(
 )
 
 comp <- select(runs, comp) %>% unnest(cols = c(comp))
-sims <- pull(runs, sims) %>% lapply(as_tibble) %>% rbindlist()
-fwrite(x = comp, file = "results/1001.csv")
-fwrite(x = sims, file = "results/1001-sims.csv")
-fwrite(x = nm, file = "results/1001-nm.csv")
-
-meta <- list()
-meta$md5 <- list()
-meta$md5$data <- md5sum("data/1001.csv")
-meta$md5$ctl <- md5sum("model/1001.ctl")
-meta$md5$mod <- md5sum("model/1001.mod")
-meta$md5$result <- md5sum("results/1001.csv")
-meta$md5$sims <- md5sum("results/1001-sims.csv")
-meta$md5$sims <- md5sum("results/1001-nm.csv")
-meta$date <- date()
-meta$user <- Sys.info()[["user"]]
-write_json(
-  x = meta, 
-  path = "results/1001.json",
-  pretty = TRUE
-)
 ```
 
 ## Overall
@@ -503,152 +401,171 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
 
 # Results
 
-## 1: Bolus with additional
+    . ## 1: Bolus with additional
+    . Events:
+    .   ID time amt ii addl cmt evid
+    . 1  1    0 100 24    3   1    1
 
-    . # A tibble: 1 × 2
-    .   ev       plot        
-    .   <list>   <named list>
-    . 1 <ev[,7]> <gg>
+![](results/img/nmtest9/id-unnamed-chunk-47-1.png)<!-- -->
 
-## 2: Bolus with lag time and bioav
+    . ## 2: Bolus with lag time and bioav
+    . Events:
+    .   ID time amt ii addl cmt evid  LAGT BIOAV
+    . 1  2    0 100 24    3   2    1 12.13  2.23
 
-    . # A tibble: 1 × 2
-    .   ev       plot        
-    .   <list>   <named list>
-    . 1 <ev[,9]> <gg>
+![](results/img/nmtest9/id-unnamed-chunk-47-2.png)<!-- -->
 
-## 3: Infusion with additional
+    . ## 3: Infusion with additional
+    . Events:
+    .   ID time amt rate ii addl cmt evid
+    . 1  3    0 100   10 24    3   2    1
 
-    . # A tibble: 1 × 2
-    .   ev       plot        
-    .   <list>   <named list>
-    . 1 <ev[,8]> <gg>
+![](results/img/nmtest9/id-unnamed-chunk-47-3.png)<!-- -->
 
-## 4: Infusion with bioav factor
+    . ## 4: Infusion with bioav factor
+    . Events:
+    .   ID time amt rate ii addl cmt evid BIOAV
+    . 1  4    0 480   10  0    0   2    1   0.5
 
-    . # A tibble: 1 × 2
-    .   ev       plot        
-    .   <list>   <named list>
-    . 1 <ev[,9]> <gg>
+![](results/img/nmtest9/id-unnamed-chunk-47-4.png)<!-- -->
 
-## 5: Infusion with bioav factor and dur
+    . ## 5: Infusion with bioav factor and dur
+    . Events:
+    .   ID time amt rate ii addl cmt evid BIOAV MODE DUR2
+    . 1  5    0 480   -2  0    0   2    1   0.5    2   48
 
-    . # A tibble: 1 × 2
-    .   ev        plot        
-    .   <list>    <named list>
-    . 1 <ev[,11]> <gg>
+![](results/img/nmtest9/id-unnamed-chunk-47-5.png)<!-- -->
 
-## 6: Infusion doses to depot, with additional
+    . ## 6: Infusion doses to depot, with additional
+    . Events:
+    .   ID time amt     rate ii addl cmt evid
+    . 1  6    0 100 8.333333 24    3   1    1
 
-    . # A tibble: 1 × 2
-    .   ev       plot        
-    .   <list>   <named list>
-    . 1 <ev[,8]> <gg>
+![](results/img/nmtest9/id-unnamed-chunk-47-6.png)<!-- -->
 
-## 7: Infusion doses, with additional and lag time
+    . ## 7: Infusion doses, with additional and lag time
+    . Events:
+    .   ID time amt rate ii addl cmt evid LAGT
+    . 1  7    0 100   10 24    3   2    1 4.15
 
-    . # A tibble: 1 × 2
-    .   ev       plot        
-    .   <list>   <named list>
-    . 1 <ev[,9]> <gg>
+![](results/img/nmtest9/id-unnamed-chunk-47-7.png)<!-- -->
 
-## 8: Infusion doses, with lag time and bioav factor
+    . ## 8: Infusion doses, with lag time and bioav factor
+    . Events:
+    .   ID time amt rate ii addl cmt evid LAGT BIOAV
+    . 1  8    0 100   10 24    3   2    1 3.25 0.412
 
-    . # A tibble: 1 × 2
-    .   ev        plot        
-    .   <list>    <named list>
-    . 1 <ev[,10]> <gg>
+![](results/img/nmtest9/id-unnamed-chunk-47-8.png)<!-- -->
 
-## 9: Infusion doses, with lag time and bioav factor
+    . ## 9: Infusion doses, with lag time and bioav factor
+    . Events:
+    .   ID time amt rate ii addl cmt evid ss LAGT BIOAV
+    . 1  9    0 100   10 24    3   2    1  1 3.16 0.412
 
-    . # A tibble: 1 × 2
-    .   ev        plot        
-    .   <list>    <named list>
-    . 1 <ev[,11]> <gg>
+![](results/img/nmtest9/id-unnamed-chunk-47-9.png)<!-- -->
 
-## 10: Infusion doses at steady-state, with lag time and bioav factor
+    . ## 10: Infusion doses at steady-state, with lag time and bioav factor
+    . Events:
+    .   ID time amt rate ii addl cmt evid ss BIOAV
+    . 1 10    0 100    2 12    4   2    1  1 0.812
 
-    . # A tibble: 1 × 2
-    .   ev        plot        
-    .   <list>    <named list>
-    . 1 <ev[,10]> <gg>
+![](results/img/nmtest9/id-unnamed-chunk-47-10.png)<!-- -->
 
-## 11: Infusion doses, with lag time and bioav factor
+    . ## 11: Infusion doses, with lag time and bioav factor
+    . Events:
+    .   ID time amt rate ii addl cmt evid ss
+    . 1 11    0 100    2 12    3   2    1  1
 
-    . # A tibble: 1 × 2
-    .   ev       plot        
-    .   <list>   <named list>
-    . 1 <ev[,9]> <gg>
+![](results/img/nmtest9/id-unnamed-chunk-47-11.png)<!-- -->
 
-## 12: Infusion doses at steady state, II &lt; DUR, no bioav factor
+    . ## 12: Infusion doses at steady state, II < DUR, no bioav factor
+    . Events:
+    .   ID time amt   rate ii addl cmt evid ss
+    . 1 12    0 100 8.3333  6   12   2    1  1
 
-    . # A tibble: 1 × 2
-    .   ev       plot        
-    .   <list>   <named list>
-    . 1 <ev[,9]> <gg>
+![](results/img/nmtest9/id-unnamed-chunk-47-12.png)<!-- -->
 
-## 13: Infusion doses at steady state where II == DUR, with bioav factor
+    . ## 13: Infusion doses at steady state where II == DUR, with bioav factor
+    . Events:
+    .   ID time amt rate ii addl cmt evid ss BIOAV
+    . 1 13    0 100 4.12 10    8   2    1  1 0.412
 
-    . # A tibble: 1 × 2
-    .   ev        plot        
-    .   <list>    <named list>
-    . 1 <ev[,10]> <gg>
+![](results/img/nmtest9/id-unnamed-chunk-47-13.png)<!-- -->
 
-## 14: Infusion doses at steady state, where II == DUR
+    . ## 14: Infusion doses at steady state, where II == DUR
+    . Events:
+    .   ID time amt rate ii addl cmt evid ss
+    . 1 14    0 100   10 10    8   2    1  1
 
-    . # A tibble: 1 × 2
-    .   ev       plot        
-    .   <list>   <named list>
-    . 1 <ev[,9]> <gg>
+![](results/img/nmtest9/id-unnamed-chunk-47-14.png)<!-- -->
 
-## 15: Bolus doses at steady state, with bioav factor and lag time
+    . ## 15: Bolus doses at steady state, with bioav factor and lag time
+    . Events:
+    .   ID time amt ii addl cmt evid ss LAGT BIOAV
+    . 1 15    0 100 24    3   2    1  1    4 0.412
 
-    . # A tibble: 1 × 2
-    .   ev        plot        
-    .   <list>    <named list>
-    . 1 <ev[,10]> <gg>
+![](results/img/nmtest9/id-unnamed-chunk-47-15.png)<!-- -->
 
-## 16: Bolus doses with lag time and bioavability factor
+    . ## 16: Bolus doses with lag time and bioavability factor
+    . Events:
+    .   ID time amt ii addl cmt evid LAGT BIOAV
+    . 1 16    0 100 24    3   2    1    5 0.412
 
-    . # A tibble: 1 × 2
-    .   ev       plot        
-    .   <list>   <named list>
-    . 1 <ev[,9]> <gg>
+![](results/img/nmtest9/id-unnamed-chunk-47-16.png)<!-- -->
 
-## 17: Bolus then infusion
+    . ## 17: Bolus then infusion
+    . Events:
+    .   ID time amt rate ii addl cmt evid LAGT
+    . 1 17    0 100    0  0    0   2    1    1
+    . 2 17   13  50   24 24    2   1    1    0
 
-    . # A tibble: 1 × 2
-    .   ev       plot        
-    .   <list>   <named list>
-    . 1 <ev[,9]> <gg>
+![](results/img/nmtest9/id-unnamed-chunk-47-17.png)<!-- -->
 
-## 18: Infusion with modeled duration, lag time, and bioav factor
+    . ## 18: Infusion with modeled duration, lag time, and bioav factor
+    . Events:
+    .   ID time amt rate ii addl cmt evid DUR2 MODE LAGT BIOAV
+    . 1 18    0 100   -2 24    3   2    1    9    2    5  0.61
 
-    . # A tibble: 1 × 2
-    .   ev        plot        
-    .   <list>    <named list>
-    . 1 <ev[,12]> <gg>
+![](results/img/nmtest9/id-unnamed-chunk-47-18.png)<!-- -->
 
-## 19: Infusion with modeled duration, at steady state with bioav factor
+    . ## 19: Infusion with modeled duration, at steady state with bioav factor
+    . Events:
+    .   ID time amt rate ii addl cmt evid ss DUR2 MODE BIOAV
+    . 1 19    0 100   -2 24    3   2    1  1    9    2  0.61
 
-    . # A tibble: 1 × 2
-    .   ev        plot        
-    .   <list>    <named list>
-    . 1 <ev[,12]> <gg>
+![](results/img/nmtest9/id-unnamed-chunk-47-19.png)<!-- -->
 
-## 20: Reset and dose (EVID 4) with additional
+    . ## 20: Reset and dose (EVID 4) with additional
+    . Events:
+    .   ID time amt rate ii addl cmt evid BIOAV
+    . 1 20    0 100   50 12    2   1    1  0.61
+    . 2 20   50 120    0 12    3   1    4  0.50
 
-    . # A tibble: 1 × 2
-    .   ev       plot        
-    .   <list>   <named list>
-    . 1 <ev[,9]> <gg>
+![](results/img/nmtest9/id-unnamed-chunk-47-20.png)<!-- -->
 
-## 21: Reset (EVID 3) with additional
+    . ## 21: Reset (EVID 3) with additional
+    . Events:
+    .   ID time amt rate ii addl cmt evid BIOAV
+    . 1 21    0 100   50 12    3   1    1  0.61
+    . 2 21   50   0    0  0    0   2    3  1.00
+    . 3 21   54 120    0 16    2   1    1  1.00
 
-    . # A tibble: 1 × 2
-    .   ev       plot        
-    .   <list>   <named list>
-    . 1 <ev[,9]> <gg>
+![](results/img/nmtest9/id-unnamed-chunk-47-21.png)<!-- -->
+
+    . ## 22: Steady state 1 and 2
+    . Events:
+    .   ID time amt ii addl cmt evid ss
+    . 1 22    0 100 24    3   1    1  1
+    . 2 22   12  50 24    3   1    1  2
+
+![](results/img/nmtest9/id-unnamed-chunk-47-22.png)<!-- -->
+
+    . ## 23: Steady state infusion
+    . Events:
+    .   ID time amt rate cmt evid ss
+    . 1 23    0   0  100   1    1  1
+
+![](results/img/nmtest9/id-unnamed-chunk-47-23.png)<!-- -->
 
 # Control stream
 
@@ -882,5 +799,6 @@ sessionInfo()
     .  [7] lifecycle_1.0.1  tibble_3.1.6     gtable_0.3.0     pkgconfig_2.0.3  rlang_1.0.2      cli_3.2.0       
     . [13] yaml_2.3.5       xfun_0.30        fastmap_1.1.0    withr_2.5.0      stringr_1.4.0    knitr_1.37      
     . [19] generics_0.1.2   vctrs_0.3.8      grid_4.1.1       tidyselect_1.1.2 glue_1.6.2       R6_2.5.1        
-    . [25] fansi_1.0.2      rmarkdown_2.13   magrittr_2.0.2   scales_1.1.1     ellipsis_0.3.2   htmltools_0.5.2 
-    . [31] colorspace_2.0-3 renv_0.14.0      utf8_1.2.2       stringi_1.7.6    munsell_0.5.0    crayon_1.5.0
+    . [25] fansi_1.0.2      rmarkdown_2.13   farver_2.1.0     magrittr_2.0.2   scales_1.1.1     ellipsis_0.3.2  
+    . [31] htmltools_0.5.2  colorspace_2.0-3 renv_0.14.0      labeling_0.4.2   utf8_1.2.2       stringi_1.7.6   
+    . [37] munsell_0.5.0    crayon_1.5.0
