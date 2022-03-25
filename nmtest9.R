@@ -314,11 +314,13 @@ get_title <- function(i) {
   paste0(i, ": ", de)
 }
 
+#+ results = "asis"
 pwalk(runs, function(...) {
   x <- list(...)
   i <- x$ID
-  header <- paste0("## ", get_title(i))
-  writeLines(header)
+  writeLines("#+ results = 'asis'\n")
+  writeLines(paste0("## ", get_title(i)))
+  writeLines("#+ results = 'markup'\n")
   print(x$ev)
   print(x$plot)
 })
