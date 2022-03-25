@@ -244,7 +244,7 @@ runs <- mutate(runs, data = map(sims, to_data_set))
 
 #+
 data <- runs[["data"]] %>% bind_rows()
-
+data$CP <- NULL
 
 sv(data, "data/1001.csv")
 
@@ -256,11 +256,11 @@ out <- run(1001)
 ##' 
 ##' Look at the difference between simulated values from mrgsolve and NONMEM.
 ##' 
-runs <- mutate(runs, out = split(out,out$ID))
+runs <- mutate(runs, out = split(out, out$ID))
 
 runs <- mutate(
   runs, 
-  comp = map2(out,sims, .f=function(out,sims) {
+  comp = map2(out, sims, .f = function(out, sims) {
     tibble(
       ID = out$ID, 
       time = sims$time, 
@@ -281,8 +281,10 @@ summary(comp$diff)
 ##' 
 ##' `diff` is the simulated `CP` from `nonmem` minus the simulated
 ##' `CP` from `mrgsim`
-group_by(comp,ID) %>% summarise(mean = mean(diff), max = max(diff), min = min(diff)) %>% 
-  as.data.frame
+group_by(comp,ID) %>% 
+  summarise(mean = mean(diff), max = max(diff), min = min(diff)) %>% 
+  as.data.frame()
+
 comp_plot <- function(comp) {
   id <- comp$ID[1]
   ggplot(data = comp) + 
@@ -398,4 +400,3 @@ writeLines(readLines("model/1001/1001.lst"))
 #+ 
 options(width = 120)
 devtools::session_info()
-

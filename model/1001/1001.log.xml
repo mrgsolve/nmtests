@@ -251,7 +251,7 @@
       </job>
       <job>
        <do>date</do>
-       <so>Thu Mar 24 10:05:10 EDT 2022</so>
+       <so>Thu Mar 24 11:19:21 EDT 2022</so>
       </job>
       <job>
        <do>perl -e 'use POSIX; print join qq(,),uname'</do>
@@ -267,7 +267,7 @@
       </job>
       <job>
        <do>echo $PATH</do>
-       <so>/opt/python/3.7.7/bin:/data/apps:/usr/local/mpich2/bin:/opt/intel/bin/intel64:/usr/local/texlive/2021/bin/x86_64-linux:/opt/sge/bin:/opt/sge/bin/lx-amd64:/opt/python/3.7.7/bin:/opt/python/miniconda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/opt/amazon/efa/bin/:/opt/amazon/openmpi/bin/:/opt/julia/bin:/usr/lib/rstudio-server/bin/postback</so>
+       <so>/data/apps:/usr/local/mpich2/bin:/opt/intel/bin/intel64:/usr/local/texlive/2021/bin/x86_64-linux:/opt/sge/bin:/opt/sge/bin/lx-amd64:/opt/python/3.7.7/bin:/opt/python/miniconda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/opt/amazon/efa/bin/:/opt/amazon/openmpi/bin/:/opt/julia/bin:/usr/lib/rstudio-server/bin/postback</so>
       </job>
       <job>
        <do>head -n 5 /opt/NONMEM/nm74gf/util/nmfe74</do>
@@ -307,7 +307,7 @@
    <do in="model/1001">if [ -e 1001.xml ];then cat 1001.xml;else echo \&lt;nofile/\>; fi</do>
    <so>
     <nm:output xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:nm="http://namespaces.oreilly.com/xmlnut/address" xsi:schemaLocation="http://namespaces.oreilly.com/xmlnut/address output.xsd">
-     <nm:start_datetime>2022-03-24T10:05:16.627</nm:start_datetime>
+     <nm:start_datetime>2022-03-24T11:19:27.903</nm:start_datetime>
      <nm:control_stream>
      $PROB RUN# 101
      
@@ -530,8 +530,8 @@
        </nm:post_process_times>
       </nm:problem>
      </nm:nonmem>
-     <nm:stop_datetime>2022-03-24T10:05:16.682</nm:stop_datetime>
-     <nm:total_cputime>0.055</nm:total_cputime>
+     <nm:stop_datetime>2022-03-24T11:19:27.963</nm:stop_datetime>
+     <nm:total_cputime>0.060</nm:total_cputime>
     </nm:output>
    </so>
   </job>
