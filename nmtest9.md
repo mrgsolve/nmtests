@@ -34,10 +34,10 @@ Metrum Research Group
         time](#7-infusion-doses-with-additional-and-lag-time)
     -   [8: Infusion doses, with lag time and bioav
         factor](#8-infusion-doses-with-lag-time-and-bioav-factor)
-    -   [9: Infusion doses, with lag time and bioav
-        factor](#9-infusion-doses-with-lag-time-and-bioav-factor)
-    -   [10: Infusion doses at steady-state, with lag time and bioav
-        factor](#10-infusion-doses-at-steady-state-with-lag-time-and-bioav-factor)
+    -   [9: Infusion doses at steady-state, with lag time and bioav
+        factor](#9-infusion-doses-at-steady-state-with-lag-time-and-bioav-factor)
+    -   [10: Infusion doses at steady-state, with bioav
+        factor](#10-infusion-doses-at-steady-state-with-bioav-factor)
     -   [11: Infusion doses, with lag time and bioav
         factor](#11-infusion-doses-with-lag-time-and-bioav-factor)
     -   [12: Infusion doses at steady state, II &lt; DUR, no bioav
@@ -246,12 +246,12 @@ push_back(env,ev,"Infusion doses, with lag time and bioav factor")
 
 ``` r
 ev <- ev(amt = 100, ii = 24, addl = 3, rate = 100/10, LAGT = 3.16, BIOAV = 0.412, ss = 1, cmt = 2) 
-push_back(env,ev,"Infusion doses, with lag time and bioav factor")
+push_back(env,ev,"Infusion doses at steady-state, with lag time and bioav factor")
 ```
 
 ``` r
 ev <- ev(amt = 100, ii = 12, addl = 4, rate = 100/50, BIOAV = 0.812, ss = 1, cmt = 2) 
-push_back(env,ev,"Infusion doses at steady-state, with lag time and bioav factor")
+push_back(env,ev,"Infusion doses at steady-state, with bioav factor")
 ```
 
 ``` r
@@ -311,8 +311,8 @@ push_back(env,ev,"Reset and dose (EVID 4) with additional")
 ``` r
 ev <- 
   ev(amt = 100, ii = 12, addl = 3, rate = 50, BIOAV = 0.61) + 
-  ev(amt = 0, evid = 3, time = 50, cmt = 2, BIOAV=1) + 
-  ev(amt = 120, ii = 16, addl = 2, time = 54, BIOAV=1)
+  ev(amt = 0, evid = 3, time = 50, cmt = 2, BIOAV = 1) + 
+  ev(amt = 120, ii = 16, addl = 2, time = 54, BIOAV = 1)
 push_back(env,ev,"Reset (EVID 3) with additional")
 ```
 
@@ -324,7 +324,7 @@ push_back(env,ev,"Steady state 1 and 2")
 ```
 
 ``` r
-ev <- ev(amt = 0, rate = 100,  ss=1)
+ev <- ev(amt = 0, rate = 100, ss = 1)
 push_back(env,ev,"Steady state infusion")
 ```
 
@@ -519,7 +519,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
 
 ![](results/img/nmtest9/id-unnamed-chunk-54-1.png)<!-- -->
 
-## 9: Infusion doses, with lag time and bioav factor
+## 9: Infusion doses at steady-state, with lag time and bioav factor
 
     . $ev
     . Events:
@@ -530,7 +530,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
 
 ![](results/img/nmtest9/id-unnamed-chunk-55-1.png)<!-- -->
 
-## 10: Infusion doses at steady-state, with lag time and bioav factor
+## 10: Infusion doses at steady-state, with bioav factor
 
     . $ev
     . Events:

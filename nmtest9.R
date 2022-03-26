@@ -27,7 +27,7 @@ packageVersion("mrgsolve")
 #' lag times, reset and steady state, 
 #' 
 #' All of the relevant code is presented so that the user can trace how 
-#' the simulations are performed. The complete source code can be viewed
+#' the simulations are performed.  The complete source code can be viewed
 #' [here](nmtest9.R).
 #' 
 #' The bottom line results are presented in graphical
@@ -151,10 +151,10 @@ ev <- ev(amt = 100, ii = 24, addl = 3, rate = 100/10, LAGT = 3.25, BIOAV = 0.412
 push_back(env,ev,"Infusion doses, with lag time and bioav factor")
 #+
 ev <- ev(amt = 100, ii = 24, addl = 3, rate = 100/10, LAGT = 3.16, BIOAV = 0.412, ss = 1, cmt = 2) 
-push_back(env,ev,"Infusion doses, with lag time and bioav factor")
+push_back(env,ev,"Infusion doses at steady-state, with lag time and bioav factor")
 #+
 ev <- ev(amt = 100, ii = 12, addl = 4, rate = 100/50, BIOAV = 0.812, ss = 1, cmt = 2) 
-push_back(env,ev,"Infusion doses at steady-state, with lag time and bioav factor")
+push_back(env,ev,"Infusion doses at steady-state, with bioav factor")
 #+
 ev <- ev(amt = 100, ii = 12, addl = 3, rate = 100/50, ss = 1, cmt = 2) 
 push_back(env,ev,"Infusion doses, with lag time and bioav factor")
@@ -192,8 +192,8 @@ push_back(env,ev,"Reset and dose (EVID 4) with additional")
 #+
 ev <- 
   ev(amt = 100, ii = 12, addl = 3, rate = 50, BIOAV = 0.61) + 
-  ev(amt = 0, evid = 3, time = 50, cmt = 2, BIOAV=1) + 
-  ev(amt = 120, ii = 16, addl = 2, time = 54, BIOAV=1)
+  ev(amt = 0, evid = 3, time = 50, cmt = 2, BIOAV = 1) + 
+  ev(amt = 120, ii = 16, addl = 2, time = 54, BIOAV = 1)
 push_back(env,ev,"Reset (EVID 3) with additional")
 
 #+
@@ -202,7 +202,7 @@ ev <-
   ev(amt = 50,  ii = 24, addl = 3, ss = 2, time = 12)
 push_back(env,ev,"Steady state 1 and 2")
 #+ 
-ev <- ev(amt = 0, rate = 100,  ss=1)
+ev <- ev(amt = 0, rate = 100, ss = 1)
 push_back(env,ev,"Steady state infusion")
 
 #+
