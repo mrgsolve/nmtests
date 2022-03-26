@@ -7,6 +7,6 @@
     "sims": ["c62aef461b23cd8d41bb73ad84813e06"]
   },
   "results": ["data/1001.csv", "model/1001.ctl", "model/1001.mod", "results/1001.csv", "results/1001-sims.csv", "results/1001-nm.csv", "results/1001.pdf"],
-  "date": ["Fri Mar 25 17:20:26 2022"],
+  "date": ["Fri Mar 25 21:02:45 2022"],
   "user": ["kyleb"]
 }

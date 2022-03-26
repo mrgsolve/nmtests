@@ -314,16 +314,97 @@ get_title <- function(i) {
   paste0(i, ": ", de)
 }
 
-#+ results = "asis"
-pwalk(runs, function(...) {
-  x <- list(...)
-  i <- x$ID
-  writeLines("#+ results = 'asis'\n")
-  writeLines(paste0("## ", get_title(i)))
-  #writeLines("#+ results = 'markup'\n")
-  print(x$ev)
-  print(x$plot)
-})
+#' ## `r i <- 1; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+#' ## `r i <- 2; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+#' ## `r i <- 2; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+#' ## `r i <- 4; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+#' ## `r i <- 5; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+#' ## `r i <- 7; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+#' ## `r i <- 8; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+#' ## `r i <- 9; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+#' ## `r i <- 10; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+#' ## `r i <- 11; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+#' ## `r i <- 12; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+#' ## `r i <- 13; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+#' ## `r i <- 14; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+#' ## `r i <- 15; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+#' ## `r i <- 16; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+#' ## `r i <- 17; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+#' ## `r i <- 18; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+#' ## `r i <- 19; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+#' ## `r i <- 20; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+#' ## `r i <- 21; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+#' ## `r i <- 22; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+#' ## `r i <- 23; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+#+ include = FALSE
+if(i != nrow(runs)) stop("missing output")
+
 
 #' # Control stream
 #+ comment = "  "

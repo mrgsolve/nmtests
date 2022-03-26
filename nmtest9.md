@@ -25,12 +25,11 @@ Metrum Research Group
     -   [1: Bolus with additional](#1-bolus-with-additional)
     -   [2: Bolus with lag time and
         bioav](#2-bolus-with-lag-time-and-bioav)
-    -   [3: Infusion with additional](#3-infusion-with-additional)
+    -   [2: Bolus with lag time and
+        bioav](#2-bolus-with-lag-time-and-bioav-1)
     -   [4: Infusion with bioav factor](#4-infusion-with-bioav-factor)
     -   [5: Infusion with bioav factor and
         dur](#5-infusion-with-bioav-factor-and-dur)
-    -   [6: Infusion doses to depot, with
-        additional](#6-infusion-doses-to-depot-with-additional)
     -   [7: Infusion doses, with additional and lag
         time](#7-infusion-doses-with-additional-and-lag-time)
     -   [8: Infusion doses, with lag time and bioav
@@ -441,166 +440,252 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
 
 # Results
 
-``` r
-pwalk(runs, function(...) {
-  x <- list(...)
-  i <- x$ID
-  writeLines("#+ results = 'asis'\n")
-  writeLines(paste0("## ", get_title(i)))
-  #writeLines("#+ results = 'markup'\n")
-  print(x$ev)
-  print(x$plot)
-})
-```
-
-\#+ results = ‘asis’
-
 ## 1: Bolus with additional
 
-Events: ID time amt ii addl cmt evid 1 1 0 100 24 3 1 1
-![](results/img/nmtest9/id-unnamed-chunk-48-1.png)<!-- -->\#+ results =
-‘asis’
+    . $ev
+    . Events:
+    .   ID time amt ii addl cmt evid
+    . 1  1    0 100 24    3   1    1
+    . 
+    . $plot
+
+![](results/img/nmtest9/id-unnamed-chunk-48-1.png)<!-- -->
 
 ## 2: Bolus with lag time and bioav
 
-Events: ID time amt ii addl cmt evid LAGT BIOAV 1 2 0 100 24 3 2 1 12.13
-2.23 ![](results/img/nmtest9/id-unnamed-chunk-48-2.png)<!-- -->\#+
-results = ‘asis’
+    . $ev
+    . Events:
+    .   ID time amt ii addl cmt evid  LAGT BIOAV
+    . 1  2    0 100 24    3   2    1 12.13  2.23
+    . 
+    . $plot
 
-## 3: Infusion with additional
+![](results/img/nmtest9/id-unnamed-chunk-49-1.png)<!-- -->
 
-Events: ID time amt rate ii addl cmt evid 1 3 0 100 10 24 3 2 1
-![](results/img/nmtest9/id-unnamed-chunk-48-3.png)<!-- -->\#+ results =
-‘asis’
+## 2: Bolus with lag time and bioav
+
+    . $ev
+    . Events:
+    .   ID time amt ii addl cmt evid  LAGT BIOAV
+    . 1  2    0 100 24    3   2    1 12.13  2.23
+    . 
+    . $plot
+
+![](results/img/nmtest9/id-unnamed-chunk-50-1.png)<!-- -->
 
 ## 4: Infusion with bioav factor
 
-Events: ID time amt rate ii addl cmt evid BIOAV 1 4 0 480 10 0 0 2 1 0.5
-![](results/img/nmtest9/id-unnamed-chunk-48-4.png)<!-- -->\#+ results =
-‘asis’
+    . $ev
+    . Events:
+    .   ID time amt rate ii addl cmt evid BIOAV
+    . 1  4    0 480   10  0    0   2    1   0.5
+    . 
+    . $plot
+
+![](results/img/nmtest9/id-unnamed-chunk-51-1.png)<!-- -->
 
 ## 5: Infusion with bioav factor and dur
 
-Events: ID time amt rate ii addl cmt evid BIOAV MODE DUR2 1 5 0 480 -2 0
-0 2 1 0.5 2 48
-![](results/img/nmtest9/id-unnamed-chunk-48-5.png)<!-- -->\#+ results =
-‘asis’
+    . $ev
+    . Events:
+    .   ID time amt rate ii addl cmt evid BIOAV MODE DUR2
+    . 1  5    0 480   -2  0    0   2    1   0.5    2   48
+    . 
+    . $plot
 
-## 6: Infusion doses to depot, with additional
-
-Events: ID time amt rate ii addl cmt evid 1 6 0 100 8.333333 24 3 1 1
-![](results/img/nmtest9/id-unnamed-chunk-48-6.png)<!-- -->\#+ results =
-‘asis’
+![](results/img/nmtest9/id-unnamed-chunk-52-1.png)<!-- -->
 
 ## 7: Infusion doses, with additional and lag time
 
-Events: ID time amt rate ii addl cmt evid LAGT 1 7 0 100 10 24 3 2 1
-4.15 ![](results/img/nmtest9/id-unnamed-chunk-48-7.png)<!-- -->\#+
-results = ‘asis’
+    . $ev
+    . Events:
+    .   ID time amt rate ii addl cmt evid LAGT
+    . 1  7    0 100   10 24    3   2    1 4.15
+    . 
+    . $plot
+
+![](results/img/nmtest9/id-unnamed-chunk-53-1.png)<!-- -->
 
 ## 8: Infusion doses, with lag time and bioav factor
 
-Events: ID time amt rate ii addl cmt evid LAGT BIOAV 1 8 0 100 10 24 3 2
-1 3.25 0.412
-![](results/img/nmtest9/id-unnamed-chunk-48-8.png)<!-- -->\#+ results =
-‘asis’
+    . $ev
+    . Events:
+    .   ID time amt rate ii addl cmt evid LAGT BIOAV
+    . 1  8    0 100   10 24    3   2    1 3.25 0.412
+    . 
+    . $plot
+
+![](results/img/nmtest9/id-unnamed-chunk-54-1.png)<!-- -->
 
 ## 9: Infusion doses, with lag time and bioav factor
 
-Events: ID time amt rate ii addl cmt evid ss LAGT BIOAV 1 9 0 100 10 24
-3 2 1 1 3.16 0.412
-![](results/img/nmtest9/id-unnamed-chunk-48-9.png)<!-- -->\#+ results =
-‘asis’
+    . $ev
+    . Events:
+    .   ID time amt rate ii addl cmt evid ss LAGT BIOAV
+    . 1  9    0 100   10 24    3   2    1  1 3.16 0.412
+    . 
+    . $plot
+
+![](results/img/nmtest9/id-unnamed-chunk-55-1.png)<!-- -->
 
 ## 10: Infusion doses at steady-state, with lag time and bioav factor
 
-Events: ID time amt rate ii addl cmt evid ss BIOAV 1 10 0 100 2 12 4 2 1
-1 0.812 ![](results/img/nmtest9/id-unnamed-chunk-48-10.png)<!-- -->\#+
-results = ‘asis’
+    . $ev
+    . Events:
+    .   ID time amt rate ii addl cmt evid ss BIOAV
+    . 1 10    0 100    2 12    4   2    1  1 0.812
+    . 
+    . $plot
+
+![](results/img/nmtest9/id-unnamed-chunk-56-1.png)<!-- -->
 
 ## 11: Infusion doses, with lag time and bioav factor
 
-Events: ID time amt rate ii addl cmt evid ss 1 11 0 100 2 12 3 2 1 1
-![](results/img/nmtest9/id-unnamed-chunk-48-11.png)<!-- -->\#+ results =
-‘asis’
+    . $ev
+    . Events:
+    .   ID time amt rate ii addl cmt evid ss
+    . 1 11    0 100    2 12    3   2    1  1
+    . 
+    . $plot
+
+![](results/img/nmtest9/id-unnamed-chunk-57-1.png)<!-- -->
 
 ## 12: Infusion doses at steady state, II &lt; DUR, no bioav factor
 
-Events: ID time amt rate ii addl cmt evid ss 1 12 0 100 8.3333 6 12 2 1
-1 ![](results/img/nmtest9/id-unnamed-chunk-48-12.png)<!-- -->\#+ results
-= ‘asis’
+    . $ev
+    . Events:
+    .   ID time amt   rate ii addl cmt evid ss
+    . 1 12    0 100 8.3333  6   12   2    1  1
+    . 
+    . $plot
+
+![](results/img/nmtest9/id-unnamed-chunk-58-1.png)<!-- -->
 
 ## 13: Infusion doses at steady state where II == DUR, with bioav factor
 
-Events: ID time amt rate ii addl cmt evid ss BIOAV 1 13 0 100 4.12 10 8
-2 1 1 0.412
-![](results/img/nmtest9/id-unnamed-chunk-48-13.png)<!-- -->\#+ results =
-‘asis’
+    . $ev
+    . Events:
+    .   ID time amt rate ii addl cmt evid ss BIOAV
+    . 1 13    0 100 4.12 10    8   2    1  1 0.412
+    . 
+    . $plot
+
+![](results/img/nmtest9/id-unnamed-chunk-59-1.png)<!-- -->
 
 ## 14: Infusion doses at steady state, where II == DUR
 
-Events: ID time amt rate ii addl cmt evid ss 1 14 0 100 10 10 8 2 1 1
-![](results/img/nmtest9/id-unnamed-chunk-48-14.png)<!-- -->\#+ results =
-‘asis’
+    . $ev
+    . Events:
+    .   ID time amt rate ii addl cmt evid ss
+    . 1 14    0 100   10 10    8   2    1  1
+    . 
+    . $plot
+
+![](results/img/nmtest9/id-unnamed-chunk-60-1.png)<!-- -->
 
 ## 15: Bolus doses at steady state, with bioav factor and lag time
 
-Events: ID time amt ii addl cmt evid ss LAGT BIOAV 1 15 0 100 24 3 2 1 1
-4 0.412 ![](results/img/nmtest9/id-unnamed-chunk-48-15.png)<!-- -->\#+
-results = ‘asis’
+    . $ev
+    . Events:
+    .   ID time amt ii addl cmt evid ss LAGT BIOAV
+    . 1 15    0 100 24    3   2    1  1    4 0.412
+    . 
+    . $plot
+
+![](results/img/nmtest9/id-unnamed-chunk-61-1.png)<!-- -->
 
 ## 16: Bolus doses with lag time and bioavability factor
 
-Events: ID time amt ii addl cmt evid LAGT BIOAV 1 16 0 100 24 3 2 1 5
-0.412 ![](results/img/nmtest9/id-unnamed-chunk-48-16.png)<!-- -->\#+
-results = ‘asis’
+    . $ev
+    . Events:
+    .   ID time amt ii addl cmt evid LAGT BIOAV
+    . 1 16    0 100 24    3   2    1    5 0.412
+    . 
+    . $plot
+
+![](results/img/nmtest9/id-unnamed-chunk-62-1.png)<!-- -->
 
 ## 17: Bolus then infusion
 
-Events: ID time amt rate ii addl cmt evid LAGT 1 17 0 100 0 0 0 2 1 1 2
-17 13 50 24 24 2 1 1 0
-![](results/img/nmtest9/id-unnamed-chunk-48-17.png)<!-- -->\#+ results =
-‘asis’
+    . $ev
+    . Events:
+    .   ID time amt rate ii addl cmt evid LAGT
+    . 1 17    0 100    0  0    0   2    1    1
+    . 2 17   13  50   24 24    2   1    1    0
+    . 
+    . $plot
+
+![](results/img/nmtest9/id-unnamed-chunk-63-1.png)<!-- -->
 
 ## 18: Infusion with modeled duration, lag time, and bioav factor
 
-Events: ID time amt rate ii addl cmt evid DUR2 MODE LAGT BIOAV 1 18 0
-100 -2 24 3 2 1 9 2 5 0.61
-![](results/img/nmtest9/id-unnamed-chunk-48-18.png)<!-- -->\#+ results =
-‘asis’
+    . $ev
+    . Events:
+    .   ID time amt rate ii addl cmt evid DUR2 MODE LAGT BIOAV
+    . 1 18    0 100   -2 24    3   2    1    9    2    5  0.61
+    . 
+    . $plot
+
+![](results/img/nmtest9/id-unnamed-chunk-64-1.png)<!-- -->
 
 ## 19: Infusion with modeled duration, at steady state with bioav factor
 
-Events: ID time amt rate ii addl cmt evid ss DUR2 MODE BIOAV 1 19 0 100
--2 24 3 2 1 1 9 2 0.61
-![](results/img/nmtest9/id-unnamed-chunk-48-19.png)<!-- -->\#+ results =
-‘asis’
+    . $ev
+    . Events:
+    .   ID time amt rate ii addl cmt evid ss DUR2 MODE BIOAV
+    . 1 19    0 100   -2 24    3   2    1  1    9    2  0.61
+    . 
+    . $plot
+
+![](results/img/nmtest9/id-unnamed-chunk-65-1.png)<!-- -->
 
 ## 20: Reset and dose (EVID 4) with additional
 
-Events: ID time amt rate ii addl cmt evid BIOAV 1 20 0 100 50 12 2 1 1
-0.61 2 20 50 120 0 12 3 1 4 0.50
-![](results/img/nmtest9/id-unnamed-chunk-48-20.png)<!-- -->\#+ results =
-‘asis’
+    . $ev
+    . Events:
+    .   ID time amt rate ii addl cmt evid BIOAV
+    . 1 20    0 100   50 12    2   1    1  0.61
+    . 2 20   50 120    0 12    3   1    4  0.50
+    . 
+    . $plot
+
+![](results/img/nmtest9/id-unnamed-chunk-66-1.png)<!-- -->
 
 ## 21: Reset (EVID 3) with additional
 
-Events: ID time amt rate ii addl cmt evid BIOAV 1 21 0 100 50 12 3 1 1
-0.61 2 21 50 0 0 0 0 2 3 1.00 3 21 54 120 0 16 2 1 1 1.00
-![](results/img/nmtest9/id-unnamed-chunk-48-21.png)<!-- -->\#+ results =
-‘asis’
+    . $ev
+    . Events:
+    .   ID time amt rate ii addl cmt evid BIOAV
+    . 1 21    0 100   50 12    3   1    1  0.61
+    . 2 21   50   0    0  0    0   2    3  1.00
+    . 3 21   54 120    0 16    2   1    1  1.00
+    . 
+    . $plot
+
+![](results/img/nmtest9/id-unnamed-chunk-67-1.png)<!-- -->
 
 ## 22: Steady state 1 and 2
 
-Events: ID time amt ii addl cmt evid ss 1 22 0 100 24 3 1 1 1 2 22 12 50
-24 3 1 1 2
-![](results/img/nmtest9/id-unnamed-chunk-48-22.png)<!-- -->\#+ results =
-‘asis’
+    . $ev
+    . Events:
+    .   ID time amt ii addl cmt evid ss
+    . 1 22    0 100 24    3   1    1  1
+    . 2 22   12  50 24    3   1    1  2
+    . 
+    . $plot
+
+![](results/img/nmtest9/id-unnamed-chunk-68-1.png)<!-- -->
 
 ## 23: Steady state infusion
 
-Events: ID time amt rate cmt evid ss 1 23 0 0 100 1 1 1
-![](results/img/nmtest9/id-unnamed-chunk-48-23.png)<!-- -->
+    . $ev
+    . Events:
+    .   ID time amt rate cmt evid ss
+    . 1 23    0   0  100   1    1  1
+    . 
+    . $plot
+
+![](results/img/nmtest9/id-unnamed-chunk-69-1.png)<!-- -->
 
 # Control stream
 
