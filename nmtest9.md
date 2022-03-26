@@ -38,8 +38,8 @@ Metrum Research Group
         factor](#9-infusion-doses-at-steady-state-with-lag-time-and-bioav-factor)
     -   [10: Infusion doses at steady-state, with bioav
         factor](#10-infusion-doses-at-steady-state-with-bioav-factor)
-    -   [11: Infusion doses, with lag time and bioav
-        factor](#11-infusion-doses-with-lag-time-and-bioav-factor)
+    -   [11: Infusion doses at steady state, with lag
+        time](#11-infusion-doses-at-steady-state-with-lag-time)
     -   [12: Infusion doses at steady state, II &lt; DUR, no bioav
         factor](#12-infusion-doses-at-steady-state-ii--dur-no-bioav-factor)
     -   [13: Infusion doses at steady state where II == DUR, with bioav
@@ -256,7 +256,7 @@ push_back(env,ev,"Infusion doses at steady-state, with bioav factor")
 
 ``` r
 ev <- ev(amt = 100, ii = 12, addl = 3, rate = 100/50, ss = 1, cmt = 2) 
-push_back(env,ev,"Infusion doses, with lag time and bioav factor")
+push_back(env,ev,"Infusion doses at steady state, with lag time")
 ```
 
 ``` r
@@ -541,7 +541,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
 
 ![](results/img/nmtest9/id-unnamed-chunk-56-1.png)<!-- -->
 
-## 11: Infusion doses, with lag time and bioav factor
+## 11: Infusion doses at steady state, with lag time
 
     . $ev
     . Events:

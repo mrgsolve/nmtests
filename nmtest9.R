@@ -157,7 +157,7 @@ ev <- ev(amt = 100, ii = 12, addl = 4, rate = 100/50, BIOAV = 0.812, ss = 1, cmt
 push_back(env,ev,"Infusion doses at steady-state, with bioav factor")
 #+
 ev <- ev(amt = 100, ii = 12, addl = 3, rate = 100/50, ss = 1, cmt = 2) 
-push_back(env,ev,"Infusion doses, with lag time and bioav factor")
+push_back(env,ev,"Infusion doses at steady state, with lag time")
 #+
 ev <- ev(amt = 100, ii = 6, addl = 12, rate = signif(100/12,5), ss = 1, cmt = 2) 
 push_back(env,ev,"Infusion doses at steady state, II < DUR, no bioav factor")
