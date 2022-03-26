@@ -22,7 +22,9 @@ packageVersion("mrgsolve")
 #' # Introduction
 #' 
 #' This document runs simulations from a pharmacokinetic model using both 
-#' NONMEM and mrgsolve and compares the results.  
+#' NONMEM and mrgsolve and compares the results. The benchmarks in this 
+#' set focus on dosing events (bolus and infusion), bioavailability, 
+#' lag times, reset and steady state, 
 #' 
 #' All of the relevant code is presented so that the user can trace how 
 #' the simulations are performed.  The complete source code can be viewed
