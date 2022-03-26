@@ -1,5 +1,5 @@
 #' ---
-#' title: "Bemchmark test with mrgsolve and NONMEM"
+#' title: "Benchmark test with mrgsolve and NONMEM"
 #' author: "Metrum Research Group"
 #' date: ""
 #' output: 
@@ -27,7 +27,7 @@ packageVersion("mrgsolve")
 #' lag times, reset and steady state, 
 #' 
 #' All of the relevant code is presented so that the user can trace how 
-#' the simulations are performed.  The complete source code can be viewed
+#' the simulations are performed. The complete source code can be viewed
 #' [here](nmtest9.R).
 #' 
 #' The bottom line results are presented in graphical

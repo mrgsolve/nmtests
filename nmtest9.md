@@ -1,4 +1,4 @@
-Bemchmark test with mrgsolve and NONMEM
+Benchmark test with mrgsolve and NONMEM
 ================
 Metrum Research Group
 
