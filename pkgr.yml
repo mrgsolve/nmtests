@@ -13,6 +13,7 @@ Packages:
   - purrr
   - tidyr
   - jsonlite
+  - testthat
 
 Repos:
   - MPN: https://mpn.metworx.com/snapshots/stable/2022-03-21

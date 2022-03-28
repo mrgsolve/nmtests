@@ -57,7 +57,7 @@ library(parallel)
 knitr::opts_chunk$set(comment = '.', fig.path = "results/img/nmtest9/id-")
 #+
 
-stopifnot(grepl("PsN", system("execute --version", intern=TRUE)))
+stopifnot(grepl("PsN", system("execute --version", intern = TRUE)))
 
 #' # Functions
 #' 
@@ -281,6 +281,9 @@ sims <- pull(runs, sims) %>% lapply(as_tibble) %>% rbindlist()
 fwrite(x = comp, file = "results/1001.csv")
 fwrite(x = sims, file = "results/1001-sims.csv")
 fwrite(x = nm, file = "results/1001-nm.csv")
+run_key <- distinct(runs, ID, descr) %>% mutate(descr = unlist(descr))
+run_key <- select(run_key, ID, descr)
+fwrite(x = run_key, file = "results/1001-run-key.csv")
 
 meta <- list()
 meta$md5 <- list()
@@ -290,13 +293,15 @@ meta$md5$mod <- md5sum("model/1001.mod")
 meta$md5$result <- md5sum("results/1001.csv")
 meta$md5$sims <- md5sum("results/1001-sims.csv")
 meta$md5$sims <- md5sum("results/1001-nm.csv")
+meta$md5$run_key <- md5sum("results/1001-run-key.csv")
 meta$results <- c(
   "data/1001.csv", 
   "model/1001.ctl", 
   "model/1001.mod", 
   "results/1001.csv", 
   "results/1001-sims.csv", 
-  "results/1001-nm.csv", 
+  "results/1001-nm.csv",
+  "results/1001-run-key.csv",
   "results/1001.pdf"
 )
 meta$date <- date()

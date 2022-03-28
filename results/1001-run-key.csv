@@ -1,0 +1,24 @@
+ID,descr
+1,Bolus with additional
+2,Bolus with lag time and bioav
+3,Infusion with additional
+4,Infusion with bioav factor
+5,Infusion with bioav factor and dur
+6,"Infusion doses to depot, with additional"
+7,"Infusion doses, with additional and lag time"
+8,"Infusion doses, with lag time and bioav factor"
+9,"Infusion doses at steady-state, with lag time and bioav factor"
+10,"Infusion doses at steady-state, with bioav factor"
+11,"Infusion doses at steady state, with lag time"
+12,"Infusion doses at steady state, II < DUR, no bioav factor"
+13,"Infusion doses at steady state where II == DUR, with bioav factor"
+14,"Infusion doses at steady state, where II == DUR"
+15,"Bolus doses at steady state, with bioav factor and lag time"
+16,Bolus doses with lag time and bioavability factor
+17,Bolus then infusion
+18,"Infusion with modeled duration, lag time, and bioav factor"
+19,"Infusion with modeled duration, at steady state with bioav factor"
+20,Reset and dose (EVID 4) with additional
+21,Reset (EVID 3) with additional
+22,Steady state 1 and 2
+23,Steady state infusion
