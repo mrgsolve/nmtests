@@ -33,14 +33,17 @@ located in
 ## Requirements
 
 - pkgr
+  - Required R packages can be found in the [pkgr.yml](pkgr.yml) file
 - PsN
 - NONMEM
 
-## Installation
+## Package installation
 
 - Install [pkgr](https://github.com/metrumresearchgroup/pkgr)
 - Install packages
   - `bash$ pkgr install`
+- Any issues installing or using pkgr should be resolved with the pkgr 
+  maintainers [here](https://github.com/metrumresearchgroup/pkgr/issues)
 
 ## Run
 
