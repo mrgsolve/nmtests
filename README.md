@@ -35,10 +35,21 @@ located in
 
 ## Requirements
 
+- R; check the [pkgr.yml](pkgr.yml) file for the required version
 - pkgr
   - Required R packages can be found in the [pkgr.yml](pkgr.yml) file
-- PsN
-- NONMEM
+- PsN, installed and able to run nonmem
+- nonmem, installed and configured to run using PsN
+- mrgsolve, installed and able to compile and run models
+  - on Windows systems, this will require installation of 
+    [Rtools](https://cran.r-project.org/bin/windows/Rtools/)
+  - on macos systems, this will require installation of a mac-specific 
+    [toolchain](https://cran.r-project.org/bin/macosx/tools/)
+
+There is a `make` file located in the root directory that can be used to 
+run tests and checks; this utility is typically available on `unix-alike`
+systems. Note that running the `make` commands below will not work unless
+`make` is installed.
 
 ## Package installation
 
@@ -51,10 +62,10 @@ located in
 ## Run
 
 All R vignette scripts run from the directory where the reside. The vignette
-simulates using both mrgsolve and NONMEM and requires NONMEM and PsN install; 
+simulates using both mrgsolve and nonmem and requires nonmem and PsN install; 
 it is up to the user to install both and troubleshoot any issues with those
 tools. There is also a `check` script that simulates with mrgsolve and compares
-against previously simulated NONMEM output.
+against previously simulated nonmem output.
 
 - Run `dosing/dosing-vignette.R`
   - On the command line: `bash$ make dosing`
