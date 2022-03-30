@@ -20,7 +20,7 @@ Metrum Research Group
 
 This document runs simulations from a pharmacokinetic model that
 involves time-varying covariates and compares the result. A
-more-comprehensive comparision of different dosing scenarios is provided
+more-comprehensive comparison of different dosing scenarios is provided
 in this repository, but in another document.
 
 All of the relevant code is presented so that the user can trace how the
@@ -45,6 +45,8 @@ library(tools)
 library(jsonlite)
 
 source(here("shared", "tools.R"))
+stopifnot(file.exists("locate-time-varying"))
+stopifnot(grepl("PsN", system("execute --version", intern = TRUE)))
 ```
 
 # The `mrgsim` model

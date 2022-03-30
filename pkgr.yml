@@ -15,6 +15,7 @@ Packages:
   - tidyr
   - jsonlite
   - testthat
+  - spelling
 
 Repos:
   - MPN: https://mpn.metworx.com/snapshots/stable/2022-03-21

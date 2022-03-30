@@ -60,7 +60,7 @@ data_1001 <- function() {
   push_back(env,ev,"Bolus doses at steady state, with bioav factor and lag time")
   #+
   ev <- ev(amt = 100, ii = 24, addl = 3,  LAGT = 5, BIOAV = 0.412, cmt = 2) 
-  push_back(env,ev,"Bolus doses with lag time and bioavability factor")
+  push_back(env,ev,"Bolus doses with lag time and bioav factor")
   #+
   ev <- 
     ev(amt = 100, cmt = 2, LAGT = 1) + 

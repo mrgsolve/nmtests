@@ -1,8 +1,9 @@
 # nmtests
 
 Benchmark tests against nonmem. These aren't tests of speed or performance, but
-rather tests comparing different behaviors. The primary interest is things like
-dosing events, steady state, handling time-varying covariates. 
+rather tests comparing different behaviors. The primary interests are things 
+like dosing events (infusions and bolus), steady state, lag times, 
+bioavailability, handling time-varying covariates etc.. 
 
 The most-complete test document is in 
 [dosing/dosing-vignette.md](dosing/dosing-vignette.md). This is usually what

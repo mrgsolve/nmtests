@@ -14,7 +14,7 @@ ID,descr
 13,"Infusion doses at steady state where II == DUR, with bioav factor"
 14,"Infusion doses at steady state, where II == DUR"
 15,"Bolus doses at steady state, with bioav factor and lag time"
-16,Bolus doses with lag time and bioavability factor
+16,Bolus doses with lag time and bioav factor
 17,Bolus then infusion
 18,"Infusion with modeled duration, lag time, and bioav factor"
 19,"Infusion with modeled duration, at steady state with bioav factor"

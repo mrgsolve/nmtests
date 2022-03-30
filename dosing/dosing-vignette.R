@@ -16,9 +16,6 @@
 #'       mathdesign: utopia
 #' ---
 
-#+ include = FALSE
-stopifnot(file.exists("locate-dosing"))
-
 #' # Introduction
 #' 
 #' This document runs simulations from a pharmacokinetic model using both 
@@ -61,6 +58,7 @@ knitr::opts_chunk$set(comment = '.', fig.path = "results/img/dosing/id-")
 #+
 
 stopifnot(grepl("PsN", system("execute --version", intern = TRUE)))
+stopifnot(file.exists("locate-dosing"))
 source(here("shared", "tools.R"))
 source(here("shared", "data.R"))
 

@@ -6,4 +6,4 @@ renv/library/
 nmtest*.log
 nmtest*.html
 dosing/dosing-vignette.html
-
+time-varying/time-varying-vignette.html
