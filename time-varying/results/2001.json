@@ -1,0 +1,12 @@
+{
+  "md5": {
+    "data": ["fc1cd373773ff078f361469ad0f82144"],
+    "ctl": ["b496a19f2925a06e57e3a9460d79d88d"],
+    "mod": ["48698afd2a047b8c6f4c72f2e9c8654e"],
+    "result": ["6a9a47606fb98d11893f7c31a0b67e02"],
+    "sims": ["ba42048d419d3852207d9ebe05db5a9f"]
+  },
+  "results": ["data/2001.csv", "2001.ctl", "2001.mod", "results/2001.csv", "results/2001-sims.csv", "results/2001-nm.csv"],
+  "date": ["Wed Mar 30 10:38:37 2022"],
+  "user": ["kyleb"]
+}
