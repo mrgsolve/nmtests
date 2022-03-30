@@ -57,6 +57,11 @@ systems. Note that running the `make` commands below will not work unless
 - Install [pkgr](https://github.com/metrumresearchgroup/pkgr)
 - Install packages
   - `bash$ pkgr install`
+- The [pkgr.yml](pkgr.yml) file places an R version requirement
+  on the installation; this can be modified
+- Packages are installed in the `renv` directory in a R version-specific
+  location so that package availability is always consistent with the R 
+  version
 - Any issues installing or using pkgr should be resolved with the pkgr 
   maintainers [here](https://github.com/metrumresearchgroup/pkgr/issues)
 
