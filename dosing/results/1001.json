@@ -1,13 +1,33 @@
 {
-  "md5": {
-    "data": ["8896108220d58f3e62e7f7fd1a5efafc"],
-    "ctl": [null],
-    "mod": [null],
-    "result": ["c04d611819a73f5ddb80cbabf381f9de"],
-    "sims": ["c62aef461b23cd8d41bb73ad84813e06"],
-    "run_key": ["021f2889953490fd59b4588d5f49388b"]
+  "md5": [],
+  "data": {
+    "file": ["data/1001.csv"],
+    "md5": ["8896108220d58f3e62e7f7fd1a5efafc"]
   },
-  "results": ["data/1001.csv", "model/1001.ctl", "model/1001.mod", "results/1001.csv", "results/1001-sims.csv", "results/1001-nm.csv", "results/1001-run-key.csv", "results/1001.pdf"],
-  "date": ["Wed Mar 30 10:52:35 2022"],
+  "ctl": {
+    "file": ["1001.ctl"],
+    "md5": ["c378dffdacaeffe8b844c8ed7b20afbd"]
+  },
+  "mod": {
+    "file": ["1001.mod"],
+    "md5": ["b3ab1ff3da71874b697b3071cc0ee174"]
+  },
+  "mrgsolve": {
+    "file": ["results/1001-sims.csv"],
+    "md5": ["00778ab9827f30aa9f346ac910034c1c"]
+  },
+  "nonmem": {
+    "file": ["results/1001-nm.csv"],
+    "md5": ["c62aef461b23cd8d41bb73ad84813e06"]
+  },
+  "compare": {
+    "file": ["results/1001.csv"],
+    "md5": ["c04d611819a73f5ddb80cbabf381f9de"]
+  },
+  "key": {
+    "file": ["results/1001-run-key.csv"],
+    "md5": ["021f2889953490fd59b4588d5f49388b"]
+  },
+  "date": ["Wed Mar 30 11:21:07 2022"],
   "user": ["kyleb"]
 }

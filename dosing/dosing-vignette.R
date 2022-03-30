@@ -132,22 +132,33 @@ fwrite(x = run_key, file = "results/1001-run-key.csv")
 
 meta <- list()
 meta$md5 <- list()
-meta$md5$data <- md5sum("data/1001.csv")
-meta$md5$ctl <- md5sum("model/1001.ctl")
-meta$md5$mod <- md5sum("model/1001.mod")
-meta$md5$result <- md5sum("results/1001.csv")
-meta$md5$sims <- md5sum("results/1001-sims.csv")
-meta$md5$sims <- md5sum("results/1001-nm.csv")
-meta$md5$run_key <- md5sum("results/1001-run-key.csv")
-meta$results <- c(
-  "data/1001.csv", 
-  "model/1001.ctl", 
-  "model/1001.mod", 
-  "results/1001.csv", 
-  "results/1001-sims.csv", 
-  "results/1001-nm.csv",
-  "results/1001-run-key.csv",
-  "results/1001.pdf"
+meta$data <- list(
+  file = "data/1001.csv", 
+  md5 = md5sum("data/1001.csv")
+)
+meta$ctl <- list(
+  file = "1001.ctl", 
+  md5 = md5sum("1001.ctl")
+)
+meta$mod <- list(
+  file  = "1001.mod", 
+  md5 = md5sum("1001.mod")
+)
+meta$mrgsolve <- list(
+  file = "results/1001-sims.csv", 
+  md5 = md5sum("results/1001-sims.csv")
+)
+meta$nonmem <- list(
+  file = "results/1001-nm.csv", 
+  md5 = md5sum("results/1001-nm.csv")
+)
+meta$compare <- list(
+  file = "results/1001.csv", 
+  md5 = md5sum("results/1001.csv")
+)
+meta$key <- list(
+  file = "results/1001-run-key.csv", 
+  md5 = md5sum("results/1001-run-key.csv")
 )
 meta$date <- date()
 meta$user <- Sys.info()[["user"]]

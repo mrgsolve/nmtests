@@ -169,19 +169,29 @@ fwrite(x = nm, file = "results/2001-nm.csv")
 
 meta <- list()
 meta$md5 <- list()
-meta$md5$data <- md5sum("data/2001.csv")
-meta$md5$ctl <- md5sum("2001.ctl")
-meta$md5$mod <- md5sum("2001.mod")
-meta$md5$result <- md5sum("results/2001.csv")
-meta$md5$sims <- md5sum("results/2001-sims.csv")
-meta$md5$sims <- md5sum("results/2001-nm.csv")
-meta$results <- c(
-  "data/2001.csv", 
-  "2001.ctl", 
-  "2001.mod", 
-  "results/2001.csv", 
-  "results/2001-sims.csv", 
-  "results/2001-nm.csv"
+meta$data <- list(
+  file = "data/2001.csv", 
+  md5 = md5sum("data/2001.csv")
+)
+meta$ctl <- list(
+  file = "2001.ctl", 
+  md5 = md5sum("2001.ctl")
+)
+meta$mod <- list(
+  file  = "2001.mod", 
+  md5 = md5sum("2001.mod")
+)
+meta$mrgsolve <- list(
+  file = "results/2001-sims.csv", 
+  md5 = md5sum("results/2001-sims.csv")
+)
+meta$nonmem <- list(
+  file = "results/2001-nm.csv", 
+  md5 = md5sum("results/2001-nm.csv")
+)
+meta$compare <- list(
+  file = "results/2001.csv", 
+  md5 = md5sum("results/2001.csv")
 )
 meta$date <- date()
 meta$user <- Sys.info()[["user"]]
