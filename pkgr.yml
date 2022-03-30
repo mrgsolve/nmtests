@@ -3,6 +3,7 @@ Version: 1
 Rpath: ${R_EXE_4_1}
 
 Packages:
+  - here
   - renv
   - dplyr
   - ggplot2
