@@ -23,7 +23,7 @@ located in
 - `dosing/results/1001-sims.csv` - mrgsolve simulated data
 - `dosing/results/1001-nm.csv` - nonmem simulated data
 - `dosing/results/1001.json` - latest run meta data
-- `dosing/results/1001.pdf` - plots comparing nm and mrgsolve
+- `dosing/results/img` - png files of comparison plots
 
 ### Time-varying covariate vignette
 
@@ -32,6 +32,7 @@ located in
 - `time-varying/results/2001-sims.csv` - mrgsolve simulated data
 - `time-varying/results/2001-nm.csv` - nonmem simulated data
 - `time-varying/results/2001.json` - latest run meta data
+- `time-varying/results/img` - png files of comparison plots
 
 ## Requirements
 
