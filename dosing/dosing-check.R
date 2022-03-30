@@ -3,9 +3,12 @@ library(dplyr)
 library(mrgsolve, lib.loc = mrgsolve.loc)
 library(data.table)
 library(testthat)
+library(here)
+
+setwd(here("dosing"))
 
 key <- fread("results/1001-run-key.csv")
-mod <- mread("model/1001.mod")
+mod <- mread("1001.mod")
 data <- fread("data/1001.csv", na.strings = '.')
 tab <- fread("1001/TAB", skip = 1, na.strings='.')
 out <- mrgsim_df(mod, data, recsort = 3, digits = 5)
