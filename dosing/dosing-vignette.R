@@ -131,7 +131,6 @@ run_key <- select(run_key, ID, descr)
 fwrite(x = run_key, file = "results/1001-run-key.csv")
 
 meta <- list()
-meta$md5 <- list()
 meta$data <- list(
   file = "data/1001.csv", 
   md5 = md5sum("data/1001.csv")

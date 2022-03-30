@@ -168,7 +168,6 @@ fwrite(x = sims, file = "results/2001-sims.csv")
 fwrite(x = nm, file = "results/2001-nm.csv")
 
 meta <- list()
-meta$md5 <- list()
 meta$data <- list(
   file = "data/2001.csv", 
   md5 = md5sum("data/2001.csv")
