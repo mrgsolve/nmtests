@@ -54,7 +54,7 @@ library(here)
 library(knitr)
 
 #+ echo = FALSE
-knitr::opts_chunk$set(comment = '.', fig.path = "results/img/dosing/id-")
+knitr::opts_chunk$set(comment = '.', fig.path = "results/img/dosing-")
 #+
 
 stopifnot(grepl("PsN", system("execute --version", intern = TRUE)))
@@ -114,11 +114,6 @@ group_by(comp, ID) %>%
   kable()
 
 runs <- mutate(runs, plot = map(comp, comp_plot))
-
-#+ include = FALSE
-pdf(file = "results/1001.pdf", width = 5, height = 5)
-runs$plot
-dev.off()
 
 sims <- pull(runs, sims) %>% lapply(as_tibble) %>% rbindlist()
 fwrite(x = comp, file = "results/1001.csv")

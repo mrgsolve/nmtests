@@ -208,6 +208,49 @@ group_by(comp, ID) %>%
 
 ``` r
 runs <- mutate(runs, plot = map(comp, comp_plot))
+
+sims <- pull(runs, sims) %>% lapply(as_tibble) %>% rbindlist()
+fwrite(x = comp, file = "results/1001.csv")
+fwrite(x = sims, file = "results/1001-sims.csv")
+fwrite(x = nm, file = "results/1001-nm.csv")
+run_key <- distinct(runs, ID, descr) %>% mutate(descr = unlist(descr))
+run_key <- select(run_key, ID, descr)
+fwrite(x = run_key, file = "results/1001-run-key.csv")
+
+meta <- list()
+meta$data <- list(
+  file = "data/1001.csv", 
+  md5 = md5sum("data/1001.csv")
+)
+meta$ctl <- list(
+  file = "1001.ctl", 
+  md5 = md5sum("1001.ctl")
+)
+meta$mod <- list(
+  file  = "1001.mod", 
+  md5 = md5sum("1001.mod")
+)
+meta$mrgsolve <- list(
+  file = "results/1001-sims.csv", 
+  md5 = md5sum("results/1001-sims.csv")
+)
+meta$nonmem <- list(
+  file = "results/1001-nm.csv", 
+  md5 = md5sum("results/1001-nm.csv")
+)
+meta$compare <- list(
+  file = "results/1001.csv", 
+  md5 = md5sum("results/1001.csv")
+)
+meta$key <- list(
+  file = "results/1001-run-key.csv", 
+  md5 = md5sum("results/1001-run-key.csv")
+)
+write_json(
+  x = meta, 
+  path = "results/1001.json",
+  pretty = TRUE
+)
 ```
 
 # Results
@@ -221,7 +264,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $plot
 
-![](results/img/dosing/id-unnamed-chunk-17-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-16-1.png)<!-- -->
 
 ## 2: Bolus with lag time and bioav
 
@@ -232,7 +275,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $plot
 
-![](results/img/dosing/id-unnamed-chunk-18-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-17-1.png)<!-- -->
 
 ## 2: Bolus with lag time and bioav
 
@@ -243,7 +286,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $plot
 
-![](results/img/dosing/id-unnamed-chunk-19-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-18-1.png)<!-- -->
 
 ## 4: Infusion with bioav factor
 
@@ -254,7 +297,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $plot
 
-![](results/img/dosing/id-unnamed-chunk-20-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-19-1.png)<!-- -->
 
 ## 5: Infusion with bioav factor and dur
 
@@ -265,7 +308,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $plot
 
-![](results/img/dosing/id-unnamed-chunk-21-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-20-1.png)<!-- -->
 
 ## 7: Infusion doses, with additional and lag time
 
@@ -276,7 +319,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $plot
 
-![](results/img/dosing/id-unnamed-chunk-22-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-21-1.png)<!-- -->
 
 ## 8: Infusion doses, with lag time and bioav factor
 
@@ -287,7 +330,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $plot
 
-![](results/img/dosing/id-unnamed-chunk-23-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-22-1.png)<!-- -->
 
 ## 9: Infusion doses at steady-state, with lag time and bioav factor
 
@@ -298,7 +341,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $plot
 
-![](results/img/dosing/id-unnamed-chunk-24-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-23-1.png)<!-- -->
 
 ## 10: Infusion doses at steady-state, with bioav factor
 
@@ -309,7 +352,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $plot
 
-![](results/img/dosing/id-unnamed-chunk-25-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-24-1.png)<!-- -->
 
 ## 11: Infusion doses at steady state, with lag time
 
@@ -320,7 +363,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $plot
 
-![](results/img/dosing/id-unnamed-chunk-26-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-25-1.png)<!-- -->
 
 ## 12: Infusion doses at steady state, II &lt; DUR, no bioav factor
 
@@ -331,7 +374,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $plot
 
-![](results/img/dosing/id-unnamed-chunk-27-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-26-1.png)<!-- -->
 
 ## 13: Infusion doses at steady state where II == DUR, with bioav factor
 
@@ -342,7 +385,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $plot
 
-![](results/img/dosing/id-unnamed-chunk-28-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-27-1.png)<!-- -->
 
 ## 14: Infusion doses at steady state, where II == DUR
 
@@ -353,7 +396,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $plot
 
-![](results/img/dosing/id-unnamed-chunk-29-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-28-1.png)<!-- -->
 
 ## 15: Bolus doses at steady state, with bioav factor and lag time
 
@@ -364,7 +407,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $plot
 
-![](results/img/dosing/id-unnamed-chunk-30-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-29-1.png)<!-- -->
 
 ## 16: Bolus doses with lag time and bioav factor
 
@@ -375,7 +418,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $plot
 
-![](results/img/dosing/id-unnamed-chunk-31-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-30-1.png)<!-- -->
 
 ## 17: Bolus then infusion
 
@@ -387,7 +430,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $plot
 
-![](results/img/dosing/id-unnamed-chunk-32-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-31-1.png)<!-- -->
 
 ## 18: Infusion with modeled duration, lag time, and bioav factor
 
@@ -398,7 +441,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $plot
 
-![](results/img/dosing/id-unnamed-chunk-33-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-32-1.png)<!-- -->
 
 ## 19: Infusion with modeled duration, at steady state with bioav factor
 
@@ -409,7 +452,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $plot
 
-![](results/img/dosing/id-unnamed-chunk-34-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-33-1.png)<!-- -->
 
 ## 20: Reset and dose (EVID 4) with additional
 
@@ -421,7 +464,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $plot
 
-![](results/img/dosing/id-unnamed-chunk-35-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-34-1.png)<!-- -->
 
 ## 21: Reset (EVID 3) with additional
 
@@ -434,7 +477,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $plot
 
-![](results/img/dosing/id-unnamed-chunk-36-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-35-1.png)<!-- -->
 
 ## 22: Steady state 1 and 2
 
@@ -446,7 +489,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $plot
 
-![](results/img/dosing/id-unnamed-chunk-37-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-36-1.png)<!-- -->
 
 ## 23: Steady state infusion
 
@@ -457,7 +500,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . 
     . $plot
 
-![](results/img/dosing/id-unnamed-chunk-38-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-37-1.png)<!-- -->
 
 # Control stream
 
