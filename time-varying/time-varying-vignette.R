@@ -193,8 +193,6 @@ meta$compare <- list(
   file = "results/2001.csv", 
   md5 = md5sum("results/2001.csv")
 )
-meta$date <- date()
-meta$user <- Sys.info()[["user"]]
 write_json(
   x = meta, 
   path = "results/2001.json",

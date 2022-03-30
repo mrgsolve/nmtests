@@ -160,8 +160,6 @@ meta$key <- list(
   file = "results/1001-run-key.csv", 
   md5 = md5sum("results/1001-run-key.csv")
 )
-meta$date <- date()
-meta$user <- Sys.info()[["user"]]
 write_json(
   x = meta, 
   path = "results/1001.json",
