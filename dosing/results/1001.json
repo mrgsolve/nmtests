@@ -8,6 +8,6 @@
     "run_key": ["021f2889953490fd59b4588d5f49388b"]
   },
   "results": ["data/1001.csv", "model/1001.ctl", "model/1001.mod", "results/1001.csv", "results/1001-sims.csv", "results/1001-nm.csv", "results/1001-run-key.csv", "results/1001.pdf"],
-  "date": ["Wed Mar 30 09:25:56 2022"],
+  "date": ["Wed Mar 30 09:30:12 2022"],
   "user": ["kyleb"]
 }

@@ -19,10 +19,6 @@
 #+ include = FALSE
 stopifnot(file.exists("locate-dosing"))
 
-#' # mrgsolve package version
-packageVersion("mrgsolve")
-
-
 #' # Introduction
 #' 
 #' This document runs simulations from a pharmacokinetic model using both 
@@ -38,6 +34,8 @@ packageVersion("mrgsolve")
 #' form  [here](#results) and numeric form [here](#numeric-summary).
 #' 
 #' 
+#' # mrgsolve package version
+packageVersion("mrgsolve")
 #' 
 #' # Setup
 
@@ -56,6 +54,7 @@ library(tidyr)
 library(jsonlite)
 library(tools)
 library(here)
+library(knitr)
 
 #+ echo = FALSE
 knitr::opts_chunk$set(comment = '.', fig.path = "results/img/dosing/id-")
@@ -114,7 +113,7 @@ summary(comp$diff)
 #' from `mrgsim()`
 group_by(comp, ID) %>% 
   summarise(mean = mean(diff), max = max(diff), min = min(diff)) %>% 
-  as.data.frame()
+  kable()
 
 runs <- mutate(runs, plot = map(comp, comp_plot))
 

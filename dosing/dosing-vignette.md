@@ -2,8 +2,8 @@ Benchmark test with mrgsolve and NONMEM
 ================
 Metrum Research Group
 
--   [mrgsolve package version](#mrgsolve-package-version)
 -   [Introduction](#introduction)
+-   [mrgsolve package version](#mrgsolve-package-version)
 -   [Setup](#setup)
 -   [The `mrgsim()` model](#the-mrgsim-model)
 -   [Simulate with `nonmem`](#simulate-with-nonmem)
@@ -53,14 +53,6 @@ Metrum Research Group
 -   [Control stream](#control-stream)
 -   [Session Info](#session-info)
 
-# mrgsolve package version
-
-``` r
-packageVersion("mrgsolve")
-```
-
-    ## [1] '1.0.3'
-
 # Introduction
 
 This document runs simulations from a pharmacokinetic model using both
@@ -74,6 +66,14 @@ simulations are performed. The complete source code can be viewed
 
 The bottom line results are presented in graphical form [here](#results)
 and numeric form [here](#numeric-summary).
+
+# mrgsolve package version
+
+``` r
+packageVersion("mrgsolve")
+```
+
+    ## [1] '1.0.3'
 
 # Setup
 
@@ -95,6 +95,7 @@ library(tidyr)
 library(jsonlite)
 library(tools)
 library(here)
+library(knitr)
 ```
 
 ``` r
@@ -175,33 +176,34 @@ summary(comp$diff)
 ``` r
 group_by(comp, ID) %>% 
   summarise(mean = mean(diff), max = max(diff), min = min(diff)) %>% 
-  as.data.frame()
+  kable()
 ```
 
-    .    ID mean max min
-    . 1   1    0   0   0
-    . 2   2    0   0   0
-    . 3   3    0   0   0
-    . 4   4    0   0   0
-    . 5   5    0   0   0
-    . 6   6    0   0   0
-    . 7   7    0   0   0
-    . 8   8    0   0   0
-    . 9   9    0   0   0
-    . 10 10    0   0   0
-    . 11 11    0   0   0
-    . 12 12    0   0   0
-    . 13 13    0   0   0
-    . 14 14    0   0   0
-    . 15 15    0   0   0
-    . 16 16    0   0   0
-    . 17 17    0   0   0
-    . 18 18    0   0   0
-    . 19 19    0   0   0
-    . 20 20    0   0   0
-    . 21 21    0   0   0
-    . 22 22    0   0   0
-    . 23 23    0   0   0
+|  ID | mean | max | min |
+|----:|-----:|----:|----:|
+|   1 |    0 |   0 |   0 |
+|   2 |    0 |   0 |   0 |
+|   3 |    0 |   0 |   0 |
+|   4 |    0 |   0 |   0 |
+|   5 |    0 |   0 |   0 |
+|   6 |    0 |   0 |   0 |
+|   7 |    0 |   0 |   0 |
+|   8 |    0 |   0 |   0 |
+|   9 |    0 |   0 |   0 |
+|  10 |    0 |   0 |   0 |
+|  11 |    0 |   0 |   0 |
+|  12 |    0 |   0 |   0 |
+|  13 |    0 |   0 |   0 |
+|  14 |    0 |   0 |   0 |
+|  15 |    0 |   0 |   0 |
+|  16 |    0 |   0 |   0 |
+|  17 |    0 |   0 |   0 |
+|  18 |    0 |   0 |   0 |
+|  19 |    0 |   0 |   0 |
+|  20 |    0 |   0 |   0 |
+|  21 |    0 |   0 |   0 |
+|  22 |    0 |   0 |   0 |
+|  23 |    0 |   0 |   0 |
 
 ``` r
 runs <- mutate(runs, plot = map(comp, comp_plot))
@@ -671,14 +673,14 @@ sessionInfo()
     . [1] tools     stats     graphics  grDevices datasets  utils     methods   base     
     . 
     . other attached packages:
-    . [1] here_1.0.1        jsonlite_1.8.0    tidyr_1.2.0       purrr_0.3.4       ggplot2_3.3.5     data.table_1.14.2
-    . [7] dplyr_1.0.8       mrgsolve_1.0.3   
+    . [1] knitr_1.37        here_1.0.1        jsonlite_1.8.0    tidyr_1.2.0       purrr_0.3.4       ggplot2_3.3.5    
+    . [7] data.table_1.14.2 dplyr_1.0.8       mrgsolve_1.0.3   
     . 
     . loaded via a namespace (and not attached):
     .  [1] Rcpp_1.0.8.3     pillar_1.7.0     compiler_4.1.1   highr_0.9        digest_0.6.29    evaluate_0.15   
     .  [7] lifecycle_1.0.1  tibble_3.1.6     gtable_0.3.0     pkgconfig_2.0.3  rlang_1.0.2      cli_3.2.0       
-    . [13] yaml_2.3.5       xfun_0.30        fastmap_1.1.0    withr_2.5.0      stringr_1.4.0    knitr_1.37      
-    . [19] generics_0.1.2   vctrs_0.3.8      rprojroot_2.0.2  grid_4.1.1       tidyselect_1.1.2 glue_1.6.2      
-    . [25] R6_2.5.1         fansi_1.0.2      rmarkdown_2.13   farver_2.1.0     magrittr_2.0.2   scales_1.1.1    
-    . [31] ellipsis_0.3.2   htmltools_0.5.2  colorspace_2.0-3 renv_0.14.0      labeling_0.4.2   utf8_1.2.2      
-    . [37] stringi_1.7.6    munsell_0.5.0    crayon_1.5.0
+    . [13] yaml_2.3.5       xfun_0.30        fastmap_1.1.0    withr_2.5.0      stringr_1.4.0    generics_0.1.2  
+    . [19] vctrs_0.3.8      rprojroot_2.0.2  grid_4.1.1       tidyselect_1.1.2 glue_1.6.2       R6_2.5.1        
+    . [25] fansi_1.0.2      rmarkdown_2.13   farver_2.1.0     magrittr_2.0.2   scales_1.1.1     ellipsis_0.3.2  
+    . [31] htmltools_0.5.2  colorspace_2.0-3 renv_0.14.0      labeling_0.4.2   utf8_1.2.2       stringi_1.7.6   
+    . [37] munsell_0.5.0    crayon_1.5.0
