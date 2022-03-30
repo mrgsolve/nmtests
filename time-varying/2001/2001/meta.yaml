@@ -50,7 +50,7 @@ common_options:
   run_on_torque: 0
   run_on_ud: 0
   run_on_zink: 0
-  seed: 568020
+  seed: 630501
   send_email: 0
   sge_prepend_flags: -V
   shrinkage: 0
@@ -64,10 +64,10 @@ common_options:
   tweak_inits: 1
   verbose: 0
   zip: 0
-finish_time: 2022-03-30 10:38:36
+finish_time: 2022-03-30 10:52:51
 model_files:
 - /data/home/kyleb/git/mrgsolve/nmtests/time-varying/2001.ctl
-start_time: 2022-03-30 10:38:35
+start_time: 2022-03-30 10:52:50
 tool_name: execute
 tool_options:
   copy_data: 1

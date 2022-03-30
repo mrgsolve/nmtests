@@ -1,6 +1,8 @@
 all: 
-	make nmtest
-nmtest:
+	make dose
+
+.PHONY: dosing
+dosing:
 	Rscript -e "rmarkdown::render('dosing/dosing-vignette.R')"
 check-dosing:
 	Rscript "dosing/dosing-check.R"
