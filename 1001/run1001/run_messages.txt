@@ -1,5 +1,0 @@
-Starting 1 NONMEM executions. 1 in parallel.
-S:1 .. 
-All executions started.
-F:1 .. 
-execute done
