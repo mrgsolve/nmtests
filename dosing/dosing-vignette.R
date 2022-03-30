@@ -115,6 +115,7 @@ group_by(comp, ID) %>%
 
 runs <- mutate(runs, plot = map(comp, comp_plot))
 
+#+ include = FALSE
 sims <- pull(runs, sims) %>% lapply(as_tibble) %>% rbindlist()
 fwrite(x = comp, file = "results/1001.csv")
 fwrite(x = sims, file = "results/1001-sims.csv")

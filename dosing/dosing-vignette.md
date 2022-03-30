@@ -208,49 +208,6 @@ group_by(comp, ID) %>%
 
 ``` r
 runs <- mutate(runs, plot = map(comp, comp_plot))
-
-sims <- pull(runs, sims) %>% lapply(as_tibble) %>% rbindlist()
-fwrite(x = comp, file = "results/1001.csv")
-fwrite(x = sims, file = "results/1001-sims.csv")
-fwrite(x = nm, file = "results/1001-nm.csv")
-run_key <- distinct(runs, ID, descr) %>% mutate(descr = unlist(descr))
-run_key <- select(run_key, ID, descr)
-fwrite(x = run_key, file = "results/1001-run-key.csv")
-
-meta <- list()
-meta$data <- list(
-  file = "data/1001.csv", 
-  md5 = md5sum("data/1001.csv")
-)
-meta$ctl <- list(
-  file = "1001.ctl", 
-  md5 = md5sum("1001.ctl")
-)
-meta$mod <- list(
-  file  = "1001.mod", 
-  md5 = md5sum("1001.mod")
-)
-meta$mrgsolve <- list(
-  file = "results/1001-sims.csv", 
-  md5 = md5sum("results/1001-sims.csv")
-)
-meta$nonmem <- list(
-  file = "results/1001-nm.csv", 
-  md5 = md5sum("results/1001-nm.csv")
-)
-meta$compare <- list(
-  file = "results/1001.csv", 
-  md5 = md5sum("results/1001.csv")
-)
-meta$key <- list(
-  file = "results/1001-run-key.csv", 
-  md5 = md5sum("results/1001-run-key.csv")
-)
-write_json(
-  x = meta, 
-  path = "results/1001.json",
-  pretty = TRUE
-)
 ```
 
 # Results
@@ -261,17 +218,6 @@ write_json(
     . Events:
     .   ID time amt ii addl cmt evid
     . 1  1    0 100 24    3   1    1
-    . 
-    . $plot
-
-![](results/img/dosing-unnamed-chunk-16-1.png)<!-- -->
-
-## 2: Bolus with lag time and bioav
-
-    . $ev
-    . Events:
-    .   ID time amt ii addl cmt evid  LAGT BIOAV
-    . 1  2    0 100 24    3   2    1 12.13  2.23
     . 
     . $plot
 
@@ -288,6 +234,17 @@ write_json(
 
 ![](results/img/dosing-unnamed-chunk-18-1.png)<!-- -->
 
+## 2: Bolus with lag time and bioav
+
+    . $ev
+    . Events:
+    .   ID time amt ii addl cmt evid  LAGT BIOAV
+    . 1  2    0 100 24    3   2    1 12.13  2.23
+    . 
+    . $plot
+
+![](results/img/dosing-unnamed-chunk-19-1.png)<!-- -->
+
 ## 4: Infusion with bioav factor
 
     . $ev
@@ -297,7 +254,7 @@ write_json(
     . 
     . $plot
 
-![](results/img/dosing-unnamed-chunk-19-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-20-1.png)<!-- -->
 
 ## 5: Infusion with bioav factor and dur
 
@@ -308,7 +265,7 @@ write_json(
     . 
     . $plot
 
-![](results/img/dosing-unnamed-chunk-20-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-21-1.png)<!-- -->
 
 ## 7: Infusion doses, with additional and lag time
 
@@ -319,7 +276,7 @@ write_json(
     . 
     . $plot
 
-![](results/img/dosing-unnamed-chunk-21-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-22-1.png)<!-- -->
 
 ## 8: Infusion doses, with lag time and bioav factor
 
@@ -330,7 +287,7 @@ write_json(
     . 
     . $plot
 
-![](results/img/dosing-unnamed-chunk-22-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-23-1.png)<!-- -->
 
 ## 9: Infusion doses at steady-state, with lag time and bioav factor
 
@@ -341,7 +298,7 @@ write_json(
     . 
     . $plot
 
-![](results/img/dosing-unnamed-chunk-23-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-24-1.png)<!-- -->
 
 ## 10: Infusion doses at steady-state, with bioav factor
 
@@ -352,7 +309,7 @@ write_json(
     . 
     . $plot
 
-![](results/img/dosing-unnamed-chunk-24-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-25-1.png)<!-- -->
 
 ## 11: Infusion doses at steady state, with lag time
 
@@ -363,7 +320,7 @@ write_json(
     . 
     . $plot
 
-![](results/img/dosing-unnamed-chunk-25-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-26-1.png)<!-- -->
 
 ## 12: Infusion doses at steady state, II &lt; DUR, no bioav factor
 
@@ -374,7 +331,7 @@ write_json(
     . 
     . $plot
 
-![](results/img/dosing-unnamed-chunk-26-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-27-1.png)<!-- -->
 
 ## 13: Infusion doses at steady state where II == DUR, with bioav factor
 
@@ -385,7 +342,7 @@ write_json(
     . 
     . $plot
 
-![](results/img/dosing-unnamed-chunk-27-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-28-1.png)<!-- -->
 
 ## 14: Infusion doses at steady state, where II == DUR
 
@@ -396,7 +353,7 @@ write_json(
     . 
     . $plot
 
-![](results/img/dosing-unnamed-chunk-28-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-29-1.png)<!-- -->
 
 ## 15: Bolus doses at steady state, with bioav factor and lag time
 
@@ -407,7 +364,7 @@ write_json(
     . 
     . $plot
 
-![](results/img/dosing-unnamed-chunk-29-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-30-1.png)<!-- -->
 
 ## 16: Bolus doses with lag time and bioav factor
 
@@ -418,7 +375,7 @@ write_json(
     . 
     . $plot
 
-![](results/img/dosing-unnamed-chunk-30-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-31-1.png)<!-- -->
 
 ## 17: Bolus then infusion
 
@@ -430,7 +387,7 @@ write_json(
     . 
     . $plot
 
-![](results/img/dosing-unnamed-chunk-31-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-32-1.png)<!-- -->
 
 ## 18: Infusion with modeled duration, lag time, and bioav factor
 
@@ -441,7 +398,7 @@ write_json(
     . 
     . $plot
 
-![](results/img/dosing-unnamed-chunk-32-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-33-1.png)<!-- -->
 
 ## 19: Infusion with modeled duration, at steady state with bioav factor
 
@@ -452,7 +409,7 @@ write_json(
     . 
     . $plot
 
-![](results/img/dosing-unnamed-chunk-33-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-34-1.png)<!-- -->
 
 ## 20: Reset and dose (EVID 4) with additional
 
@@ -464,7 +421,7 @@ write_json(
     . 
     . $plot
 
-![](results/img/dosing-unnamed-chunk-34-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-35-1.png)<!-- -->
 
 ## 21: Reset (EVID 3) with additional
 
@@ -477,7 +434,7 @@ write_json(
     . 
     . $plot
 
-![](results/img/dosing-unnamed-chunk-35-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-36-1.png)<!-- -->
 
 ## 22: Steady state 1 and 2
 
@@ -489,7 +446,7 @@ write_json(
     . 
     . $plot
 
-![](results/img/dosing-unnamed-chunk-36-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-37-1.png)<!-- -->
 
 ## 23: Steady state infusion
 
@@ -500,7 +457,7 @@ write_json(
     . 
     . $plot
 
-![](results/img/dosing-unnamed-chunk-37-1.png)<!-- -->
+![](results/img/dosing-unnamed-chunk-38-1.png)<!-- -->
 
 # Control stream
 
