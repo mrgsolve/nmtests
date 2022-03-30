@@ -17,6 +17,7 @@ located in
 
 ### Dosing vignette
 
+- [dosing/dosing-vignette.md](dosing/dosing-vignette.md) - the completed vignette
 - `dosing/results/1001.csv` - mrgsolve / nonmem comparison
 - `dosing/results/1001-sims.csv` - mrgsolve simulated data
 - `dosing/results/1001-nm.csv` - nonmem simulated data
@@ -25,6 +26,7 @@ located in
 
 ### Time-varying covariate vignette
 
+- [time-varying/time-varying-vignette.md](time-varying/time-varying-vignette.md) - the completed vignette
 - `time-varying/results/2001.csv` - mrgsolve / nonmem comparison
 - `time-varying/results/2001-sims.csv` - mrgsolve simulated data
 - `time-varying/results/2001-nm.csv` - nonmem simulated data
