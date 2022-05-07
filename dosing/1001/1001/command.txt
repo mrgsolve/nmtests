@@ -2,10 +2,3 @@
 /usr/local/bin/execute -silent -model_subdir -directory=1001 ./1001.ctl
 /usr/local/bin/execute -silent -model_subdir -directory=1001 ./1001.ctl
 /usr/local/bin/execute -silent -model_subdir -directory=1001 ./1001.ctl
-/usr/local/bin/execute -silent -model_subdir -directory=1001 ./1001.ctl
-/usr/local/bin/execute -silent -model_subdir -directory=1001 ./1001.ctl
-/usr/local/bin/execute -silent -model_subdir -directory=1001 ./1001.ctl
-/usr/local/bin/execute -silent -model_subdir -directory=1001 ./1001.ctl
-/usr/local/bin/execute -silent -model_subdir -directory=1001 ./1001.ctl
-/usr/local/bin/execute -silent -model_subdir -directory=1001 ./1001.ctl
-/usr/local/bin/execute -silent -model_subdir -directory=1001 ./1001.ctl

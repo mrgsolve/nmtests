@@ -48,8 +48,10 @@ Metrum Research Group
         additional](#20-reset-and-dose-evid-4-with-additional)
     -   [21: Reset (EVID 3) with
         additional](#21-reset-evid-3-with-additional)
-    -   [22: Steady state 1 and 2](#22-steady-state-1-and-2)
-    -   [23: Steady state infusion](#23-steady-state-infusion)
+    -   [22: Reset (EVID 3) with additional and
+        lag](#22-reset-evid-3-with-additional-and-lag)
+    -   [23: Steady state 1 and 2](#23-steady-state-1-and-2)
+    -   [24: Steady state infusion](#24-steady-state-infusion)
 -   [Control stream](#control-stream)
 -   [Session Info](#session-info)
 
@@ -205,6 +207,7 @@ group_by(comp, ID) %>%
 |  21 |    0 |   0 |   0 |
 |  22 |    0 |   0 |   0 |
 |  23 |    0 |   0 |   0 |
+|  24 |    0 |   0 |   0 |
 
 ``` r
 runs <- mutate(runs, plot = map(comp, comp_plot))
@@ -436,28 +439,41 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
 
 ![](results/img/dosing-unnamed-chunk-36-1.png)<!-- -->
 
-## 22: Steady state 1 and 2
+## 22: Reset (EVID 3) with additional and lag
 
     . $ev
     . Events:
-    .   ID time amt ii addl cmt evid ss
-    . 1 22    0 100 24    3   1    1  1
-    . 2 22   12  50 24    3   1    1  2
+    .   ID time amt rate ii addl cmt evid BIOAV LAGT
+    . 1 22    0 100   50 12    3   1    1  0.61    0
+    . 2 22   50   0    0  0    0   2    3  1.00    2
+    . 3 22   54 120    0 16    2   1    1  1.00    0
     . 
     . $plot
 
 ![](results/img/dosing-unnamed-chunk-37-1.png)<!-- -->
 
-## 23: Steady state infusion
+## 23: Steady state 1 and 2
 
     . $ev
     . Events:
-    .   ID time amt rate cmt evid ss
-    . 1 23    0   0  100   1    1  1
+    .   ID time amt ii addl cmt evid ss
+    . 1 23    0 100 24    3   1    1  1
+    . 2 23   12  50 24    3   1    1  2
     . 
     . $plot
 
 ![](results/img/dosing-unnamed-chunk-38-1.png)<!-- -->
+
+## 24: Steady state infusion
+
+    . $ev
+    . Events:
+    .   ID time amt rate cmt evid ss
+    . 1 24    0   0  100   1    1  1
+    . 
+    . $plot
+
+![](results/img/dosing-unnamed-chunk-39-1.png)<!-- -->
 
 # Control stream
 
@@ -465,7 +481,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
 writeLines(readLines("1001/1001.lst"))
 ```
 
-       Wed Mar 30 09:13:58 EDT 2022
+       Sat May  7 15:35:56 EDT 2022
        $PROBLEM    RUN# 101
        $INPUT      C ID TIME EVID AMT CMT SS II ADDL RATE LAGT MODE DUR2 RAT2
                    BIOAV DV
@@ -513,8 +529,8 @@ writeLines(readLines("1001/1001.lst"))
        
        License Registered to: Metrum Research Group (with RADAR5NM)
        Expiration Date:    14 JUL 2022
-       Current Date:       30 MAR 2022
-       Days until program expires : 104
+       Current Date:        7 MAY 2022
+       Days until program expires :  67
        1NONLINEAR MIXED EFFECTS MODEL PROGRAM (NONMEM) VERSION 7.5.0
         ORIGINALLY DEVELOPED BY STUART BEAL, LEWIS SHEINER, AND ALISON BOECKMANN
         CURRENT DEVELOPERS ARE ROBERT BAUER, ICON DEVELOPMENT SOLUTIONS,
@@ -526,7 +542,7 @@ writeLines(readLines("1001/1001.lst"))
        0DATA CHECKOUT RUN:              NO
         DATA SET LOCATED ON UNIT NO.:    2
         THIS UNIT TO BE REWOUND:        NO
-        NO. OF DATA RECS IN DATA SET:     3041
+        NO. OF DATA RECS IN DATA SET:     3175
         NO. OF DATA ITEMS IN DATA SET:  17
         ID DATA ITEM IS DATA ITEM NO.:   2
         DEP VARIABLE IS DATA ITEM NO.:  16
@@ -540,8 +556,8 @@ writeLines(readLines("1001/1001.lst"))
        0FORMAT FOR DATA:
         (E2.0,E3.0,E4.0,E2.0,E4.0,2E2.0,2E3.0,E17.0,E6.0,E2.0,4E6.0,1F2.0)
        
-        TOT. NO. OF OBS RECS:     3013
-        TOT. NO. OF INDIVIDUALS:       23
+        TOT. NO. OF OBS RECS:     3144
+        TOT. NO. OF INDIVIDUALS:       24
        0LENGTH OF THETA:   3
        0DEFAULT THETA BOUNDARY TEST OMITTED:    NO
        0OMEGA HAS SIMPLE DIAGONAL FORM WITH DIMENSION:   3
@@ -642,13 +658,13 @@ writeLines(readLines("1001/1001.lst"))
        1
         SIMULATION STEP PERFORMED
         SOURCE  1:
-           SEED1:     918246936   SEED2:             0
+           SEED1:     532250416   SEED2:    1004899692
         Elapsed simulation  time in seconds:     0.00
         ESTIMATION STEP OMITTED:                 YES
         Elapsed finaloutput time in seconds:     0.03
-        #CPUT: Total CPU Time in Seconds,        0.346
+        #CPUT: Total CPU Time in Seconds,        0.391
        Stop Time:
-       Wed Mar 30 09:14:10 EDT 2022
+       Sat May  7 15:36:10 EDT 2022
 
 # Session Info
 

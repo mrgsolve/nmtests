@@ -256,6 +256,11 @@ slice(runs, i) %>% select(ev,plot) %>% map(1)
 #+ echo = FALSE
 slice(runs, i) %>% select(ev,plot) %>% map(1)
 
+#' ## `r i <- 24; get_title(i)`
+#+ echo = FALSE
+slice(runs, i) %>% select(ev,plot) %>% map(1)
+
+
 #+ include = FALSE
 if(i != nrow(runs)) stop("missing output")
 

@@ -86,6 +86,13 @@ data_1001 <- function() {
   
   #+
   ev <- 
+    ev(amt = 100, ii = 12, addl = 3, rate = 50, BIOAV = 0.61, LAGT = 0) + 
+    ev(amt = 0, evid = 3, time = 50, cmt = 2, BIOAV = 1, LAGT = 2) + 
+    ev(amt = 120, ii = 16, addl = 2, time = 54, BIOAV = 1, LAGT = 0)
+  push_back(env,ev,"Reset (EVID 3) with additional and lag")
+  
+  #+
+  ev <- 
     ev(amt = 100, ii = 24, addl = 3, ss = 1)  + 
     ev(amt = 50,  ii = 24, addl = 3, ss = 2, time = 12)
   push_back(env,ev,"Steady state 1 and 2")
