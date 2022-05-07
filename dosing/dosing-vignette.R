@@ -39,7 +39,7 @@ packageVersion("mrgsolve")
 Sys.setenv(RSTUDIO_PANDOC = "/usr/lib/rstudio-server/bin/pandoc")
 
 #+ message = FALSE
-mrgsolve.loc <- NULL
+mrgsolve.loc <- NULL # "/data/home/Rlibs/"
 library(mrgsolve, lib.loc = mrgsolve.loc)
 # --------------------------------
 #+ message = FALSE
