@@ -50,7 +50,7 @@ common_options:
   run_on_torque: 0
   run_on_ud: 0
   run_on_zink: 0
-  seed: 836893
+  seed: 896365
   send_email: 0
   sge_prepend_flags: -V
   shrinkage: 0
@@ -64,10 +64,10 @@ common_options:
   tweak_inits: 1
   verbose: 0
   zip: 0
-finish_time: 2022-05-07 15:39:31
+finish_time: 2022-05-07 15:42:05
 model_files:
 - /data/home/kyleb/git/mrgsolve/nmtests/dosing/1001.ctl
-start_time: 2022-05-07 15:39:30
+start_time: 2022-05-07 15:42:04
 tool_name: execute
 tool_options:
   copy_data: 1

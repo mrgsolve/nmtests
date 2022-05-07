@@ -1,6 +1,6 @@
 PsN version: 5.2.6
-Run started: 2022-05-07 at 15:39:30
-Run finished: 2022-05-07 at 15:39:31
+Run started: 2022-05-07 at 15:42:04
+Run finished: 2022-05-07 at 15:42:05
 version_and_option_info.txt is overwitten if the run is restarted later using option -directory.
 The original file from the first call is saved as original_version_and_option_info.txt.
 
@@ -63,7 +63,7 @@ Actual values optional PsN (common) options (undefined values not listed):
 -run_on_torque=0
 -run_on_ud=0
 -run_on_zink=0
--seed=836893
+-seed=896365
 -send_email=0
 -sge_prepend_flags=-V
 -shrinkage=0
