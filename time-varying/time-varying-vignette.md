@@ -457,7 +457,7 @@ sessionInfo()
     . 
     . other attached packages:
     . [1] jsonlite_1.8.0    here_1.0.1        purrr_0.3.4       ggplot2_3.3.5     data.table_1.14.2 dplyr_1.0.8      
-    . [7] mrgsolve_1.0.3   
+    . [7] mrgsolve_1.0.4   
     . 
     . loaded via a namespace (and not attached):
     .  [1] Rcpp_1.0.8.3     pillar_1.7.0     compiler_4.1.1   highr_0.9        digest_0.6.29    evaluate_0.15   
