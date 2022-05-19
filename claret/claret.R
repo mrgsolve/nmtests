@@ -10,6 +10,8 @@ library(dplyr)
 library(data.table)
 library(here)
 library(ggplot2)
+theme_set(theme_bw())
+library(mrgsolve)
 
 source(here("shared/tools.R"))
 setwd(here("claret"))
@@ -41,6 +43,10 @@ data2 <- mutate(
 fwrite(data, file = here("claret/data/claret001.csv"), na = '.', quote = FALSE)
 fwrite(data2, file = here("claret/data/claret002.csv"), na = '.', quote = FALSE)
 
+#' # mrgsolve - ode
+mod <- mread(here("claret/ode.txt")) %>% zero_re()
+z <- mrgsim(mod, data2, output = "df")
+
 #' # Constant dose
 #' 
 #' ## ODE
@@ -70,6 +76,13 @@ ggplot() +
   geom_point(data = c, aes(TIME, Y)) + 
   geom_line(data = d,  aes(TIME, Y), color = "firebrick") + 
   ggtitle("Point ODE; Line: PRED")
+
+
+#' ## Time-varying, ODE, NM/mrgsolve
+ggplot() + 
+  geom_point(data = c, aes(TIME, Y)) + 
+  geom_line(data = z,  aes(TIME, RESP), color = "firebrick") + 
+  ggtitle("Point nonmem; Line: mrgsolve")
 
 
 #' 

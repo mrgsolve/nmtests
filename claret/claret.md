@@ -2,23 +2,28 @@
 -   [1 Input data](#1-input-data)
     -   [1.1 Constant dose](#11-constant-dose)
     -   [1.2 Time-varying dose](#12-time-varying-dose)
--   [2 Constant dose](#2-constant-dose)
-    -   [2.1 ODE](#21-ode)
-    -   [2.2 PRED](#22-pred)
--   [3 Time-varying dose](#3-time-varying-dose)
+-   [2 mrgsolve - ode](#2-mrgsolve---ode)
+-   [3 Constant dose](#3-constant-dose)
     -   [3.1 ODE](#31-ode)
     -   [3.2 PRED](#32-pred)
--   [4 Plots](#4-plots)
-    -   [4.1 Constant dose](#41-constant-dose)
-    -   [4.2 Time-varying](#42-time-varying)
--   [5 Spot check analytical
-    solution](#5-spot-check-analytical-solution)
+-   [4 Time-varying dose](#4-time-varying-dose)
+    -   [4.1 ODE](#41-ode)
+    -   [4.2 PRED](#42-pred)
+-   [5 Plots](#5-plots)
+    -   [5.1 Constant dose](#51-constant-dose)
+    -   [5.2 Time-varying](#52-time-varying)
+    -   [5.3 Time-varying, ODE,
+        NM/mrgsolve](#53-time-varying-ode-nmmrgsolve)
+-   [6 Spot check analytical
+    solution](#6-spot-check-analytical-solution)
 
 ``` r
 library(dplyr)
 library(data.table)
 library(here)
 library(ggplot2)
+theme_set(theme_bw())
+library(mrgsolve)
 
 source(here("shared/tools.R"))
 setwd(here("claret"))
@@ -53,37 +58,49 @@ fwrite(data, file = here("claret/data/claret001.csv"), na = '.', quote = FALSE)
 fwrite(data2, file = here("claret/data/claret002.csv"), na = '.', quote = FALSE)
 ```
 
-# 2 Constant dose
+# 2 mrgsolve - ode
 
-## 2.1 ODE
+``` r
+mod <- mread(here("claret/ode.txt")) %>% zero_re()
+```
+
+    ## Building ode_txt ... done.
+
+``` r
+z <- mrgsim(mod, data2, output = "df")
+```
+
+# 3 Constant dose
+
+## 3.1 ODE
 
 ``` r
 a <- psn_execute("c001")
 ```
 
-## 2.2 PRED
+## 3.2 PRED
 
 ``` r
 b <- psn_execute("c002")
 ```
 
-# 3 Time-varying dose
+# 4 Time-varying dose
 
-## 3.1 ODE
+## 4.1 ODE
 
 ``` r
 c <- psn_execute("c003")
 ```
 
-## 3.2 PRED
+## 4.2 PRED
 
 ``` r
 d <- psn_execute("c004")
 ```
 
-# 4 Plots
+# 5 Plots
 
-## 4.1 Constant dose
+## 5.1 Constant dose
 
 ``` r
 ggplot() + 
@@ -92,9 +109,9 @@ ggplot() +
   ggtitle("Point: ODE, Line: PRED")
 ```
 
-![](claret_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](claret_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
-## 4.2 Time-varying
+## 5.2 Time-varying
 
 ``` r
 ggplot() + 
@@ -103,9 +120,20 @@ ggplot() +
   ggtitle("Point ODE; Line: PRED")
 ```
 
-![](claret_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](claret_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
-# 5 Spot check analytical solution
+## 5.3 Time-varying, ODE, NM/mrgsolve
+
+``` r
+ggplot() + 
+  geom_point(data = c, aes(TIME, Y)) + 
+  geom_line(data = z,  aes(TIME, RESP), color = "firebrick") + 
+  ggtitle("Point nonmem; Line: mrgsolve")
+```
+
+![](claret_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+
+# 6 Spot check analytical solution
 
 ``` r
 KG = 0.6
@@ -159,4 +187,4 @@ filter(d, TIME==1.0)
 ```
 
     ##    ID TIME      Y
-    ## 1:  1    1 81.889
+    ## 1:  1    1 67.661
