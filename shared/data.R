@@ -78,6 +78,9 @@ data_1001 <- function() {
     ev(amt = 120, evid = 4, time = 50, BIOAV = 0.5, ii = 12, addl = 3)
   push_back(env,ev,"Reset and dose (EVID 4) with additional")
   #+
+  ev <- ev(amt = 100, ii = 12, evid = 4, ss = 1) 
+  push_back(env,ev,"Reset and dose (EVID 4) with SS=1")
+  #+
   ev <- 
     ev(amt = 100, ii = 12, addl = 3, rate = 50, BIOAV = 0.61) + 
     ev(amt = 0, evid = 3, time = 50, cmt = 2, BIOAV = 1) + 

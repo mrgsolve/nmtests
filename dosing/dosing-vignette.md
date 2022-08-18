@@ -46,12 +46,14 @@ Metrum Research Group
         factor](#19-infusion-with-modeled-duration-at-steady-state-with-bioav-factor)
     -   [20: Reset and dose (EVID 4) with
         additional](#20-reset-and-dose-evid-4-with-additional)
-    -   [21: Reset (EVID 3) with
-        additional](#21-reset-evid-3-with-additional)
-    -   [22: Reset (EVID 3) with additional and
-        lag](#22-reset-evid-3-with-additional-and-lag)
-    -   [23: Steady state 1 and 2](#23-steady-state-1-and-2)
-    -   [24: Steady state infusion](#24-steady-state-infusion)
+    -   [21: Reset and dose (EVID 4) with
+        SS=1](#21-reset-and-dose-evid-4-with-ss1)
+    -   [22: Reset (EVID 3) with
+        additional](#22-reset-evid-3-with-additional)
+    -   [23: Reset (EVID 3) with additional and
+        lag](#23-reset-evid-3-with-additional-and-lag)
+    -   [24: Steady state 1 and 2](#24-steady-state-1-and-2)
+    -   [25: Steady state infusion](#25-steady-state-infusion)
 -   [Control stream](#control-stream)
 -   [Session Info](#session-info)
 
@@ -168,8 +170,8 @@ This is the `nonmem` minus `mrgsim()` summary
 summary(comp$diff)
 ```
 
-    .    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    .       0       0       0       0       0       0
+    .     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+    . -5552.40     0.00     0.00   -33.03     0.00     0.00
 
 ## Summary by scenario number
 
@@ -182,32 +184,33 @@ group_by(comp, ID) %>%
   kable()
 ```
 
-|  ID | mean | max | min |
-|----:|-----:|----:|----:|
-|   1 |    0 |   0 |   0 |
-|   2 |    0 |   0 |   0 |
-|   3 |    0 |   0 |   0 |
-|   4 |    0 |   0 |   0 |
-|   5 |    0 |   0 |   0 |
-|   6 |    0 |   0 |   0 |
-|   7 |    0 |   0 |   0 |
-|   8 |    0 |   0 |   0 |
-|   9 |    0 |   0 |   0 |
-|  10 |    0 |   0 |   0 |
-|  11 |    0 |   0 |   0 |
-|  12 |    0 |   0 |   0 |
-|  13 |    0 |   0 |   0 |
-|  14 |    0 |   0 |   0 |
-|  15 |    0 |   0 |   0 |
-|  16 |    0 |   0 |   0 |
-|  17 |    0 |   0 |   0 |
-|  18 |    0 |   0 |   0 |
-|  19 |    0 |   0 |   0 |
-|  20 |    0 |   0 |   0 |
-|  21 |    0 |   0 |   0 |
-|  22 |    0 |   0 |   0 |
-|  23 |    0 |   0 |   0 |
-|  24 |    0 |   0 |   0 |
+|  ID |      mean |     max |     min |
+|----:|----------:|--------:|--------:|
+|   1 |    0.0000 |  0.0000 |     0.0 |
+|   2 |    0.0000 |  0.0000 |     0.0 |
+|   3 |    0.0000 |  0.0000 |     0.0 |
+|   4 |    0.0000 |  0.0000 |     0.0 |
+|   5 |    0.0000 |  0.0000 |     0.0 |
+|   6 |    0.0000 |  0.0000 |     0.0 |
+|   7 |    0.0000 |  0.0000 |     0.0 |
+|   8 |    0.0000 |  0.0000 |     0.0 |
+|   9 |    0.0000 |  0.0000 |     0.0 |
+|  10 |    0.0000 |  0.0000 |     0.0 |
+|  11 |    0.0000 |  0.0000 |     0.0 |
+|  12 |    0.0000 |  0.0000 |     0.0 |
+|  13 |    0.0000 |  0.0000 |     0.0 |
+|  14 |    0.0000 |  0.0000 |     0.0 |
+|  15 |    0.0000 |  0.0000 |     0.0 |
+|  16 |    0.0000 |  0.0000 |     0.0 |
+|  17 |    0.0000 |  0.0000 |     0.0 |
+|  18 |    0.0000 |  0.0000 |     0.0 |
+|  19 |    0.0000 |  0.0000 |     0.0 |
+|  20 |    0.0000 |  0.0000 |     0.0 |
+|  21 | -827.4905 | -4.3578 | -5552.4 |
+|  22 |    0.0000 |  0.0000 |     0.0 |
+|  23 |    0.0000 |  0.0000 |     0.0 |
+|  24 |    0.0000 |  0.0000 |     0.0 |
+|  25 |    0.0000 |  0.0000 |     0.0 |
 
 ``` r
 runs <- mutate(runs, plot = map(comp, comp_plot))
@@ -426,54 +429,65 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
 
 ![](results/img/dosing-unnamed-chunk-35-1.png)<!-- -->
 
-## 21: Reset (EVID 3) with additional
+## 21: Reset and dose (EVID 4) with SS=1
 
     . $ev
     . Events:
-    .   ID time amt rate ii addl cmt evid BIOAV
-    . 1 21    0 100   50 12    3   1    1  0.61
-    . 2 21   50   0    0  0    0   2    3  1.00
-    . 3 21   54 120    0 16    2   1    1  1.00
+    .   ID time amt ii cmt evid ss
+    . 1 21    0 100 12   1    4  1
     . 
     . $plot
 
 ![](results/img/dosing-unnamed-chunk-36-1.png)<!-- -->
 
-## 22: Reset (EVID 3) with additional and lag
+## 22: Reset (EVID 3) with additional
 
     . $ev
     . Events:
-    .   ID time amt rate ii addl cmt evid BIOAV LAGT
-    . 1 22    0 100   50 12    3   1    1  0.61   10
-    . 2 22   50   0    0  0    0   2    3  1.00   10
-    . 3 22   54 120    0 16    2   1    1  1.00   10
+    .   ID time amt rate ii addl cmt evid BIOAV
+    . 1 22    0 100   50 12    3   1    1  0.61
+    . 2 22   50   0    0  0    0   2    3  1.00
+    . 3 22   54 120    0 16    2   1    1  1.00
     . 
     . $plot
 
 ![](results/img/dosing-unnamed-chunk-37-1.png)<!-- -->
 
-## 23: Steady state 1 and 2
+## 23: Reset (EVID 3) with additional and lag
 
     . $ev
     . Events:
-    .   ID time amt ii addl cmt evid ss
-    . 1 23    0 100 24    3   1    1  1
-    . 2 23   12  50 24    3   1    1  2
+    .   ID time amt rate ii addl cmt evid BIOAV LAGT
+    . 1 23    0 100   50 12    3   1    1  0.61   10
+    . 2 23   50   0    0  0    0   2    3  1.00   10
+    . 3 23   54 120    0 16    2   1    1  1.00   10
     . 
     . $plot
 
 ![](results/img/dosing-unnamed-chunk-38-1.png)<!-- -->
 
-## 24: Steady state infusion
+## 24: Steady state 1 and 2
 
     . $ev
     . Events:
-    .   ID time amt rate cmt evid ss
-    . 1 24    0   0  100   1    1  1
+    .   ID time amt ii addl cmt evid ss
+    . 1 24    0 100 24    3   1    1  1
+    . 2 24   12  50 24    3   1    1  2
     . 
     . $plot
 
 ![](results/img/dosing-unnamed-chunk-39-1.png)<!-- -->
+
+## 25: Steady state infusion
+
+    . $ev
+    . Events:
+    .   ID time amt rate cmt evid ss
+    . 1 25    0   0  100   1    1  1
+    . 
+    . $plot
+
+![](results/img/dosing-unnamed-chunk-40-1.png)<!-- -->
 
 # Control stream
 
@@ -481,7 +495,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
 writeLines(readLines("1001/1001.lst"))
 ```
 
-       Sat May  7 15:35:56 EDT 2022
+       Thu Aug 18 15:36:08 EDT 2022
        $PROBLEM    RUN# 101
        $INPUT      C ID TIME EVID AMT CMT SS II ADDL RATE LAGT MODE DUR2 RAT2
                    BIOAV DV
@@ -528,9 +542,9 @@ writeLines(readLines("1001/1001.lst"))
         (WARNING  2) NM-TRAN INFERS THAT THE DATA ARE POPULATION.
        
        License Registered to: Metrum Research Group (with RADAR5NM)
-       Expiration Date:    14 JUL 2022
-       Current Date:        7 MAY 2022
-       Days until program expires :  67
+       Expiration Date:    14 JUL 2023
+       Current Date:       18 AUG 2022
+       Days until program expires : 331
        1NONLINEAR MIXED EFFECTS MODEL PROGRAM (NONMEM) VERSION 7.5.0
         ORIGINALLY DEVELOPED BY STUART BEAL, LEWIS SHEINER, AND ALISON BOECKMANN
         CURRENT DEVELOPERS ARE ROBERT BAUER, ICON DEVELOPMENT SOLUTIONS,
@@ -542,7 +556,7 @@ writeLines(readLines("1001/1001.lst"))
        0DATA CHECKOUT RUN:              NO
         DATA SET LOCATED ON UNIT NO.:    2
         THIS UNIT TO BE REWOUND:        NO
-        NO. OF DATA RECS IN DATA SET:     3175
+        NO. OF DATA RECS IN DATA SET:     3307
         NO. OF DATA ITEMS IN DATA SET:  17
         ID DATA ITEM IS DATA ITEM NO.:   2
         DEP VARIABLE IS DATA ITEM NO.:  16
@@ -556,8 +570,8 @@ writeLines(readLines("1001/1001.lst"))
        0FORMAT FOR DATA:
         (E2.0,E3.0,E4.0,E2.0,E4.0,2E2.0,2E3.0,E17.0,E6.0,E2.0,4E6.0,1F2.0)
        
-        TOT. NO. OF OBS RECS:     3144
-        TOT. NO. OF INDIVIDUALS:       24
+        TOT. NO. OF OBS RECS:     3275
+        TOT. NO. OF INDIVIDUALS:       25
        0LENGTH OF THETA:   3
        0DEFAULT THETA BOUNDARY TEST OMITTED:    NO
        0OMEGA HAS SIMPLE DIAGONAL FORM WITH DIMENSION:   3
@@ -658,13 +672,13 @@ writeLines(readLines("1001/1001.lst"))
        1
         SIMULATION STEP PERFORMED
         SOURCE  1:
-           SEED1:     532250416   SEED2:    1004899692
+           SEED1:    1535520597   SEED2:             0
         Elapsed simulation  time in seconds:     0.00
         ESTIMATION STEP OMITTED:                 YES
-        Elapsed finaloutput time in seconds:     0.03
-        #CPUT: Total CPU Time in Seconds,        0.391
+        Elapsed finaloutput time in seconds:     0.04
+        #CPUT: Total CPU Time in Seconds,        0.418
        Stop Time:
-       Sat May  7 15:36:10 EDT 2022
+       Thu Aug 18 15:36:24 EDT 2022
 
 # Session Info
 
@@ -696,8 +710,8 @@ sessionInfo()
     . loaded via a namespace (and not attached):
     .  [1] Rcpp_1.0.8.3     pillar_1.7.0     compiler_4.1.1   highr_0.9        digest_0.6.29    evaluate_0.15   
     .  [7] lifecycle_1.0.1  tibble_3.1.6     gtable_0.3.0     pkgconfig_2.0.3  rlang_1.0.2      cli_3.2.0       
-    . [13] yaml_2.3.5       xfun_0.30        fastmap_1.1.0    withr_2.5.0      stringr_1.4.0    generics_0.1.2  
-    . [19] vctrs_0.3.8      rprojroot_2.0.2  grid_4.1.1       tidyselect_1.1.2 glue_1.6.2       R6_2.5.1        
-    . [25] fansi_1.0.2      rmarkdown_2.13   farver_2.1.0     magrittr_2.0.2   scales_1.1.1     ellipsis_0.3.2  
-    . [31] htmltools_0.5.2  colorspace_2.0-3 renv_0.14.0      labeling_0.4.2   utf8_1.2.2       stringi_1.7.6   
-    . [37] munsell_0.5.0    crayon_1.5.0
+    . [13] rstudioapi_0.13  yaml_2.3.5       xfun_0.30        fastmap_1.1.0    withr_2.5.0      stringr_1.4.0   
+    . [19] generics_0.1.2   vctrs_0.3.8      rprojroot_2.0.2  grid_4.1.1       tidyselect_1.1.2 glue_1.6.2      
+    . [25] R6_2.5.1         fansi_1.0.2      rmarkdown_2.13   farver_2.1.0     magrittr_2.0.2   scales_1.1.1    
+    . [31] ellipsis_0.3.2   htmltools_0.5.2  colorspace_2.0-3 renv_0.14.0      labeling_0.4.2   utf8_1.2.2      
+    . [37] stringi_1.7.6    munsell_0.5.0    crayon_1.5.0
