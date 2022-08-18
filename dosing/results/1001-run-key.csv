@@ -20,7 +20,8 @@ ID,descr
 19,"Infusion with modeled duration, at steady state with bioav factor"
 20,Reset and dose (EVID 4) with additional
 21,Reset and dose (EVID 4) with SS=1
-22,Reset (EVID 3) with additional
-23,Reset (EVID 3) with additional and lag
-24,Steady state 1 and 2
-25,Steady state infusion
+22,Reset and dose (EVID 4) with SS=1 and ADDL
+23,Reset (EVID 3) with additional
+24,Reset (EVID 3) with additional and lag
+25,Steady state 1 and 2
+26,Steady state infusion

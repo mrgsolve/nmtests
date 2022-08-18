@@ -48,12 +48,14 @@ Metrum Research Group
         additional](#20-reset-and-dose-evid-4-with-additional)
     -   [21: Reset and dose (EVID 4) with
         SS=1](#21-reset-and-dose-evid-4-with-ss1)
-    -   [22: Reset (EVID 3) with
-        additional](#22-reset-evid-3-with-additional)
-    -   [23: Reset (EVID 3) with additional and
-        lag](#23-reset-evid-3-with-additional-and-lag)
-    -   [24: Steady state 1 and 2](#24-steady-state-1-and-2)
-    -   [25: Steady state infusion](#25-steady-state-infusion)
+    -   [22: Reset and dose (EVID 4) with SS=1 and
+        ADDL](#22-reset-and-dose-evid-4-with-ss1-and-addl)
+    -   [23: Reset (EVID 3) with
+        additional](#23-reset-evid-3-with-additional)
+    -   [24: Reset (EVID 3) with additional and
+        lag](#24-reset-evid-3-with-additional-and-lag)
+    -   [25: Steady state 1 and 2](#25-steady-state-1-and-2)
+    -   [26: Steady state infusion](#26-steady-state-infusion)
 -   [Control stream](#control-stream)
 -   [Session Info](#session-info)
 
@@ -171,7 +173,7 @@ summary(comp$diff)
 ```
 
     .     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-    . -5552.40     0.00     0.00   -33.03     0.00     0.00
+    . -5552.40     0.00     0.00   -63.52     0.00     0.00
 
 ## Summary by scenario number
 
@@ -207,10 +209,11 @@ group_by(comp, ID) %>%
 |  19 |    0.0000 |  0.0000 |     0.0 |
 |  20 |    0.0000 |  0.0000 |     0.0 |
 |  21 | -827.4905 | -4.3578 | -5552.4 |
-|  22 |    0.0000 |  0.0000 |     0.0 |
+|  22 | -827.4902 | -4.3580 | -5552.4 |
 |  23 |    0.0000 |  0.0000 |     0.0 |
 |  24 |    0.0000 |  0.0000 |     0.0 |
 |  25 |    0.0000 |  0.0000 |     0.0 |
+|  26 |    0.0000 |  0.0000 |     0.0 |
 
 ``` r
 runs <- mutate(runs, plot = map(comp, comp_plot))
@@ -440,54 +443,65 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
 
 ![](results/img/dosing-unnamed-chunk-36-1.png)<!-- -->
 
-## 22: Reset (EVID 3) with additional
+## 22: Reset and dose (EVID 4) with SS=1 and ADDL
 
     . $ev
     . Events:
-    .   ID time amt rate ii addl cmt evid BIOAV
-    . 1 22    0 100   50 12    3   1    1  0.61
-    . 2 22   50   0    0  0    0   2    3  1.00
-    . 3 22   54 120    0 16    2   1    1  1.00
+    .   ID time amt ii addl cmt evid ss
+    . 1 22    0 100 12    2   1    4  1
     . 
     . $plot
 
 ![](results/img/dosing-unnamed-chunk-37-1.png)<!-- -->
 
-## 23: Reset (EVID 3) with additional and lag
+## 23: Reset (EVID 3) with additional
 
     . $ev
     . Events:
-    .   ID time amt rate ii addl cmt evid BIOAV LAGT
-    . 1 23    0 100   50 12    3   1    1  0.61   10
-    . 2 23   50   0    0  0    0   2    3  1.00   10
-    . 3 23   54 120    0 16    2   1    1  1.00   10
+    .   ID time amt rate ii addl cmt evid BIOAV
+    . 1 23    0 100   50 12    3   1    1  0.61
+    . 2 23   50   0    0  0    0   2    3  1.00
+    . 3 23   54 120    0 16    2   1    1  1.00
     . 
     . $plot
 
 ![](results/img/dosing-unnamed-chunk-38-1.png)<!-- -->
 
-## 24: Steady state 1 and 2
+## 24: Reset (EVID 3) with additional and lag
 
     . $ev
     . Events:
-    .   ID time amt ii addl cmt evid ss
-    . 1 24    0 100 24    3   1    1  1
-    . 2 24   12  50 24    3   1    1  2
+    .   ID time amt rate ii addl cmt evid BIOAV LAGT
+    . 1 24    0 100   50 12    3   1    1  0.61   10
+    . 2 24   50   0    0  0    0   2    3  1.00   10
+    . 3 24   54 120    0 16    2   1    1  1.00   10
     . 
     . $plot
 
 ![](results/img/dosing-unnamed-chunk-39-1.png)<!-- -->
 
-## 25: Steady state infusion
+## 25: Steady state 1 and 2
 
     . $ev
     . Events:
-    .   ID time amt rate cmt evid ss
-    . 1 25    0   0  100   1    1  1
+    .   ID time amt ii addl cmt evid ss
+    . 1 25    0 100 24    3   1    1  1
+    . 2 25   12  50 24    3   1    1  2
     . 
     . $plot
 
 ![](results/img/dosing-unnamed-chunk-40-1.png)<!-- -->
+
+## 26: Steady state infusion
+
+    . $ev
+    . Events:
+    .   ID time amt rate cmt evid ss
+    . 1 26    0   0  100   1    1  1
+    . 
+    . $plot
+
+![](results/img/dosing-unnamed-chunk-41-1.png)<!-- -->
 
 # Control stream
 
@@ -495,7 +509,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
 writeLines(readLines("1001/1001.lst"))
 ```
 
-       Thu Aug 18 15:36:08 EDT 2022
+       Thu Aug 18 15:45:57 EDT 2022
        $PROBLEM    RUN# 101
        $INPUT      C ID TIME EVID AMT CMT SS II ADDL RATE LAGT MODE DUR2 RAT2
                    BIOAV DV
@@ -556,7 +570,7 @@ writeLines(readLines("1001/1001.lst"))
        0DATA CHECKOUT RUN:              NO
         DATA SET LOCATED ON UNIT NO.:    2
         THIS UNIT TO BE REWOUND:        NO
-        NO. OF DATA RECS IN DATA SET:     3307
+        NO. OF DATA RECS IN DATA SET:     3439
         NO. OF DATA ITEMS IN DATA SET:  17
         ID DATA ITEM IS DATA ITEM NO.:   2
         DEP VARIABLE IS DATA ITEM NO.:  16
@@ -570,8 +584,8 @@ writeLines(readLines("1001/1001.lst"))
        0FORMAT FOR DATA:
         (E2.0,E3.0,E4.0,E2.0,E4.0,2E2.0,2E3.0,E17.0,E6.0,E2.0,4E6.0,1F2.0)
        
-        TOT. NO. OF OBS RECS:     3275
-        TOT. NO. OF INDIVIDUALS:       25
+        TOT. NO. OF OBS RECS:     3406
+        TOT. NO. OF INDIVIDUALS:       26
        0LENGTH OF THETA:   3
        0DEFAULT THETA BOUNDARY TEST OMITTED:    NO
        0OMEGA HAS SIMPLE DIAGONAL FORM WITH DIMENSION:   3
@@ -672,13 +686,13 @@ writeLines(readLines("1001/1001.lst"))
        1
         SIMULATION STEP PERFORMED
         SOURCE  1:
-           SEED1:    1535520597   SEED2:             0
+           SEED1:     282832210   SEED2:    1067481382
         Elapsed simulation  time in seconds:     0.00
         ESTIMATION STEP OMITTED:                 YES
         Elapsed finaloutput time in seconds:     0.04
-        #CPUT: Total CPU Time in Seconds,        0.418
+        #CPUT: Total CPU Time in Seconds,        0.437
        Stop Time:
-       Thu Aug 18 15:36:24 EDT 2022
+       Thu Aug 18 15:46:04 EDT 2022
 
 # Session Info
 
