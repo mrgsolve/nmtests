@@ -13,7 +13,7 @@
   },
   "mrgsolve": {
     "file": ["results/1001-sims.csv"],
-    "md5": ["d4ab27db662f8dbd33f80342dbfc18ab"]
+    "md5": ["8e4ba9985a8abe8d20f224ba7c16a04c"]
   },
   "nonmem": {
     "file": ["results/1001-nm.csv"],
@@ -21,7 +21,7 @@
   },
   "compare": {
     "file": ["results/1001.csv"],
-    "md5": ["5ea869d23ae812c24230554a5696ac77"]
+    "md5": ["56bd4d7b14a63caf7adf05cc26154951"]
   },
   "key": {
     "file": ["results/1001-run-key.csv"],

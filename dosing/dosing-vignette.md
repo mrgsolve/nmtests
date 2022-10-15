@@ -29,7 +29,7 @@ Metrum Research Group
         factor](#10-infusion-doses-at-steady-state-with-bioav-factor)
     -   [11: Infusion doses at steady state, with lag
         time](#11-infusion-doses-at-steady-state-with-lag-time)
-    -   [12: Infusion doses at steady state, II &lt; DUR, no bioav
+    -   [12: Infusion doses at steady state, II \< DUR, no bioav
         factor](#12-infusion-doses-at-steady-state-ii--dur-no-bioav-factor)
     -   [13: Infusion doses at steady state where II == DUR, with bioav
         factor](#13-infusion-doses-at-steady-state-where-ii--dur-with-bioav-factor)
@@ -79,7 +79,7 @@ and numeric form [here](#numeric-summary).
 packageVersion("mrgsolve")
 ```
 
-    ## [1] '1.0.4'
+    ## [1] '1.0.6'
 
 # Setup
 
@@ -172,8 +172,8 @@ This is the `nonmem` minus `mrgsim()` summary
 summary(comp$diff)
 ```
 
-    .     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-    . -5552.40     0.00     0.00   -63.52     0.00     0.00
+    .    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    .       0       0       0       0       0       0
 
 ## Summary by scenario number
 
@@ -186,34 +186,34 @@ group_by(comp, ID) %>%
   kable()
 ```
 
-|  ID |      mean |     max |     min |
-|----:|----------:|--------:|--------:|
-|   1 |    0.0000 |  0.0000 |     0.0 |
-|   2 |    0.0000 |  0.0000 |     0.0 |
-|   3 |    0.0000 |  0.0000 |     0.0 |
-|   4 |    0.0000 |  0.0000 |     0.0 |
-|   5 |    0.0000 |  0.0000 |     0.0 |
-|   6 |    0.0000 |  0.0000 |     0.0 |
-|   7 |    0.0000 |  0.0000 |     0.0 |
-|   8 |    0.0000 |  0.0000 |     0.0 |
-|   9 |    0.0000 |  0.0000 |     0.0 |
-|  10 |    0.0000 |  0.0000 |     0.0 |
-|  11 |    0.0000 |  0.0000 |     0.0 |
-|  12 |    0.0000 |  0.0000 |     0.0 |
-|  13 |    0.0000 |  0.0000 |     0.0 |
-|  14 |    0.0000 |  0.0000 |     0.0 |
-|  15 |    0.0000 |  0.0000 |     0.0 |
-|  16 |    0.0000 |  0.0000 |     0.0 |
-|  17 |    0.0000 |  0.0000 |     0.0 |
-|  18 |    0.0000 |  0.0000 |     0.0 |
-|  19 |    0.0000 |  0.0000 |     0.0 |
-|  20 |    0.0000 |  0.0000 |     0.0 |
-|  21 | -827.4905 | -4.3578 | -5552.4 |
-|  22 | -827.4902 | -4.3580 | -5552.4 |
-|  23 |    0.0000 |  0.0000 |     0.0 |
-|  24 |    0.0000 |  0.0000 |     0.0 |
-|  25 |    0.0000 |  0.0000 |     0.0 |
-|  26 |    0.0000 |  0.0000 |     0.0 |
+|  ID | mean | max | min |
+|----:|-----:|----:|----:|
+|   1 |    0 |   0 |   0 |
+|   2 |    0 |   0 |   0 |
+|   3 |    0 |   0 |   0 |
+|   4 |    0 |   0 |   0 |
+|   5 |    0 |   0 |   0 |
+|   6 |    0 |   0 |   0 |
+|   7 |    0 |   0 |   0 |
+|   8 |    0 |   0 |   0 |
+|   9 |    0 |   0 |   0 |
+|  10 |    0 |   0 |   0 |
+|  11 |    0 |   0 |   0 |
+|  12 |    0 |   0 |   0 |
+|  13 |    0 |   0 |   0 |
+|  14 |    0 |   0 |   0 |
+|  15 |    0 |   0 |   0 |
+|  16 |    0 |   0 |   0 |
+|  17 |    0 |   0 |   0 |
+|  18 |    0 |   0 |   0 |
+|  19 |    0 |   0 |   0 |
+|  20 |    0 |   0 |   0 |
+|  21 |    0 |   0 |   0 |
+|  22 |    0 |   0 |   0 |
+|  23 |    0 |   0 |   0 |
+|  24 |    0 |   0 |   0 |
+|  25 |    0 |   0 |   0 |
+|  26 |    0 |   0 |   0 |
 
 ``` r
 runs <- mutate(runs, plot = map(comp, comp_plot))
@@ -331,7 +331,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
 
 ![](results/img/dosing-unnamed-chunk-26-1.png)<!-- -->
 
-## 12: Infusion doses at steady state, II &lt; DUR, no bioav factor
+## 12: Infusion doses at steady state, II \< DUR, no bioav factor
 
     . $ev
     . Events:
@@ -701,9 +701,9 @@ options(width = 120)
 sessionInfo()
 ```
 
-    . R version 4.1.1 (2021-08-10)
+    . R version 4.1.3 (2022-03-10)
     . Platform: x86_64-pc-linux-gnu (64-bit)
-    . Running under: Ubuntu 18.04.5 LTS
+    . Running under: Ubuntu 18.04.6 LTS
     . 
     . Matrix products: default
     . BLAS:   /usr/lib/x86_64-linux-gnu/openblas/libblas.so.3
@@ -718,14 +718,14 @@ sessionInfo()
     . [1] tools     stats     graphics  grDevices datasets  utils     methods   base     
     . 
     . other attached packages:
-    . [1] knitr_1.37        here_1.0.1        jsonlite_1.8.0    tidyr_1.2.0       purrr_0.3.4       ggplot2_3.3.5    
-    . [7] data.table_1.14.2 dplyr_1.0.8       mrgsolve_1.0.4   
+    . [1] knitr_1.40        here_1.0.1        jsonlite_1.8.0    tidyr_1.2.0       purrr_0.3.4       ggplot2_3.3.6    
+    . [7] data.table_1.14.2 dplyr_1.0.9       mrgsolve_1.0.6   
     . 
     . loaded via a namespace (and not attached):
-    .  [1] Rcpp_1.0.8.3     pillar_1.7.0     compiler_4.1.1   highr_0.9        digest_0.6.29    evaluate_0.15   
-    .  [7] lifecycle_1.0.1  tibble_3.1.6     gtable_0.3.0     pkgconfig_2.0.3  rlang_1.0.2      cli_3.2.0       
-    . [13] rstudioapi_0.13  yaml_2.3.5       xfun_0.30        fastmap_1.1.0    withr_2.5.0      stringr_1.4.0   
-    . [19] generics_0.1.2   vctrs_0.3.8      rprojroot_2.0.2  grid_4.1.1       tidyselect_1.1.2 glue_1.6.2      
-    . [25] R6_2.5.1         fansi_1.0.2      rmarkdown_2.13   farver_2.1.0     magrittr_2.0.2   scales_1.1.1    
-    . [31] ellipsis_0.3.2   htmltools_0.5.2  colorspace_2.0-3 renv_0.14.0      labeling_0.4.2   utf8_1.2.2      
-    . [37] stringi_1.7.6    munsell_0.5.0    crayon_1.5.0
+    .  [1] Rcpp_1.0.9       pillar_1.8.1     compiler_4.1.3   highr_0.9        digest_0.6.29    evaluate_0.16   
+    .  [7] lifecycle_1.0.1  tibble_3.1.8     gtable_0.3.0     pkgconfig_2.0.3  rlang_1.0.5      cli_3.3.0       
+    . [13] yaml_2.3.5       xfun_0.32        fastmap_1.1.0    withr_2.5.0      stringr_1.4.1    generics_0.1.3  
+    . [19] vctrs_0.4.1      rprojroot_2.0.3  grid_4.1.3       tidyselect_1.1.2 glue_1.6.2       R6_2.5.1        
+    . [25] fansi_1.0.3      rmarkdown_2.16   farver_2.1.1     magrittr_2.0.3   ellipsis_0.3.2   scales_1.2.1    
+    . [31] htmltools_0.5.3  colorspace_2.0-3 renv_0.14.0      labeling_0.4.2   utf8_1.2.2       stringi_1.7.8   
+    . [37] munsell_0.5.0

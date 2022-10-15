@@ -1,6 +1,6 @@
-PsN version: 5.2.6
-Run started: 2022-05-16 at 11:54:31
-Run finished: 2022-05-16 at 11:54:33
+PsN version: 5.3.0
+Run started: 2022-10-15 at 14:44:39
+Run finished: 2022-10-15 at 14:44:40
 version_and_option_info.txt is overwitten if the run is restarted later using option -directory.
 The original file from the first call is saved as original_version_and_option_info.txt.
 
@@ -48,7 +48,6 @@ Actual values optional PsN (common) options (undefined values not listed):
 -nm_output=ext,cov,cor,coi,phi
 -nm_version=default
 -nmfe=1
--nmqual=0
 -nodes=0
 -pdf=1
 -picky=0
@@ -63,14 +62,14 @@ Actual values optional PsN (common) options (undefined values not listed):
 -run_on_torque=0
 -run_on_ud=0
 -run_on_zink=0
--seed=136751
+-seed=580288
 -send_email=0
 -sge_prepend_flags=-V
 -shrinkage=0
 -sign_digits_off_diagonals=2
 -significant_digits_accept=0
 -so=0
--template_directory_rplots=/usr/local/share/perl/5.26.1/PsN_5_2_6/R-scripts
+-template_directory_rplots=/usr/local/share/perl/5.26.1/PsN_5_3_0/R-scripts
 -template_file_rplots=execute_default.Rmd
 -threads=5
 -tweak_inits=1

@@ -439,9 +439,9 @@ options(width = 120)
 sessionInfo()
 ```
 
-    . R version 4.1.1 (2021-08-10)
+    . R version 4.1.3 (2022-03-10)
     . Platform: x86_64-pc-linux-gnu (64-bit)
-    . Running under: Ubuntu 18.04.5 LTS
+    . Running under: Ubuntu 18.04.6 LTS
     . 
     . Matrix products: default
     . BLAS:   /usr/lib/x86_64-linux-gnu/openblas/libblas.so.3
@@ -456,14 +456,14 @@ sessionInfo()
     . [1] tools     parallel  stats     graphics  grDevices datasets  utils     methods   base     
     . 
     . other attached packages:
-    . [1] jsonlite_1.8.0    here_1.0.1        purrr_0.3.4       ggplot2_3.3.5     data.table_1.14.2 dplyr_1.0.8      
-    . [7] mrgsolve_1.0.4   
+    . [1] jsonlite_1.8.0    here_1.0.1        purrr_0.3.4       ggplot2_3.3.6     data.table_1.14.2 dplyr_1.0.9      
+    . [7] mrgsolve_1.0.6   
     . 
     . loaded via a namespace (and not attached):
-    .  [1] Rcpp_1.0.8.3     pillar_1.7.0     compiler_4.1.1   highr_0.9        digest_0.6.29    evaluate_0.15   
-    .  [7] lifecycle_1.0.1  tibble_3.1.6     gtable_0.3.0     pkgconfig_2.0.3  rlang_1.0.2      cli_3.2.0       
-    . [13] yaml_2.3.5       xfun_0.30        fastmap_1.1.0    withr_2.5.0      stringr_1.4.0    knitr_1.37      
-    . [19] generics_0.1.2   vctrs_0.3.8      rprojroot_2.0.2  grid_4.1.1       tidyselect_1.1.2 glue_1.6.2      
-    . [25] R6_2.5.1         fansi_1.0.2      rmarkdown_2.13   farver_2.1.0     magrittr_2.0.2   scales_1.1.1    
-    . [31] ellipsis_0.3.2   htmltools_0.5.2  colorspace_2.0-3 renv_0.14.0      labeling_0.4.2   utf8_1.2.2      
-    . [37] stringi_1.7.6    munsell_0.5.0    crayon_1.5.0
+    .  [1] Rcpp_1.0.9       pillar_1.8.1     compiler_4.1.3   highr_0.9        digest_0.6.29    evaluate_0.16   
+    .  [7] lifecycle_1.0.1  tibble_3.1.8     gtable_0.3.0     pkgconfig_2.0.3  rlang_1.0.5      cli_3.3.0       
+    . [13] yaml_2.3.5       xfun_0.32        fastmap_1.1.0    withr_2.5.0      stringr_1.4.1    knitr_1.40      
+    . [19] generics_0.1.3   vctrs_0.4.1      rprojroot_2.0.3  grid_4.1.3       tidyselect_1.1.2 glue_1.6.2      
+    . [25] R6_2.5.1         fansi_1.0.3      rmarkdown_2.16   farver_2.1.1     magrittr_2.0.3   ellipsis_0.3.2  
+    . [31] scales_1.2.1     htmltools_0.5.3  colorspace_2.0-3 renv_0.14.0      labeling_0.4.2   utf8_1.2.2      
+    . [37] stringi_1.7.8    munsell_0.5.0

@@ -18,8 +18,8 @@ Packages:
   - spelling
 
 Repos:
-  - mrgsolve: https://s3.amazonaws.com/mpn.metworx.dev/releases/mrgsolve/1.0.4
-  - MPN: https://mpn.metworx.com/snapshots/stable/2022-03-21
+  - mrgsolve: https://s3.amazonaws.com/mpn.metworx.dev/releases/mrgsolve/1.0.6
+  - MPN: https://mpn.metworx.com/snapshots/stable/2022-08-31
 
 
 Lockfile:
