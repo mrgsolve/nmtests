@@ -1,0 +1,1 @@
+/usr/local/bin/execute -silent -model_subdir -directory=c003 ./c003.ctl

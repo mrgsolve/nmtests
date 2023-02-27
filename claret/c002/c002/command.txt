@@ -1,0 +1,2 @@
+/usr/local/bin/execute -silent -model_subdir -directory=c002 ./c002.ctl
+/usr/local/bin/execute -silent -model_subdir -directory=c002 ./c002.ctl

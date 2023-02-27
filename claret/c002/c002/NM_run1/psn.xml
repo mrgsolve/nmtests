@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="ASCII"?>
+<!DOCTYPE nm:output SYSTEM "output.dtd">
+<nm:output
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://namespaces.oreilly.com/xmlnut/address output.xsd"
+xmlns:nm="http://namespaces.oreilly.com/xmlnut/address"
+>
+<nm:start_datetime>2022-05-19T10:57:42.647</nm:start_datetime>
+<nm:control_stream><![CDATA[
+;$PRED
+;double KG = TVKG * exp(ETA(1));
+;double KS0 = TVKS0 * exp(ETA(2));
+;double GAMMA = TVGAMMA * exp(ETA(3));
+;double BASE=TVBASE * exp(ETA(4));
+;double RESP_0=BASE;
+;double KS = KS0*exp(-GAMMA * TIME);
+;double RESP = RESP_0 *exp((KG*TIME)-(KS0*log(DOSE)/GAMMA)*(1-exp(-GAMMA*TIME)));
+$PROBLEM    RUN# c001
+$INPUT      C ID TIME DOSE CMT EVID MDV DV
+$DATA      claret001.csv IGNORE=C
+$PRED
+KG = 0.6;
+KS0 = 0.4;
+GAMMA=0.8;
+BASE=70;
+RESP_0 = BASE;
+
+KS = KS0 *EXP( -GAMMA * TIME);
+RESP = RESP_0 * EXP((KG*TIME) - (KS0 * LOG(DOSE)/GAMMA) * (1-EXP(-GAMMA*TIME)))
+
+IPRED=RESP;
+Y=IPRED+ERR(1);
+
+$THETA  0 FIX
+$OMEGA  0.0  FIX
+ 0.0  FIX
+ 0.0  FIX
+$SIGMA  0.00  FIX
+$TABLE      FILE=TAB ID TIME Y NOPRINT ONEHEADER NOAPPEND
+$SIMULATION (2674474) ONLYSIMULATION
+
+]]></nm:control_stream>
+<nm:nmtran><![CDATA[
+
+ WARNINGS AND ERRORS (IF ANY) FOR PROBLEM    1
+
+ (WARNING  2) NM-TRAN INFERS THAT THE DATA ARE POPULATION.
+
+ (WARNING  46) ETA VARIABLES ARE NOT USED, BUT DATA ARE POPULATION TYPE.
+]]></nm:nmtran>
+<nm:nonmem nm:version='7.5.0'>
+<nm:license_information><![CDATA[
+License Registered to: Metrum Research Group (with RADAR5NM)
+Expiration Date:    14 JUL 2022
+Current Date:       19 MAY 2022
+Days until program expires :  55
+]]></nm:license_information>
+<nm:program_information><![CDATA[
+1NONLINEAR MIXED EFFECTS MODEL PROGRAM (NONMEM) VERSION 7.5.0
+ ORIGINALLY DEVELOPED BY STUART BEAL, LEWIS SHEINER, AND ALISON BOECKMANN
+ CURRENT DEVELOPERS ARE ROBERT BAUER, ICON DEVELOPMENT SOLUTIONS,
+ AND ALISON BOECKMANN. IMPLEMENTATION, EFFICIENCY, AND STANDARDIZATION
+ PERFORMED BY NOUS INFOSYSTEMS.
+]]></nm:program_information>
+<nm:problem nm:number='1' nm:subproblem='0' nm:superproblem1='0' nm:iteration1='0' nm:superproblem2='0' nm:iteration2='0'>
+<nm:problem_title>RUN# c001</nm:problem_title>
+<nm:problem_information><![CDATA[
+
+ PROBLEM NO.:         1
+ RUN# c001
+0DATA CHECKOUT RUN:              NO
+ DATA SET LOCATED ON UNIT NO.:    2
+ THIS UNIT TO BE REWOUND:        NO
+ NO. OF DATA RECS IN DATA SET:       11
+ NO. OF DATA ITEMS IN DATA SET:   8
+ ID DATA ITEM IS DATA ITEM NO.:   2
+ DEP VARIABLE IS DATA ITEM NO.:   8
+ MDV DATA ITEM IS DATA ITEM NO.:  7
+0LABELS FOR DATA ITEMS:
+ C ID TIME DOSE CMT EVID MDV DV
+0(NONBLANK) LABELS FOR PRED-DEFINED ITEMS:
+ Y
+0FORMAT FOR DATA:
+ (8E4.0)
+
+ TOT. NO. OF OBS RECS:        0
+ TOT. NO. OF INDIVIDUALS:        1
+0LENGTH OF THETA:   1
+0DEFAULT THETA BOUNDARY TEST OMITTED:    NO
+0OMEGA HAS SIMPLE DIAGONAL FORM WITH DIMENSION:   3
+0DEFAULT OMEGA BOUNDARY TEST OMITTED:    NO
+0SIGMA HAS SIMPLE DIAGONAL FORM WITH DIMENSION:   1
+0DEFAULT SIGMA BOUNDARY TEST OMITTED:    NO
+0INITIAL ESTIMATE OF THETA:
+ LOWER BOUND    INITIAL EST    UPPER BOUND
+  0.0000E+00     0.0000E+00     0.0000E+00
+0INITIAL ESTIMATE OF OMEGA:
+ 0.0000E+00
+ 0.0000E+00   0.0000E+00
+ 0.0000E+00   0.0000E+00   0.0000E+00
+0OMEGA CONSTRAINED TO BE THIS INITIAL ESTIMATE
+0INITIAL ESTIMATE OF SIGMA:
+ 0.0000E+00
+0SIGMA CONSTRAINED TO BE THIS INITIAL ESTIMATE
+0SIMULATION STEP OMITTED:    NO
+ OBJ FUNC EVALUATED:         NO
+ ORIGINAL DATA USED ON EACH NEW SIMULATION:         NO
+ SEEDS RESET ON EACH NEW SUPERSET ITERATION:        YES
+0SIMULATION RANDOM METHOD SELECTED (RANMETHOD): 4U
+SEED   1 RESET TO INITIAL: YES
+ SOURCE   1:
+   SEED1:       2674474   SEED2:             0   PSEUDO-NORMAL
+0TABLES STEP OMITTED:    NO
+ NO. OF TABLES:           1
+ SEED NUMBER (SEED):    11456
+ RANMETHOD:             3U
+ MC SAMPLES (ESAMPLE):    300
+ WRES SQUARE ROOT TYPE (WRESCHOL): EIGENVALUE
+0-- TABLE   1 --
+0RECORDS ONLY:    ALL
+04 COLUMNS APPENDED:    NO
+ PRINTED:                NO
+ HEADER:                YES
+ FILE TO BE FORWARDED:   NO
+ FORMAT:                S1PE11.4
+ IDFORMAT:
+ LFORMAT:
+ RFORMAT:
+ FIXED_EFFECT_ETAS:
+0USER-CHOSEN ITEMS:
+ ID TIME Y
+]]></nm:problem_information>
+<nm:problem_options
+ nm:data_checkout_run='no' nm:data_unit='2' nm:data_rewind='no' nm:data_nrec='11' nm:data_nitems='8' nm:data_id='2'
+ nm:data_l2='0' nm:data_dv='8' nm:data_mdv='7' nm:data_mrg='0' nm:data_raw='0' nm:data_rpt='0' nm:data_sub_array1='0'
+ nm:data_sub_array2='0' nm:data_sub_array3='0' nm:data_format='(8e4.0)' nm:data_nobs='0' nm:data_nind='1'
+ nm:data_mdv100='0' nm:nthetat='1' nm:theta_bound_test_omitted='no' nm:omega_diagdim='3'
+ nm:omega_bound_test_omitted='no' nm:sigma_diagdim='1' nm:sigma_bound_test_omitted='no' nm:sim_omitted='no'
+ nm:sim_obj_evaluated='no' nm:sim_rewind='no' nm:sim_clockseed='0' nm:sim_supreset='yes' nm:sim_ranmethod='4u'
+ nm:sim_newran='0' nm:sim_etader_order_max='0' nm:sim_source_eps='1' nm:sim_ttdf='-1' nm:sim_seed1_01='2674474'
+ nm:sim_seed2_01='0' nm:sim_dist_01='pseudo-normal' nm:tab_omitted='no' nm:tab_number='1' nm:tab_seed='11456'
+ nm:tab_clockseed='11456' nm:tab_ranmethod='3u' nm:tab_esample='300' nm:tab_wres='eigenvalue'
+ nm:tab_fixedetas_01='BLANK'
+/>
+<nm:theta_lb>
+<nm:val nm:name='1'>0.0000000000000000</nm:val>
+</nm:theta_lb>
+<nm:theta_in>
+<nm:val nm:name='1'>0.0000000000000000</nm:val>
+</nm:theta_in>
+<nm:theta_ub>
+<nm:val nm:name='1'>0.0000000000000000</nm:val>
+</nm:theta_ub>
+<nm:simulation_information><![CDATA[
+1
+ SIMULATION STEP PERFORMED
+ SOURCE  1:
+    SEED1:     452540994   SEED2:             0
+]]></nm:simulation_information>
+<nm:sim_info
+ nm:sim_bootstrap='0' nm:sim_seed1_01='452540994' nm:sim_seed2_01='0'
+/>
+<nm:sim_elapsed_time>0.00</nm:sim_elapsed_time>
+<nm:estimation nm:number='1' nm:type='1'>
+<nm:table_series>0</nm:table_series>
+<nm:estimation_information><![CDATA[
+ ESTIMATION STEP OMITTED:                 YES
+]]></nm:estimation_information>
+<nm:estimation_options
+ nm:estim_omitted='yes'
+/>
+</nm:estimation>
+<nm:post_process_times>
+<nm:post_elapsed_time>0.00</nm:post_elapsed_time>
+<nm:finaloutput_elapsed_time>0.00</nm:finaloutput_elapsed_time>
+</nm:post_process_times>
+</nm:problem>
+</nm:nonmem>
+<nm:stop_datetime>2022-05-19T10:57:42.651</nm:stop_datetime>
+<nm:total_cputime>0.004</nm:total_cputime>
+</nm:output>
