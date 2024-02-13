@@ -79,7 +79,7 @@ and numeric form [here](#numeric-summary).
 packageVersion("mrgsolve")
 ```
 
-    ## [1] '1.0.6'
+    ## [1] '1.4.1'
 
 # Setup
 
@@ -718,14 +718,13 @@ sessionInfo()
     . [1] tools     stats     graphics  grDevices datasets  utils     methods   base     
     . 
     . other attached packages:
-    . [1] knitr_1.40        here_1.0.1        jsonlite_1.8.0    tidyr_1.2.0       purrr_0.3.4       ggplot2_3.3.6    
-    . [7] data.table_1.14.2 dplyr_1.0.9       mrgsolve_1.0.6   
+    . [1] knitr_1.45        here_1.0.1        jsonlite_1.8.8    tidyr_1.3.0       purrr_1.0.2       ggplot2_3.4.4    
+    . [7] data.table_1.14.8 dplyr_1.1.4       mrgsolve_1.4.1   
     . 
     . loaded via a namespace (and not attached):
-    .  [1] Rcpp_1.0.9       pillar_1.8.1     compiler_4.1.3   highr_0.9        digest_0.6.29    evaluate_0.16   
-    .  [7] lifecycle_1.0.1  tibble_3.1.8     gtable_0.3.0     pkgconfig_2.0.3  rlang_1.0.5      cli_3.3.0       
-    . [13] yaml_2.3.5       xfun_0.32        fastmap_1.1.0    withr_2.5.0      stringr_1.4.1    generics_0.1.3  
-    . [19] vctrs_0.4.1      rprojroot_2.0.3  grid_4.1.3       tidyselect_1.1.2 glue_1.6.2       R6_2.5.1        
-    . [25] fansi_1.0.3      rmarkdown_2.16   farver_2.1.1     magrittr_2.0.3   ellipsis_0.3.2   scales_1.2.1    
-    . [31] htmltools_0.5.3  colorspace_2.0-3 renv_0.14.0      labeling_0.4.2   utf8_1.2.2       stringi_1.7.8   
-    . [37] munsell_0.5.0
+    .  [1] Rcpp_1.0.11      highr_0.10       pillar_1.9.0     compiler_4.1.3   digest_0.6.33    evaluate_0.23   
+    .  [7] lifecycle_1.0.4  tibble_3.2.1     gtable_0.3.4     pkgconfig_2.0.3  rlang_1.1.2      cli_3.6.1       
+    . [13] yaml_2.3.7       xfun_0.41        fastmap_1.1.1    withr_2.5.0      generics_0.1.3   vctrs_0.6.5     
+    . [19] rprojroot_2.0.4  grid_4.1.3       tidyselect_1.2.0 glue_1.6.2       R6_2.5.1         fansi_1.0.5     
+    . [25] rmarkdown_2.25   farver_2.1.1     magrittr_2.0.3   scales_1.3.0     htmltools_0.5.7  colorspace_2.1-0
+    . [31] renv_1.0.3       labeling_0.4.3   utf8_1.2.4       munsell_0.5.0
