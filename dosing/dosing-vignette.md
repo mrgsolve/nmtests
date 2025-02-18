@@ -178,7 +178,7 @@ summary(comp$diff)
 ```
 
     .     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-    . -26046.0      0.0      0.0   -257.5      0.0      0.0
+    . -21126.0      0.0      0.0   -258.4      0.0      0.0
 
 ## Summary by scenario number
 
@@ -217,7 +217,7 @@ group_by(comp, ID) %>%
 |  22 |     0.000 |   0.0000 |      0.0 |
 |  23 | -1381.665 |  -7.2762 |  -9270.8 |
 |  24 | -1381.669 |  -7.2760 |  -9270.8 |
-|  25 | -4652.232 | -26.9135 | -26046.0 |
+|  25 | -4676.425 | -62.0690 | -21126.0 |
 |  26 |     0.000 |   0.0000 |      0.0 |
 |  27 |     0.000 |   0.0000 |      0.0 |
 |  28 |     0.000 |   0.0000 |      0.0 |
@@ -490,8 +490,8 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . Events:
     .   ID time amt ii ss cmt evid LAGT
     . 1 25    0 100 12  1   2    4    5
-    . 2 25    0 200 12  1   2    4    5
-    . 3 25    0 300 12  1   2    4    5
+    . 2 25   12 200 12  1   2    4    5
+    . 3 25   24 300 12  1   2    4    5
     . 
     . $plot
 
@@ -552,7 +552,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
 writeLines(readLines("1001/1001.lst"))
 ```
 
-       Tue 18 Feb 2025 09:22:09 AM EST
+       Tue 18 Feb 2025 09:23:33 AM EST
        $PROBLEM    RUN# 101
        $INPUT      C ID TIME EVID AMT CMT SS II ADDL RATE LAGT MODE DUR2 RAT2
                    BIOAV DV
@@ -739,9 +739,9 @@ writeLines(readLines("1001/1001.lst"))
         Elapsed simulation  time in seconds:     0.00
         ESTIMATION STEP OMITTED:                 YES
         Elapsed finaloutput time in seconds:     0.04
-        #CPUT: Total CPU Time in Seconds,        0.458
+        #CPUT: Total CPU Time in Seconds,        0.462
        Stop Time:
-       Tue 18 Feb 2025 09:22:15 AM EST
+       Tue 18 Feb 2025 09:23:40 AM EST
 
 # Session Info
 

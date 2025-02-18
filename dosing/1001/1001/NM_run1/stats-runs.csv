@@ -1,12 +1,12 @@
 $VAR1 = [
           {
-            'ofv' => undef,
-            'pass_picky' => 0,
-            'covariance_step_successful' => 0,
-            'covariance_step_warnings' => 0,
             'minimization_successful' => 0,
+            'significant_digits' => undef,
+            'covariance_step_warnings' => 0,
+            'covariance_step_successful' => 0,
             'estimate_near_boundary' => 0,
-            'significant_digits' => undef
+            'ofv' => undef,
+            'pass_picky' => 0
           }
         ];
 Selected 1
