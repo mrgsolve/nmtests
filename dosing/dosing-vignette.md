@@ -176,7 +176,7 @@ summary(comp$diff)
 ```
 
     .    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    .       0       0       0       0       0       0
+    . -9270.8     0.0     0.0   -98.5     0.0     0.0
 
 ## Summary by scenario number
 
@@ -189,36 +189,36 @@ group_by(comp, ID) %>%
   kable()
 ```
 
-|  ID | mean | max | min |
-|----:|-----:|----:|----:|
-|   1 |    0 |   0 |   0 |
-|   2 |    0 |   0 |   0 |
-|   3 |    0 |   0 |   0 |
-|   4 |    0 |   0 |   0 |
-|   5 |    0 |   0 |   0 |
-|   6 |    0 |   0 |   0 |
-|   7 |    0 |   0 |   0 |
-|   8 |    0 |   0 |   0 |
-|   9 |    0 |   0 |   0 |
-|  10 |    0 |   0 |   0 |
-|  11 |    0 |   0 |   0 |
-|  12 |    0 |   0 |   0 |
-|  13 |    0 |   0 |   0 |
-|  14 |    0 |   0 |   0 |
-|  15 |    0 |   0 |   0 |
-|  16 |    0 |   0 |   0 |
-|  17 |    0 |   0 |   0 |
-|  18 |    0 |   0 |   0 |
-|  19 |    0 |   0 |   0 |
-|  20 |    0 |   0 |   0 |
-|  21 |    0 |   0 |   0 |
-|  22 |    0 |   0 |   0 |
-|  23 |    0 |   0 |   0 |
-|  24 |    0 |   0 |   0 |
-|  25 |    0 |   0 |   0 |
-|  26 |    0 |   0 |   0 |
-|  27 |    0 |   0 |   0 |
-|  28 |    0 |   0 |   0 |
+|  ID |      mean |     max |     min |
+|----:|----------:|--------:|--------:|
+|   1 |     0.000 |  0.0000 |     0.0 |
+|   2 |     0.000 |  0.0000 |     0.0 |
+|   3 |     0.000 |  0.0000 |     0.0 |
+|   4 |     0.000 |  0.0000 |     0.0 |
+|   5 |     0.000 |  0.0000 |     0.0 |
+|   6 |     0.000 |  0.0000 |     0.0 |
+|   7 |     0.000 |  0.0000 |     0.0 |
+|   8 |     0.000 |  0.0000 |     0.0 |
+|   9 |     0.000 |  0.0000 |     0.0 |
+|  10 |     0.000 |  0.0000 |     0.0 |
+|  11 |     0.000 |  0.0000 |     0.0 |
+|  12 |     0.000 |  0.0000 |     0.0 |
+|  13 |     0.000 |  0.0000 |     0.0 |
+|  14 |     0.000 |  0.0000 |     0.0 |
+|  15 |     0.000 |  0.0000 |     0.0 |
+|  16 |     0.000 |  0.0000 |     0.0 |
+|  17 |     0.000 |  0.0000 |     0.0 |
+|  18 |     0.000 |  0.0000 |     0.0 |
+|  19 |     0.000 |  0.0000 |     0.0 |
+|  20 |     0.000 |  0.0000 |     0.0 |
+|  21 |     0.000 |  0.0000 |     0.0 |
+|  22 |     0.000 |  0.0000 |     0.0 |
+|  23 | -1381.665 | -7.2762 | -9270.8 |
+|  24 | -1381.669 | -7.2760 | -9270.8 |
+|  25 |     0.000 |  0.0000 |     0.0 |
+|  26 |     0.000 |  0.0000 |     0.0 |
+|  27 |     0.000 |  0.0000 |     0.0 |
+|  28 |     0.000 |  0.0000 |     0.0 |
 
 ``` r
 runs <- mutate(runs, plot = map(comp, comp_plot))
@@ -464,7 +464,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . $ev
     . Events:
     .   ID time amt ii ss cmt evid LAGT
-    . 1 23    0 100 12  1   1    4    1
+    . 1 23    0 100 12  1   2    4   10
     . 
     . $plot
 
@@ -475,7 +475,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
     . $ev
     . Events:
     .   ID time amt ii ss addl cmt evid LAGT
-    . 1 24    0 100 12  1    2   1    4    1
+    . 1 24    0 100 12  1    2   2    4   10
     . 
     . $plot
 
@@ -536,7 +536,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
 writeLines(readLines("1001/1001.lst"))
 ```
 
-       Tue 18 Feb 2025 08:59:53 AM EST
+       Tue 18 Feb 2025 09:07:52 AM EST
        $PROBLEM    RUN# 101
        $INPUT      C ID TIME EVID AMT CMT SS II ADDL RATE LAGT MODE DUR2 RAT2
                    BIOAV DV
@@ -723,9 +723,9 @@ writeLines(readLines("1001/1001.lst"))
         Elapsed simulation  time in seconds:     0.00
         ESTIMATION STEP OMITTED:                 YES
         Elapsed finaloutput time in seconds:     0.04
-        #CPUT: Total CPU Time in Seconds,        0.435
+        #CPUT: Total CPU Time in Seconds,        0.441
        Stop Time:
-       Tue 18 Feb 2025 09:00:00 AM EST
+       Tue 18 Feb 2025 09:07:59 AM EST
 
 # Session Info
 
