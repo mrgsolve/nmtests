@@ -53,12 +53,14 @@ Metrum Research Group
     LAG](#23-reset-and-dose-evid-4-with-ss1-and-lag)
   - [24: Reset and dose (EVID 4) with SS=1, ADDL and
     LAG](#24-reset-and-dose-evid-4-with-ss1-addl-and-lag)
-  - [25: Reset (EVID 3) with
-    additional](#25-reset-evid-3-with-additional)
-  - [26: Reset (EVID 3) with additional and
-    lag](#26-reset-evid-3-with-additional-and-lag)
-  - [27: Steady state 1 and 2](#27-steady-state-1-and-2)
-  - [28: Steady state infusion](#28-steady-state-infusion)
+  - [25: Reset and dose (EVID 4) with SS=1, LAG,
+    MULTIPLE](#25-reset-and-dose-evid-4-with-ss1-lag-multiple)
+  - [26: Reset (EVID 3) with
+    additional](#26-reset-evid-3-with-additional)
+  - [27: Reset (EVID 3) with additional and
+    lag](#27-reset-evid-3-with-additional-and-lag)
+  - [28: Steady state 1 and 2](#28-steady-state-1-and-2)
+  - [29: Steady state infusion](#29-steady-state-infusion)
 - [Control stream](#control-stream)
 - [Session Info](#session-info)
 
@@ -175,8 +177,8 @@ This is the `nonmem` minus `mrgsim()` summary
 summary(comp$diff)
 ```
 
-    .    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    . -9270.8     0.0     0.0   -98.5     0.0     0.0
+    .     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+    . -26046.0      0.0      0.0   -257.5      0.0      0.0
 
 ## Summary by scenario number
 
@@ -189,36 +191,37 @@ group_by(comp, ID) %>%
   kable()
 ```
 
-|  ID |      mean |     max |     min |
-|----:|----------:|--------:|--------:|
-|   1 |     0.000 |  0.0000 |     0.0 |
-|   2 |     0.000 |  0.0000 |     0.0 |
-|   3 |     0.000 |  0.0000 |     0.0 |
-|   4 |     0.000 |  0.0000 |     0.0 |
-|   5 |     0.000 |  0.0000 |     0.0 |
-|   6 |     0.000 |  0.0000 |     0.0 |
-|   7 |     0.000 |  0.0000 |     0.0 |
-|   8 |     0.000 |  0.0000 |     0.0 |
-|   9 |     0.000 |  0.0000 |     0.0 |
-|  10 |     0.000 |  0.0000 |     0.0 |
-|  11 |     0.000 |  0.0000 |     0.0 |
-|  12 |     0.000 |  0.0000 |     0.0 |
-|  13 |     0.000 |  0.0000 |     0.0 |
-|  14 |     0.000 |  0.0000 |     0.0 |
-|  15 |     0.000 |  0.0000 |     0.0 |
-|  16 |     0.000 |  0.0000 |     0.0 |
-|  17 |     0.000 |  0.0000 |     0.0 |
-|  18 |     0.000 |  0.0000 |     0.0 |
-|  19 |     0.000 |  0.0000 |     0.0 |
-|  20 |     0.000 |  0.0000 |     0.0 |
-|  21 |     0.000 |  0.0000 |     0.0 |
-|  22 |     0.000 |  0.0000 |     0.0 |
-|  23 | -1381.665 | -7.2762 | -9270.8 |
-|  24 | -1381.669 | -7.2760 | -9270.8 |
-|  25 |     0.000 |  0.0000 |     0.0 |
-|  26 |     0.000 |  0.0000 |     0.0 |
-|  27 |     0.000 |  0.0000 |     0.0 |
-|  28 |     0.000 |  0.0000 |     0.0 |
+|  ID |      mean |      max |      min |
+|----:|----------:|---------:|---------:|
+|   1 |     0.000 |   0.0000 |      0.0 |
+|   2 |     0.000 |   0.0000 |      0.0 |
+|   3 |     0.000 |   0.0000 |      0.0 |
+|   4 |     0.000 |   0.0000 |      0.0 |
+|   5 |     0.000 |   0.0000 |      0.0 |
+|   6 |     0.000 |   0.0000 |      0.0 |
+|   7 |     0.000 |   0.0000 |      0.0 |
+|   8 |     0.000 |   0.0000 |      0.0 |
+|   9 |     0.000 |   0.0000 |      0.0 |
+|  10 |     0.000 |   0.0000 |      0.0 |
+|  11 |     0.000 |   0.0000 |      0.0 |
+|  12 |     0.000 |   0.0000 |      0.0 |
+|  13 |     0.000 |   0.0000 |      0.0 |
+|  14 |     0.000 |   0.0000 |      0.0 |
+|  15 |     0.000 |   0.0000 |      0.0 |
+|  16 |     0.000 |   0.0000 |      0.0 |
+|  17 |     0.000 |   0.0000 |      0.0 |
+|  18 |     0.000 |   0.0000 |      0.0 |
+|  19 |     0.000 |   0.0000 |      0.0 |
+|  20 |     0.000 |   0.0000 |      0.0 |
+|  21 |     0.000 |   0.0000 |      0.0 |
+|  22 |     0.000 |   0.0000 |      0.0 |
+|  23 | -1381.665 |  -7.2762 |  -9270.8 |
+|  24 | -1381.669 |  -7.2760 |  -9270.8 |
+|  25 | -4652.232 | -26.9135 | -26046.0 |
+|  26 |     0.000 |   0.0000 |      0.0 |
+|  27 |     0.000 |   0.0000 |      0.0 |
+|  28 |     0.000 |   0.0000 |      0.0 |
+|  29 |     0.000 |   0.0000 |      0.0 |
 
 ``` r
 runs <- mutate(runs, plot = map(comp, comp_plot))
@@ -481,54 +484,67 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
 
 ![](results/img/dosing-unnamed-chunk-39-1.png)<!-- -->
 
-## 25: Reset (EVID 3) with additional
+## 25: Reset and dose (EVID 4) with SS=1, LAG, MULTIPLE
 
     . $ev
     . Events:
-    .   ID time amt rate ii addl cmt evid BIOAV
-    . 1 25    0 100   50 12    3   1    1  0.61
-    . 2 25   50   0    0  0    0   2    3  1.00
-    . 3 25   54 120    0 16    2   1    1  1.00
+    .   ID time amt ii ss cmt evid LAGT
+    . 1 25    0 100 12  1   2    4    5
+    . 2 25    0 200 12  1   2    4    5
+    . 3 25    0 300 12  1   2    4    5
     . 
     . $plot
 
 ![](results/img/dosing-unnamed-chunk-40-1.png)<!-- -->
 
-## 26: Reset (EVID 3) with additional and lag
+## 26: Reset (EVID 3) with additional
 
     . $ev
     . Events:
-    .   ID time amt rate ii addl cmt evid BIOAV LAGT
-    . 1 26    0 100   50 12    3   1    1  0.61   10
-    . 2 26   50   0    0  0    0   2    3  1.00   10
-    . 3 26   54 120    0 16    2   1    1  1.00   10
+    .   ID time amt rate ii addl cmt evid BIOAV
+    . 1 26    0 100   50 12    3   1    1  0.61
+    . 2 26   50   0    0  0    0   2    3  1.00
+    . 3 26   54 120    0 16    2   1    1  1.00
     . 
     . $plot
 
 ![](results/img/dosing-unnamed-chunk-41-1.png)<!-- -->
 
-## 27: Steady state 1 and 2
+## 27: Reset (EVID 3) with additional and lag
 
     . $ev
     . Events:
-    .   ID time amt ii ss addl cmt evid
-    . 1 27    0 100 24  1    3   1    1
-    . 2 27   12  50 24  2    3   1    1
+    .   ID time amt rate ii addl cmt evid BIOAV LAGT
+    . 1 27    0 100   50 12    3   1    1  0.61   10
+    . 2 27   50   0    0  0    0   2    3  1.00   10
+    . 3 27   54 120    0 16    2   1    1  1.00   10
     . 
     . $plot
 
 ![](results/img/dosing-unnamed-chunk-42-1.png)<!-- -->
 
-## 28: Steady state infusion
+## 28: Steady state 1 and 2
 
     . $ev
     . Events:
-    .   ID time amt rate ss cmt evid
-    . 1 28    0   0  100  1   1    1
+    .   ID time amt ii ss addl cmt evid
+    . 1 28    0 100 24  1    3   1    1
+    . 2 28   12  50 24  2    3   1    1
     . 
     . $plot
 
 ![](results/img/dosing-unnamed-chunk-43-1.png)<!-- -->
+
+## 29: Steady state infusion
+
+    . $ev
+    . Events:
+    .   ID time amt rate ss cmt evid
+    . 1 29    0   0  100  1   1    1
+    . 
+    . $plot
+
+![](results/img/dosing-unnamed-chunk-44-1.png)<!-- -->
 
 # Control stream
 
@@ -536,7 +552,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
 writeLines(readLines("1001/1001.lst"))
 ```
 
-       Tue 18 Feb 2025 09:11:43 AM EST
+       Tue 18 Feb 2025 09:22:09 AM EST
        $PROBLEM    RUN# 101
        $INPUT      C ID TIME EVID AMT CMT SS II ADDL RATE LAGT MODE DUR2 RAT2
                    BIOAV DV
@@ -601,7 +617,7 @@ writeLines(readLines("1001/1001.lst"))
        0DATA CHECKOUT RUN:              NO
         DATA SET LOCATED ON UNIT NO.:    2
         THIS UNIT TO BE REWOUND:        NO
-        NO. OF DATA RECS IN DATA SET:     3703
+        NO. OF DATA RECS IN DATA SET:     3837
         NO. OF DATA ITEMS IN DATA SET:  17
         ID DATA ITEM IS DATA ITEM NO.:   2
         DEP VARIABLE IS DATA ITEM NO.:  16
@@ -615,8 +631,8 @@ writeLines(readLines("1001/1001.lst"))
        0FORMAT FOR DATA:
         (E2.0,E3.0,E4.0,E2.0,E4.0,2E2.0,2E3.0,E17.0,E6.0,E2.0,4E6.0,1F2.0)
        
-        TOT. NO. OF OBS RECS:     3668
-        TOT. NO. OF INDIVIDUALS:       28
+        TOT. NO. OF OBS RECS:     3799
+        TOT. NO. OF INDIVIDUALS:       29
        0LENGTH OF THETA:   3
        0DEFAULT THETA BOUNDARY TEST OMITTED:    NO
        0OMEGA HAS SIMPLE DIAGONAL FORM WITH DIMENSION:   3
@@ -719,13 +735,13 @@ writeLines(readLines("1001/1001.lst"))
        1
         SIMULATION STEP PERFORMED
         SOURCE  1:
-           SEED1:    1458946905   SEED2:   -1090371567
+           SEED1:    1258904045   SEED2:             0
         Elapsed simulation  time in seconds:     0.00
         ESTIMATION STEP OMITTED:                 YES
         Elapsed finaloutput time in seconds:     0.04
-        #CPUT: Total CPU Time in Seconds,        0.443
+        #CPUT: Total CPU Time in Seconds,        0.458
        Stop Time:
-       Tue 18 Feb 2025 09:11:49 AM EST
+       Tue 18 Feb 2025 09:22:15 AM EST
 
 # Session Info
 

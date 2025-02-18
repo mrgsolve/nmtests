@@ -23,7 +23,8 @@ ID,descr
 22,Reset and dose (EVID 4) with SS=1 and ADDL
 23,Reset and dose (EVID 4) with SS=1 and LAG
 24,"Reset and dose (EVID 4) with SS=1, ADDL and LAG"
-25,Reset (EVID 3) with additional
-26,Reset (EVID 3) with additional and lag
-27,Steady state 1 and 2
-28,Steady state infusion
+25,"Reset and dose (EVID 4) with SS=1, LAG, MULTIPLE"
+26,Reset (EVID 3) with additional
+27,Reset (EVID 3) with additional and lag
+28,Steady state 1 and 2
+29,Steady state infusion

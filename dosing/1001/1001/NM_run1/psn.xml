@@ -5,7 +5,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://namespaces.oreilly.com/xmlnut/address output.xsd"
 xmlns:nm="http://namespaces.oreilly.com/xmlnut/address"
 >
-<nm:start_datetime>2025-02-18T09:11:49.398</nm:start_datetime>
+<nm:start_datetime>2025-02-18T09:22:15.369</nm:start_datetime>
 <nm:control_stream><![CDATA[
 $PROBLEM    RUN# 101
 $INPUT      C ID TIME EVID AMT CMT SS II ADDL RATE LAGT MODE DUR2 RAT2
@@ -79,7 +79,7 @@ Days until program expires : 146
 0DATA CHECKOUT RUN:              NO
  DATA SET LOCATED ON UNIT NO.:    2
  THIS UNIT TO BE REWOUND:        NO
- NO. OF DATA RECS IN DATA SET:     3703
+ NO. OF DATA RECS IN DATA SET:     3837
  NO. OF DATA ITEMS IN DATA SET:  17
  ID DATA ITEM IS DATA ITEM NO.:   2
  DEP VARIABLE IS DATA ITEM NO.:  16
@@ -93,8 +93,8 @@ Days until program expires : 146
 0FORMAT FOR DATA:
  (E2.0,E3.0,E4.0,E2.0,E4.0,2E2.0,2E3.0,E17.0,E6.0,E2.0,4E6.0,1F2.0)
 
- TOT. NO. OF OBS RECS:     3668
- TOT. NO. OF INDIVIDUALS:       28
+ TOT. NO. OF OBS RECS:     3799
+ TOT. NO. OF INDIVIDUALS:       29
 0LENGTH OF THETA:   3
 0DEFAULT THETA BOUNDARY TEST OMITTED:    NO
 0OMEGA HAS SIMPLE DIAGONAL FORM WITH DIMENSION:   3
@@ -196,11 +196,11 @@ SEED   1 RESET TO INITIAL: YES
 0ERROR SUBROUTINE INDICATES THAT DERIVATIVES OF COMPARTMENT AMOUNTS ARE USED.
 ]]></nm:problem_information>
 <nm:problem_options
- nm:data_checkout_run='no' nm:data_unit='2' nm:data_rewind='no' nm:data_nrec='3703' nm:data_nitems='17' nm:data_id='2'
+ nm:data_checkout_run='no' nm:data_unit='2' nm:data_rewind='no' nm:data_nrec='3837' nm:data_nitems='17' nm:data_id='2'
  nm:data_l2='0' nm:data_dv='16' nm:data_mdv='17' nm:data_mrg='0' nm:data_raw='0' nm:data_rpt='0' nm:data_sub_array1='0'
  nm:data_sub_array2='0' nm:data_sub_array3='0' nm:data_pred_indices='4,3,5,10,7,8,6,0,0,0,9'
- nm:data_format='(e2.0,e3.0,e4.0,e2.0,e4.0,2e2.0,2e3.0,e17.0,e6.0,e2.0,4e6.0,1f2.0)' nm:data_nobs='3668'
- nm:data_nind='28' nm:data_mdv100='0' nm:nthetat='3' nm:theta_bound_test_omitted='no' nm:omega_diagdim='3'
+ nm:data_format='(e2.0,e3.0,e4.0,e2.0,e4.0,2e2.0,2e3.0,e17.0,e6.0,e2.0,4e6.0,1f2.0)' nm:data_nobs='3799'
+ nm:data_nind='29' nm:data_mdv100='0' nm:nthetat='3' nm:theta_bound_test_omitted='no' nm:omega_diagdim='3'
  nm:omega_bound_test_omitted='no' nm:sigma_diagdim='1' nm:sigma_bound_test_omitted='no' nm:sim_omitted='no'
  nm:sim_obj_evaluated='no' nm:sim_rewind='no' nm:sim_clockseed='0' nm:sim_supreset='yes' nm:sim_ranmethod='4u'
  nm:sim_newran='0' nm:sim_etader_order_max='0' nm:sim_source_eps='1' nm:sim_ttdf='-1' nm:sim_seed1_01='2674474'
@@ -228,10 +228,10 @@ SEED   1 RESET TO INITIAL: YES
 1
  SIMULATION STEP PERFORMED
  SOURCE  1:
-    SEED1:    1458946905   SEED2:   -1090371567
+    SEED1:    1258904045   SEED2:             0
 ]]></nm:simulation_information>
 <nm:sim_info
- nm:sim_bootstrap='0' nm:sim_seed1_01='1458946905' nm:sim_seed2_01='-1090371567'
+ nm:sim_bootstrap='0' nm:sim_seed1_01='1258904045' nm:sim_seed2_01='0'
 />
 <nm:sim_elapsed_time>0.00</nm:sim_elapsed_time>
 <nm:estimation nm:number='1' nm:type='1'>
@@ -249,6 +249,6 @@ SEED   1 RESET TO INITIAL: YES
 </nm:post_process_times>
 </nm:problem>
 </nm:nonmem>
-<nm:stop_datetime>2025-02-18T09:11:49.842</nm:stop_datetime>
-<nm:total_cputime>0.443</nm:total_cputime>
+<nm:stop_datetime>2025-02-18T09:22:15.827</nm:stop_datetime>
+<nm:total_cputime>0.458</nm:total_cputime>
 </nm:output>
