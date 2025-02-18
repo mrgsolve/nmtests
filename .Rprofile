@@ -1,5 +1,5 @@
 
-mpn_date <- "2022-03-21"
+mpn_date <- "2025-01-18"
 
 mpn_url <- paste0("https://mpn.metworx.com/snapshots/stable/", mpn_date, "/")
 
@@ -11,7 +11,7 @@ options(
   )
 )
 
-r_version <- "4.1"
+r_version <- "4.3"
 
 correct_r <- grepl(
   paste0("R version ", r_version),

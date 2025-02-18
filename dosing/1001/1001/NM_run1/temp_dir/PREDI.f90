@@ -258,8 +258,9 @@
 !
       IMPLICIT NONE
 !
+      INTEGER(KIND=ISIZE), PARAMETER :: IDEFDIM=MAX(PC,5)
       INTEGER(KIND=ISIZE), INTENT(IN)     :: ICALL,NEWIND
-      INTEGER(KIND=ISIZE), INTENT(IN OUT) :: INDXS(*),IDEF(7*PC)
+      INTEGER(KIND=ISIZE), INTENT(IN OUT) :: INDXS(*),IDEF(7*IDEFDIM)
 !
       REAL(KIND=DPSIZE),   INTENT(IN)     :: THETA(*)
       REAL(KIND=DPSIZE),   INTENT(OUT)    :: H(HPRD,*) !7.2
@@ -429,7 +430,7 @@
                              MAXJ,MAXK,MMSQ,NAMEFL,NBP1,NEP1,ST1FL,TRUNTH,IUSED(PG),&
                              MAXLEN,MQQ,MLINE
 !
-      CHARACTER(LEN=3)    :: TLIST(PC),COTHER(2)   ! Internal arrays for printing TEXT
+      CHARACTER(LEN=3)    :: TLIST(IDEFDIM),COTHER(2)   ! Internal arrays for printing TEXT
       CHARACTER(LEN=72)   :: SIMTXT,STR1,STR,SPACE
       CHARACTER(LEN=133)  :: LINE
 !
@@ -844,7 +845,7 @@
       IF (IQUIT == 1 .OR. IERPRD > 0) GO TO 999
 !
       G3(1:IRGG,1,1)=ZERO   ! Set up for call to PK
-      IDEF(1:7*PC)=0
+      IDEF(1:7*IDEFDIM)=0
       IDEF(1+7)=-1        ! Initialize call flag position to -1 (new and old IDEFS)
       IDEF(1+(3-1)*7)=-1  ! Don't know if PK initializes A0
       IDEF(1+(4-1)*7)=-1  ! Don't know if PK uses A explicitly
@@ -874,13 +875,13 @@
         END IF
         K=0
         IUSED=ZERO
-        DO I=1,PG
+        DO I=1,IDEFDIM
           IF (IDEF(I) > K) K=IDEF(I)
 !          IUSED(I)=0
         END DO
         IF (K > PG) THEN    ! Check largest number of PK parameter specified
           WRITE (LOGUNT,1210,ERR=502)
-          WRITE (LOGUNT,1430,ERR=502) (IDEF(I),I=1,PG)
+          WRITE (LOGUNT,1430,ERR=502) (IDEF(I),I=1,IDEFDIM)
           WRITE (LOGUNT,8096,ERR=502)
           IQUIT=1; GO TO 999
         END IF   
@@ -954,7 +955,7 @@
         ELSE
           IPKA=IDEF(1+7*3)
         END IF
-        DO I=5,PC ! THETAO of row 1 should be zero
+        DO I=5,IDEFDIM ! THETAO of row 1 should be zero
           IF (IDEF(1+7*(I-1)) == 0) CYCLE
           WRITE (LOGUNT,4990,ERR=502) 1,I,IDEF(1+7*(I-1))       
           WRITE (LOGUNT,4991,ERR=502)
@@ -1015,7 +1016,7 @@
             ISTOP=1
           END IF
         END IF
-        DO I=K,PC ! THETAO of row 2 should be zero
+        DO I=K,IDEFDIM ! THETAO of row 2 should be zero
           IF (IDEF(2+7*(I-1)) /= 0) THEN
             WRITE (LOGUNT,4990,ERR=502) 2,I,IDEF(2+7*(I-1))
             WRITE (LOGUNT,4991,ERR=502)
@@ -1055,7 +1056,7 @@
             END IF
           END DO
         END DO
-        DO I=NC+1,PC ! THETAO of IDEF should be zero
+        DO I=NC+1,IDEFDIM ! THETAO of IDEF should be zero
           DO J=3,7
             IF (IDEF(J+7*(I-1)) == 0) CYCLE
             WRITE (LOGUNT,4990,ERR=502) J,I,IDEF(J+7*(I-1))

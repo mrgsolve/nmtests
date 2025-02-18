@@ -351,7 +351,7 @@
                               JTIME,MAXKF,MCNTR,METH,MITER,MMAX,MTCNTR,MTNO,MTPTR,NC,&
                               NP,NPEPS,NPETAS,SSC,SSID,SV,XNPETA,YFORM,LOGUNT
       USE PRMOD_INT,    ONLY: I_SS,ICALLD,ISSMOD,ISSNOW,MTDIFF
-      USE PROCM_INT,    ONLY: A_0FLG,IDXETA,ISFINL,MTNEXT,MTNOW,MTPAST,NACTIV,NEVENT,&
+      USE PROCM_INT,    ONLY: A_0FLG,IDXETA,IDXETAI,ISFINL,MTNEXT,MTNOW,MTPAST,NACTIV,NEVENT,&
                               PNEWIF,A_UFLG
       USE ROCM_INT,     ONLY: NDATINDR
       USE NM_BAYES_INT, ONLY: TOLTOPRED,DATNN_PREV,DATNN_PREVM
@@ -400,7 +400,7 @@
                              NEVENTPREV2=-1,AFLGUP=-1
       INTEGER(KIND=ISIZE), DIMENSION(PALZ) :: MCMT,MLAG,MNBR
       INTEGER(KIND=ISIZE), DIMENSION(PCT)  :: MTOLD
-      INTEGER(KIND=ISIZE), DIMENSION(7,PC) :: IDEF
+      INTEGER(KIND=ISIZE), DIMENSION(7,MAX(PC,5)) :: IDEF
       REAL(KIND=DPSIZE) :: AMOUNT,DSUM,G2,GG,METIME,MINTIM,MSTART,OLDA,RATE,T1,T2,   &
                            TMIN,DSUM2,DSUM3,DSUM0,NOTDEFINED,SSTOL,SSATOL,DJMORE,    &
                            DPREV,FIRST_JTIME,FIRST_JMORE,FIRST_JMORE2,FIRST_JDELTA,  &
@@ -725,15 +725,19 @@
             NPETAS=0
             NACTIV=0 !7.2B51B
             MSAME=.TRUE.
+            IDXETAI(0:XNPETA)=0
           ELSE
             MSAME=.TRUE.
             NPETAS=XNPETA-NAETA
             IDXETA(0)=0
+            IDXETAI(0)=0
             NACTIV=0
             DO I=1,XNPETA
+              IDXETAI(I)=0
               IF (LVOUT(I) == 1) CYCLE
               NACTIV=NACTIV+1
               IDXETA(NACTIV)=I
+              IDXETAI(I)=NACTIV
               IF (NACTIV /= I) MSAME=.FALSE.
             END DO
           END IF
@@ -2721,3 +2725,90 @@
   999 RETURN
 !
       END SUBROUTINE PRED_TIMEVALUES_INFO
+
+
+!
+!-----------------------------HISTORY------------------------------------------------
+! VERSION     : NONMEM VII
+! AUTHOR      : ROBERT J. BAUER
+! CREATED ON  : APR/2019
+! LANGUAGE    : FORTRAN 90/95
+! LAST UPDATE : APR/2019 - INTRODUCED HEADER INFORMATIONS AND RESTRUCTURED AS PER
+!                          THE NONMEM STANDARDS
+!
+!---------------------------------- STATE_MAP.F90 -----------------------------------
+!
+! SUBROUTINE STATE_MAP(ICMT,IPP,NNS,DVALS,NVALS)
+!
+! DESCRIPTION : GET MAPPING INFORMATION OF TIME DELAY DERIVATIVE STATES
+!
+!
+! ARGUMENTS   : ICMT,IPP,NNS,DVALS,NVALS
+!               IN     - ICMT,IPP
+!               OUT    - NNS,DVALS,NVALS
+!               IN OUT - NONE
+! Arguments are best explained under ALGORITHM
+!
+!
+! CALLED BY   : DDEFUNC
+!
+! CALLS       : GG,ERRORMSGS
+!
+! ALGORITHM   : 
+!               Given Compartment ICMT, and parameter IPP, Get vector of NVALS derivatives:
+!               For all Derivative of Parameter IPP wrt ETA(K) that is not 0,
+!               DVALS(I)=Derivative of parameter IPP wrt eta(k), for which DADT(ICMTS(I))=derivative of A(ICMT) wrt Eta(k)
+!
+! MODULES USED: PRSIZES,SIZES,NMPRD_INT,PRCM_INT,PRCOM_INT,PROCM_INT,PRCM_LOG,
+!               PRCOM_LOG,PRCM_REAL,PRCOM_REAL,NM_INTERFACE
+!
+! CONTAINS    : NONE
+!
+! LOCALS      : PM=PC-1,AXI,I,IP,IXI,J,JJ,JJY,K,L,LL,LLY,TXI,G2,TEMP
+!
+!---------------------------- END OF HEADER -----------------------------------------
+!
+
+      SUBROUTINE STATE_MAP(ICMT,IPP,NNS,DVALS,NVALS)
+!
+      USE PRSIZES,      ONLY: ISIZE,DPSIZE
+!
+!
+! INTEGER
+      USE PRCM_INT,     ONLY: LEND,LST,MAP
+      USE PRCOM_INT,    ONLY: NCM1,ADVID,NPETAS,XNPETA
+      USE PROCM_INT,    ONLY: IDXETAI
+
+      USE PRCM_LOG,     ONLY: COMPAC,MAPPED
+!
+      IMPLICIT NONE
+!
+      INTEGER(KIND=ISIZE), INTENT(IN)     :: IPP,ICMT
+      INTEGER(KIND=ISIZE), INTENT(OUT) :: NNS(*),NVALS
+      REAL(KIND=DPSIZE), INTENT(OUT) :: DVALS(*)
+      INTEGER(KIND=ISIZE) :: I,J,K
+!
+!
+!------------------------------------------------------------------------------------
+!
+! Local Variables
+!
+      INTEGER(KIND=ISIZE) :: LSTZ,LENDZ
+!
+      SAVE
+!
+
+       I=ICMT
+
+ 990  CONTINUE
+      NVALS=0
+      J=IDXETAI(IPP)
+      IF(J<=0) GO TO 999
+      NVALS=1
+      NNS(NVALS)=I+J*NCM1
+      DVALS(NVALS)=1.0D+00
+
+
+  999 RETURN
+!
+      END SUBROUTINE STATE_MAP
