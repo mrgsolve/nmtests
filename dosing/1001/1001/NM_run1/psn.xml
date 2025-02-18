@@ -5,7 +5,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://namespaces.oreilly.com/xmlnut/address output.xsd"
 xmlns:nm="http://namespaces.oreilly.com/xmlnut/address"
 >
-<nm:start_datetime>2025-02-18T09:07:58.949</nm:start_datetime>
+<nm:start_datetime>2025-02-18T09:11:49.398</nm:start_datetime>
 <nm:control_stream><![CDATA[
 $PROBLEM    RUN# 101
 $INPUT      C ID TIME EVID AMT CMT SS II ADDL RATE LAGT MODE DUR2 RAT2
@@ -249,6 +249,6 @@ SEED   1 RESET TO INITIAL: YES
 </nm:post_process_times>
 </nm:problem>
 </nm:nonmem>
-<nm:stop_datetime>2025-02-18T09:07:59.390</nm:stop_datetime>
-<nm:total_cputime>0.441</nm:total_cputime>
+<nm:stop_datetime>2025-02-18T09:11:49.842</nm:stop_datetime>
+<nm:total_cputime>0.443</nm:total_cputime>
 </nm:output>

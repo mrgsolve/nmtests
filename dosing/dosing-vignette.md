@@ -536,7 +536,7 @@ runs <- mutate(runs, plot = map(comp, comp_plot))
 writeLines(readLines("1001/1001.lst"))
 ```
 
-       Tue 18 Feb 2025 09:07:52 AM EST
+       Tue 18 Feb 2025 09:11:43 AM EST
        $PROBLEM    RUN# 101
        $INPUT      C ID TIME EVID AMT CMT SS II ADDL RATE LAGT MODE DUR2 RAT2
                    BIOAV DV
@@ -723,9 +723,9 @@ writeLines(readLines("1001/1001.lst"))
         Elapsed simulation  time in seconds:     0.00
         ESTIMATION STEP OMITTED:                 YES
         Elapsed finaloutput time in seconds:     0.04
-        #CPUT: Total CPU Time in Seconds,        0.441
+        #CPUT: Total CPU Time in Seconds,        0.443
        Stop Time:
-       Tue 18 Feb 2025 09:07:59 AM EST
+       Tue 18 Feb 2025 09:11:49 AM EST
 
 # Session Info
 
