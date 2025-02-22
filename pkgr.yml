@@ -16,6 +16,7 @@ Packages:
   - jsonlite
   - testthat
   - spelling
+  - remotes
 
 Repos:
   - mrgsolve: https://s3.amazonaws.com/mpn.metworx.dev/releases/mrgsolve/1.5.2
